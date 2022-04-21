@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+		<PackageReference Include="CsvHelper" Version="27.1.1" />
+		<PackageReference Include="SignalRSwaggerGen" Version="2.1.2" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.0" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="10.3.0" />
+		<PackageReference Include="MediatR" Version="9.0.0" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Twilio" Version="5.64.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DataLayer\CVBuilder.Models\CVBuilder.Models.csproj" />
+		<ProjectReference Include="..\DataLayer\CVBuilder.Repository\CVBuilder.Repository.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Skill\Commands\" />
+	</ItemGroup>
+
+</Project>

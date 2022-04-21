@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace CVBuilder.Web.Contracts.V1.Responses.CV
+{
+    public class CvCardResponse
+    {
+        public int Id { get; set; }
+        public string CvName { get; set; }
+        public bool IsDraft { get; set; }
+        public string UserName { get; set; }
+        public string LastName { get; set; }
+        public string Picture { get; set; }
+    }
+}
