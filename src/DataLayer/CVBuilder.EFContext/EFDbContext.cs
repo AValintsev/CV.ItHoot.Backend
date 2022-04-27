@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.Design;
-using CVBuilder.EFContext.Extensions;
-using CVBuilder.Models;
+﻿using CVBuilder.EFContext.Extensions;
 using CVBuilder.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

@@ -46,7 +46,6 @@ namespace CVBuilder.Repository
             string includeProperties = null,
             bool asNoTracking = true,
             bool calculateCount = false);
-
         Task<(int count, List<TDto> data)> GetListDtoExtendedAsync<TDto>(
             Expression<Func<TEntity, TDto>> select,
             Expression<Func<TEntity, bool>> filter = null,

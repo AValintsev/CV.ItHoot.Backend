@@ -1,9 +1,7 @@
-﻿using System.Reflection;
-using CVBuilder.Application.Core.Infrastructure.Interfaces;
+﻿using CVBuilder.Application.Core.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SignalRSwaggerGen.Attributes;
 
 namespace CVBuilder.Web.Infrastructure.Startup
 {

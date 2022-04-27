@@ -4,7 +4,6 @@ using CVBuilder.Application.CV.Commands;
 using CVBuilder.Application.CV.Commands.sharedCommands;
 using CVBuilder.Application.CV.Responses;
 using CVBuilder.Application.CV.Responses.CvResponses;
-using CVBuilder.Models;
 using CVBuilder.Models.Entities;
 
 namespace CVBuilder.Application.CV.Mapper

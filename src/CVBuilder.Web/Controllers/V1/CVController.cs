@@ -31,8 +31,8 @@ namespace CVBuilder.Web.Controllers.V1
         [HttpGet(ApiRoutes.CV.GetAllCvCards)]
         public async Task<IActionResult> GetAllCvCard([FromQuery] GetAllCvCardRequest request)
         {
-            var command = Mapper.Map<GetAllCvCardQueries>(request);
-            //command.UserId = LoggedUserId;
+            var command = Mapper.Map<GetAllCvCardQueries>(request); 
+            // command.UserId = LoggedUserId;
             //command.UserRoles = LoggedUserRoles;
 
             var response = await Mediator.Send(command);

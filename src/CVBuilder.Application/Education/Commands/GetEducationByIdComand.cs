@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CVBuilder.Application.Education.Response;
-using MediatR;
+﻿using CVBuilder.Application.Education.Response;
+
 namespace CVBuilder.Application.Education.Comands
 {
     public class GetEducationByIdComand : MediatR.IRequest<EducationByIdResult>

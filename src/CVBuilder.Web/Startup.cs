@@ -1,4 +1,3 @@
-using System;
 using CVBuilder.Application.Core.Infrastructure.Interfaces;
 using CVBuilder.Application.Core.Settings;
 using CVBuilder.EFContext;

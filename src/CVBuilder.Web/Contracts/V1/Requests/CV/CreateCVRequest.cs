@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CVBuilder.Models.Entities;
 using Microsoft.AspNetCore.Http;
 
 namespace CVBuilder.Web.Contracts.V1.Requests.CV

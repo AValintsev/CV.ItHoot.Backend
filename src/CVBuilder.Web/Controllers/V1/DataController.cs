@@ -1,17 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using CVBuilder.Application.Data.Queries;
 using CVBuilder.Application.Data.Responses;
 using CVBuilder.Models;
 using CVBuilder.Web.Contracts.V1;
-using CVBuilder.Web.Contracts.V1.Responses.Data;
 using CVBuilder.Web.Infrastructure.BaseControllers;
-using MediatR;
 
 namespace CVBuilder.Web.Controllers.V1
 {

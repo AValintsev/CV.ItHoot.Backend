@@ -3,12 +3,8 @@ using CVBuilder.Application.Identity.Commands;
 using CVBuilder.Application.User.Commands;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Identity;
-using CVBuilder.Web.Contracts.V1.Requests.Identity.Company;
-using CVBuilder.Web.Contracts.V1.Requests.Identity.Customer;
-using CVBuilder.Web.Contracts.V1.Requests.Identity.Driver;
 using CVBuilder.Web.Contracts.V1.Responses.Identity;
 using CVBuilder.Web.Infrastructure.BaseControllers;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

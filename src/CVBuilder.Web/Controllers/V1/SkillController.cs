@@ -1,55 +1,31 @@
-﻿using CVBuilder.Web.Contracts.V1;
+﻿using System.Threading.Tasks;
+using CVBuilder.Application.Skill.Commands;
+using CVBuilder.Application.Skill.Queries;
+using CVBuilder.Web.Contracts.V1;
+using CVBuilder.Web.Contracts.V1.Requests.Skill;
 using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Mvc;
-using CVBuilder.Web.Contracts.V1.Responses.Skill;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using CVBuilder.Application.Skill.Queries;
 
 namespace CVBuilder.Web.Controllers.V1
 {
     public class SkillController : BaseApiController
     {
         [HttpPost(ApiRoutes.SkillRoute.CreateSkill)]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create([FromBody] CreateSkillRequest request)
         {
-            return Ok();
-        }
+            var command = Mapper.Map<CreateSkillCommand>(request);
+            var result = await Mediator.Send(command);
 
-        [HttpGet(ApiRoutes.SkillRoute.SkillsGetAll)]
-        public async Task<IActionResult> GetSkills()
-        {
-       
-            return Ok(new SkillsResponse(){
-                Skills = new List<SkillResponse>()
-                {
-                    new SkillResponse()
-                    {
-                        Id = 1,
-                        Name = ".NET-C#"
-                    },
-                    new SkillResponse()
-                    {
-                        Id = 2,
-                        Name = "Java"
-                    } 
-                }
-            });
+            return Ok(result);
         }
 
         [HttpGet(ApiRoutes.SkillRoute.GetSkill)]
         public async Task<IActionResult> GetSkill([FromQuery] GetSkillByContainText query)
         {
             var command = Mapper.Map<GetSkillByContainInTextQuery>(query);
-            var result = await Mediator.Send(command);
+            var result =  await Mediator.Send(command);
 
             return Ok(result);
         }
-    }
-
-    public class GetSkillByContainText
-    { 
-        public string Content { get; set; }
     }
 }

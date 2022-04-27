@@ -1,5 +1,6 @@
-﻿using CVBuilder.Application.Skill.Queries;
-using CVBuilder.Web.Controllers.V1;
+﻿using CVBuilder.Application.Skill.Commands;
+using CVBuilder.Application.Skill.Queries;
+using CVBuilder.Web.Contracts.V1.Requests.Skill;
 
 namespace CVBuilder.Web.Mappers
 {
@@ -8,6 +9,7 @@ namespace CVBuilder.Web.Mappers
         public SkillMapper()
         {
             CreateMap<GetSkillByContainText, GetSkillByContainInTextQuery>();
+            CreateMap<CreateSkillRequest, CreateSkillCommand>();
         }
     }
 }

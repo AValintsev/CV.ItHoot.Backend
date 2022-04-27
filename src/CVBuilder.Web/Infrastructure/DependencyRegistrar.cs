@@ -1,5 +1,4 @@
-﻿using CVBuilder.Application;
-using CVBuilder.Application.Core.Infrastructure.Interfaces;
+﻿using CVBuilder.Application.Core.Infrastructure.Interfaces;
 using CVBuilder.Application.Core.Settings;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;

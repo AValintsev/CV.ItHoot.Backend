@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CVBuilder.Application.Education.Response;
-using MediatR;
 
-namespace CVBuilder.Application.Education.Queries
+namespace CVBuilder.Application.Education.Commands
 {
-    public class CreateEducationComand : MediatR.IRequest<CreateEducationResult>
+    public class CreateEducationCommand : MediatR.IRequest<CreateEducationResult>
     {
         public int CvId { get; set; }
         public string InstitutionName { get; set; }

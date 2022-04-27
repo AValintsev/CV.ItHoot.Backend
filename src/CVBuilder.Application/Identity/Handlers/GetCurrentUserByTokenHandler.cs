@@ -3,11 +3,6 @@ using CVBuilder.Application.Identity.Responses;
 using CVBuilder.Application.Identity.Services.Interfaces;
 using CVBuilder.Application.User.Manager;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

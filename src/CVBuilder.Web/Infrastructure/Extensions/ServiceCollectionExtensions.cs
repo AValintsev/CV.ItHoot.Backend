@@ -20,7 +20,6 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Reflection;
 
 namespace CVBuilder.Web.Infrastructure.Extensions
 {

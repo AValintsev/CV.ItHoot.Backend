@@ -3,11 +3,7 @@ using CVBuilder.Application.Files.Queries;
 using CVBuilder.Application.Files.Responses;
 using CVBuilder.Web.Contracts.V1.Requests.CV;
 using CVBuilder.Web.Contracts.V1.Responses.File;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CVBuilder.Web.Mappers
 {
@@ -23,7 +19,7 @@ namespace CVBuilder.Web.Mappers
                 .ForMember(opt => opt.Data, aft => aft.MapFrom(o => GetByteArray(o.File.OpenReadStream())))
                 .ForMember(opt => opt.IdCv, aft => aft.MapFrom(o => o.CvId));
 
-            CreateMap<FileUploadResult, UploadFileRespons>();
+            CreateMap<FileUploadResult, UploadFileResponse>();
         }
 
         private static byte[] GetByteArray(Stream stream)

@@ -1,13 +1,15 @@
 ﻿using CVBuilder.Application.Language.DTOs;
-using CVBuilder.Application.Skill.DTOs;
+using CVBuilder.Application.Language.Responses;
+using CVBuilder.Models.Entities;
 
-namespace CVBuilder.Application.Skill.Mapper
+namespace CVBuilder.Application.Language.Mapper
 {
     public class LanguageMapper : AppMapperBase
     {
         public LanguageMapper()
         {
-            CreateMap<Models.Entities.UserLanguage, LanguageDTO>();
+            CreateMap<UserLanguage, LanguageDTO>();
+            CreateMap<UserLanguage, LanguageResult>();
         }
     }
 }

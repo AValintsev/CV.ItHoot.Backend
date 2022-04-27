@@ -1,7 +1,5 @@
 ﻿using CVBuilder.Application.Core.Infrastructure.Interfaces;
-using CVBuilder.Web.Infrastructure.DataProtection;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CVBuilder.Models.Entities;
+﻿using System.Collections.Generic;
 
 namespace CVBuilder.Web.Contracts.V1.Responses.CV
 {

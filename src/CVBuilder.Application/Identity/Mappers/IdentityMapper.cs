@@ -1,6 +1,4 @@
-﻿using CVBuilder.Application.Extensions;
-
-namespace CVBuilder.Application.Identity.Mappers
+﻿namespace CVBuilder.Application.Identity.Mappers
 {
     public class IdentityMapper : AppMapperBase
     {

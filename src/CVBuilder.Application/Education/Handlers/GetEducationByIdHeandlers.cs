@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CVBuilder.Application.Education.Comands;
 using CVBuilder.Application.Education.Response;
 using CVBuilder.Repository;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Education.Handlers
 {
@@ -23,9 +20,9 @@ namespace CVBuilder.Application.Education.Handlers
         }
         public async Task<EducationByIdResult> Handle(GetEducationByIdComand request, CancellationToken cancellationToken)
         {
-            var education = _repository.Table.FirstOrDefault(p => p.Id == request.Id);
-            var resault = _mapper.Map<EducationByIdResult>(education);
-            return resault;
+            var education = await _repository.Table.FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
+            var result = _mapper.Map<EducationByIdResult>(education);
+            return result;
         }
     }
 }

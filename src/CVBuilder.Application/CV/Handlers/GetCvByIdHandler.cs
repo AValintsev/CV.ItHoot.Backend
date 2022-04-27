@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CVBuilder.Application.CV.Queries;
-using CVBuilder.Application.CV.Responses;
 using CVBuilder.Application.CV.Responses.CvResponses;
 using CVBuilder.Application.Extensions;
 using CVBuilder.Models.Entities;

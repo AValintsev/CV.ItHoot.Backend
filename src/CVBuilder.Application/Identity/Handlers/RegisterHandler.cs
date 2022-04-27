@@ -9,7 +9,6 @@ using CVBuilder.Application.Identity.Responses;
 using CVBuilder.Application.Identity.Services.Interfaces;
 using CVBuilder.Application.User.Manager;
 using CVBuilder.Models;
-using CVBuilder.Repository;
 using MediatR;
 
 namespace CVBuilder.Application.Identity.Handlers

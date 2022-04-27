@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CVBuilder.Web.Contracts.V1.Responses.CV
+﻿namespace CVBuilder.Web.Contracts.V1.Responses.CV
 {
     public class CvCardResponse
     {

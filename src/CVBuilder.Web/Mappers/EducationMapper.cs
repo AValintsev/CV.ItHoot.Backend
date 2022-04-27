@@ -1,5 +1,5 @@
 ﻿using CVBuilder.Application.Education.Comands;
-using CVBuilder.Application.Education.Queries;
+using CVBuilder.Application.Education.Commands;
 using CVBuilder.Web.Contracts.V1.Requests.Educatio;
 
 namespace CVBuilder.Web.Mappers
@@ -8,9 +8,9 @@ namespace CVBuilder.Web.Mappers
     {
         public EducationMapper()
         {
-            CreateMap<CreateEducation, CreateEducationComand>();
+            CreateMap<CreateEducation, CreateEducationCommand>();
             CreateMap<GetEducationById, GetEducationByIdComand>();
-            CreateMap<GetAllEducation, GetAllEducationsqComand>();
+            CreateMap<GetAllEducation, GetAllEducationsCommand>();
         }
     }
 }

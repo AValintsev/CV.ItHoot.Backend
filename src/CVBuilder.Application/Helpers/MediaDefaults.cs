@@ -1,6 +1,4 @@
-﻿using CVBuilder.Application.Caching;
-
-namespace CVBuilder.Application.Helpers
+﻿namespace CVBuilder.Application.Helpers
 {
     public static class MediaDefaults
     {

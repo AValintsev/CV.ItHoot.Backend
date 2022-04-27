@@ -1,7 +1,5 @@
 ﻿using CVBuilder.Models.Entities.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CVBuilder.Models.Entities
 {
