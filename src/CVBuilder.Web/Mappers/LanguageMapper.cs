@@ -9,6 +9,7 @@ namespace CVBuilder.Web.Mappers
         public LanguageMapper()
         {
             CreateMap<GetLanguageByContainInTextQuery, GetLanguageByContainInTextQuery>();
+            CreateMap<GetLanguagesByContentText, GetLanguageByContainInTextQuery>();
             CreateMap<GetAllLanguages, GetAllLanguagesQuery>();
             CreateMap<CreateLanguage, CreateLanguageCommand>();
         }

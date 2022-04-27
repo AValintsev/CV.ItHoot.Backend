@@ -42,53 +42,50 @@
 
         public static class CV
         {
-            private const string BaseCV = Base + "/cv";
-
-            public const string CreateCV = BaseCV + "/create";
-            public const string GetCV = BaseCV + "/id";
-            //public const string GetAllCvInfo = BaseCV + "/index";
-            public const string GetAllCvCards = BaseCV + "/list";
-            public const string GetCvById = BaseCV;
-            public const string UpdateCv = BaseCV + "/updateCv";
+            private const string BaseCv = Base + "/cv";
+            public const string CreateCv = BaseCv;
+            public const string GetAllCv = BaseCv ;
+            public const string GetCvById = BaseCv+"/{id}";
+            public const string UpdateCv = BaseCv;
 
         } 
         public static class File
         {
-            private const string BaseFile = Base + "/file";
-            public const string CreatFile = BaseFile + "/create";
-            public const string GetFileById = BaseFile + "/id";
+            private const string BaseFile = Base + "/files";
+            public const string CreatFile = BaseFile;
+            public const string GetFileById = BaseFile + "/{id}";
             public const string GetAllFileUrl = BaseFile + "/list";
         }
 
         public static class SkillRoute
         {
-            private const string BaseSkill = Base + "/skill";
-            public const string CreateSkill = BaseSkill + "/create";
-            public const string GetSkill = BaseSkill;
+            private const string BaseSkill = Base + "/skills";
+            public const string CreateSkill = BaseSkill;
+            public const string GetSkill = BaseSkill+"/search";
             public const string SkillsGetAll = BaseSkill + "/all";
         }
 
         public static class EducationRoute
         {
-            private const string BaseEducation = Base + "/education";
-            public const string CreateEducation = BaseEducation + "/create";
-            public const string GetEducation = BaseEducation;
-            public const string EducationGetAll = BaseEducation + "/all";
+            private const string BaseEducation = Base + "/educations";
+            public const string CreateEducation = BaseEducation;
+            public const string GetAllEducation = BaseEducation ;
+            public const string GetEducation = BaseEducation+"/{id}";
         }
 
         public static class Experience
         {
-            private const string BaseExperience = Base + "/Experience";
-            public const string CreateExperience = BaseExperience + "/create";
-            public const string GetExperience = BaseExperience;
-            public const string ExperienceGetAll = BaseExperience + "/all";
+            private const string BaseExperience = Base + "/experiences";
+            public const string CreateExperience = BaseExperience;
+            public const string GetAllExperience = BaseExperience;
+            public const string GetExperience = BaseExperience+"/{id}";
         }
         public static class Language
         {
-            private const string BaseLanguage = Base + "/Language";
-            public const string CreateLanguage = BaseLanguage + "/create";
-            public const string GetLanguage = BaseLanguage;
-            public const string LanguageGetAll = BaseLanguage + "/all";
+            private const string BaseLanguage = Base + "/languages";
+            public const string CreateLanguage = BaseLanguage;
+            public const string GetLanguage = BaseLanguage+"/search";
+            public const string LanguageGetAll = BaseLanguage;
         }
     }
 }

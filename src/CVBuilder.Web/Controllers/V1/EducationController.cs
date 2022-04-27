@@ -13,6 +13,10 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class EducationController : BaseApiController
     {
+        
+        /// <summary>
+        /// Create a new Education
+        /// </summary>
         [AllowAnonymous]
         [HttpPost(ApiRoutes.EducationRoute.CreateEducation)]
         public async Task<ActionResult<CreateEducationResult>> Create(CreateEducation query)
@@ -22,8 +26,11 @@ namespace CVBuilder.Web.Controllers.V1
             return Ok(response);
         }
 
+        /// <summary>
+        /// Get list of Educations
+        /// </summary>
         [AllowAnonymous]
-        [HttpGet(ApiRoutes.EducationRoute.EducationGetAll)]
+        [HttpGet(ApiRoutes.EducationRoute.GetAllEducation)]
         public async Task<ActionResult<IEnumerable<EducationResult>>> GetAllEducations([FromQuery] GetAllEducation query)
         {
             var command = Mapper.Map<GetAllEducationsCommand>(query);
@@ -32,9 +39,12 @@ namespace CVBuilder.Web.Controllers.V1
         
         }
 
+        /// <summary>
+        /// Get Education by ID
+        /// </summary>
         [AllowAnonymous]
         [HttpGet(ApiRoutes.EducationRoute.GetEducation)]
-        public async Task<ActionResult<EducationByIdResult>> GetEducations([FromQuery] GetEducationById query)
+        public async Task<ActionResult<EducationByIdResult>> GetEducations([FromRoute] GetEducationById query)
         {
             var command = Mapper.Map<GetEducationByIdCommand>(query);
             var response = await Mediator.Send(command);

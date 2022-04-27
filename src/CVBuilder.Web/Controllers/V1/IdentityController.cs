@@ -14,9 +14,14 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class IdentityController : BaseAuthApiController
     {
+        
+        /// <summary>
+        /// Registration new user
+        /// </summary>
         [AllowAnonymous]
         [HttpPost(ApiRoutes.Identity.Register)]
         [ProducesResponseType(typeof(AuthSuccessResponse),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthFailedResponse),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             var command = Mapper.Map<RegisterCommand>(request);
@@ -29,9 +34,13 @@ namespace CVBuilder.Web.Controllers.V1
             return Ok(Mapper.Map<AuthSuccessResponse>(response));
         }
 
+        /// <summary>
+        /// Login user
+        /// </summary>
         [AllowAnonymous]
         [HttpPost(ApiRoutes.Identity.Login)]
         [ProducesResponseType(typeof(AuthSuccessResponse),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthFailedResponse),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> WebLogin([FromBody] WebLoginRequest request)
         {
             var command = Mapper.Map<WebLoginCommand>(request);
@@ -44,8 +53,12 @@ namespace CVBuilder.Web.Controllers.V1
             return Ok(Mapper.Map<AuthSuccessResponse>(response));
         }
 
+        /// <summary>
+        /// Return user by Token
+        /// </summary>
         [HttpGet(ApiRoutes.Identity.GetCurrentUserByToken)]
         [ProducesResponseType(typeof(AuthSuccessResponse),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthFailedResponse),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetCurrentUserByToken()
         {
             var command = Mapper.Map<GetCurrentUserByTokenCommand>(new GetCurrentUserByTokenRequest());
@@ -59,10 +72,14 @@ namespace CVBuilder.Web.Controllers.V1
 
             return Ok(Mapper.Map<AuthSuccessResponse>(response));
         }
-
+    
+        /// <summary>
+        /// Refresh token
+        /// </summary>
         [AllowAnonymous]
         [HttpPost(ApiRoutes.Identity.Refresh)]
         [ProducesResponseType(typeof(AuthSuccessResponse),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthFailedResponse),StatusCodes.Status502BadGateway)]
         public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request)
         {
             var command = Mapper.Map<RefreshTokenCommand>(request);
@@ -75,6 +92,9 @@ namespace CVBuilder.Web.Controllers.V1
             return Ok(Mapper.Map<AuthSuccessResponse>(response));
         }
 
+        /// <summary>
+        /// Revoke refresh token
+        /// </summary>
         [HttpPost(ApiRoutes.Identity.Logout)]
         public async Task<IActionResult> Logout([FromBody] LogoutRequest request)
         {
@@ -90,7 +110,9 @@ namespace CVBuilder.Web.Controllers.V1
         }
 
         
-
+        /// <summary>
+        /// Get new access token
+        /// </summary>
         [HttpPost(ApiRoutes.Identity.GenerateToken)]
         public async Task<ActionResult<UserAccessTokenResult>> GenerateToken()
         {

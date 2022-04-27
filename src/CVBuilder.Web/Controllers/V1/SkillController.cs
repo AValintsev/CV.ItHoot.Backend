@@ -12,6 +12,10 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class SkillController : BaseApiController
     {
+        
+        /// <summary>
+        /// Create a new Skill
+        /// </summary>
         [HttpPost(ApiRoutes.SkillRoute.CreateSkill)]
         public async Task<ActionResult<SkillDTO>> Create([FromBody] CreateSkillRequest request)
         {
@@ -21,6 +25,9 @@ namespace CVBuilder.Web.Controllers.V1
             return Ok(result);
         }
 
+        /// <summary>
+        /// Get Skill by content Text
+        /// </summary>
         [HttpGet(ApiRoutes.SkillRoute.GetSkill)]
         public async Task<ActionResult<IEnumerable<SkillDTO>>> GetSkill([FromQuery] GetSkillByContainText query)
         {

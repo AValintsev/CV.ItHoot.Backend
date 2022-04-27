@@ -18,7 +18,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions
                 var context = services.GetRequiredService<EFDbContext>();
                 await DbInitializer.Initialize(context);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 // todo add logger
             }

@@ -13,6 +13,10 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class ExperienceController : BaseApiController
     {
+        
+        /// <summary>
+        /// Create a new Experience
+        /// </summary>
         [AllowAnonymous]
         [HttpPost(ApiRoutes.Experience.CreateExperience)]
         public async Task<ActionResult<CreateExperienceResult>> Create(CreateExperiance query)
@@ -22,8 +26,12 @@ namespace CVBuilder.Web.Controllers.V1
             
             return Ok(response);
         }
+        
+        /// <summary>
+        /// Get list of Experiences
+        /// </summary>
         [AllowAnonymous]
-        [HttpGet(ApiRoutes.Experience.ExperienceGetAll)]
+        [HttpGet(ApiRoutes.Experience.GetAllExperience)]
         public async Task<ActionResult<IEnumerable<CreateExperienceResult>>> GetAllExperiences([FromQuery]GetAllExperiances query)
         {
             var command = Mapper.Map<GetAllExperiencesQuery>(query);
@@ -31,9 +39,13 @@ namespace CVBuilder.Web.Controllers.V1
 
             return Ok(response);
         }
+        
+        /// <summary>
+        /// Get Experience by ID
+        /// </summary>
         [AllowAnonymous]
         [HttpGet(ApiRoutes.Experience.GetExperience)]
-        public async Task<ActionResult<GetExperienceByIdResult>> GetExperience([FromQuery] GetExperianceById query)
+        public async Task<ActionResult<GetExperienceByIdResult>> GetExperience([FromRoute] GetExperianceById query)
         {
             var command = Mapper.Map<GetExperienceByIdQuery>(query);
             var response = await Mediator.Send(command);

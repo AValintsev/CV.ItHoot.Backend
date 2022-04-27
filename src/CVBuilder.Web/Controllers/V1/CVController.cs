@@ -12,7 +12,10 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class CVController : BaseAuthApiController
     {
-        [HttpPost(ApiRoutes.CV.CreateCV)]
+        /// <summary>
+        /// Create a new CV
+        /// </summary>
+        [HttpPost(ApiRoutes.CV.CreateCv)]
         public async Task<ActionResult<CvResult>> Create(CreateCvRequest request)
         {
             var command = Mapper.Map<CreateCvCommand>(request);
@@ -21,28 +24,38 @@ namespace CVBuilder.Web.Controllers.V1
             return Ok(response);
         }
 
-        [HttpGet(ApiRoutes.CV.GetAllCvCards)]
-        public async Task<ActionResult<GetAllCvCardResponse>> GetAllCvCard([FromQuery] GetAllCvCardRequest request)
+        /// <summary>
+        /// Get list of CV
+        /// </summary>
+        [HttpGet(ApiRoutes.CV.GetAllCv)]
+        public async Task<ActionResult<GetAllCvCardResponse>> GetAllCvCard([FromQuery]GetAllCvCardRequest request)
         {
             var command = Mapper.Map<GetAllCvCardQueries>(request);
             command.UserId = LoggedUserId;
             command.UserRoles = LoggedUserRoles;
-
             var response = await Mediator.Send(command);
             var result = Mapper.Map<GetAllCvCardResponse>(response);
             return Ok(result);
         }
-
+    
+        /// <summary>
+        /// Get CV by ID
+        /// </summary>
         [HttpGet(ApiRoutes.CV.GetCvById)]
-        public async Task<ActionResult<CvResult>> GetCvById([FromQuery] GetCvByIdRequest request)
+        public async Task<ActionResult<CvResult>> GetCvById([FromRoute]GetCvByIdRequest request)
         {
             var command = Mapper.Map<GetCvByIdQueries>(request);
+            command.UserId = LoggedUserId;
+            command.UserRoles = LoggedUserRoles;
             var response = await Mediator.Send(command);
 
             return Ok(response);
         }
 
-        [HttpPost(ApiRoutes.CV.UpdateCv)]
+        /// <summary>
+        /// Updates an existing CV
+        /// </summary>
+        [HttpPut(ApiRoutes.CV.UpdateCv)]
         public async Task<ActionResult<UpdateCvResult>> UpdateCv([FromBody] RequestCvUpdate request)
         {
             var command = Mapper.Map<UpdateCvCommand>(request);

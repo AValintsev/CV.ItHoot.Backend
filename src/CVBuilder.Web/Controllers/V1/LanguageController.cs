@@ -13,6 +13,10 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class LanguageController : BaseApiController
     {
+        
+        /// <summary>
+        /// Create a new Language
+        /// </summary>
         [HttpPost(ApiRoutes.Language.CreateLanguage)]
         public async Task<ActionResult<LanguageDTO>> Create([FromBody] CreateLanguage query)
         {
@@ -21,14 +25,23 @@ namespace CVBuilder.Web.Controllers.V1
             return Ok(result);
         }
         
+        
+        /// <summary>
+        /// Get list of Languages
+        /// </summary>
         [HttpGet(ApiRoutes.Language.LanguageGetAll)]
-        public async Task<ActionResult<LanguageResult>> GetAllLanguage([FromQuery] GetAllLanguages query)
+        public async Task<ActionResult<LanguageResult>> GetAllLanguage()
         {
+            // [FromQuery] GetAllLanguages query
+            var query = new GetAllLanguages();
             var command = Mapper.Map<GetAllLanguagesQuery>(query);
             var result = await Mediator.Send(command);
             return Ok(result);
         }
 
+        /// <summary>
+        /// Get Language by content Text
+        /// </summary>
         [HttpGet(ApiRoutes.Language.GetLanguage)]
         public async Task<ActionResult<IEnumerable<LanguageDTO>>> GetLanguage([FromQuery] GetLanguagesByContentText query)
         {
