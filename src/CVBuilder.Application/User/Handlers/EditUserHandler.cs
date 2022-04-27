@@ -12,10 +12,10 @@ namespace CVBuilder.Application.User.Handlers
     public class EditUserHandler : IRequestHandler<EditUserCommand, UserResponse>
     {
         private readonly IMediator _mediator;
-        private readonly IRepository<Models.Entities.User, int> _repository;
+        private readonly IRepository<Models.User, int> _repository;
 
         public EditUserHandler(
-            IRepository<Models.Entities.User, int> repository,
+            IRepository<Models.User, int> repository,
             IMediator mediator)
         {
             _repository = repository;

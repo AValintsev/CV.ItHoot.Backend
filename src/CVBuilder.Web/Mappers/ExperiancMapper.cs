@@ -1,4 +1,5 @@
-﻿using CVBuilder.Application.Expiriance.Queries;
+﻿using CVBuilder.Application.Experience.Commands;
+using CVBuilder.Application.Experience.Queries;
 using CVBuilder.Web.Contracts.V1.Requests.Experiance;
 
 namespace CVBuilder.Web.Mappers
@@ -7,9 +8,9 @@ namespace CVBuilder.Web.Mappers
     {
         public ExperiancMapper()
         {
-            CreateMap<CreateExperiance, CreateExperiencComand>();
-            CreateMap<GetAllExperiances, GetAllExperiancesComand>();
-            CreateMap<GetExperianceById, GetExperiancByIdComand>();
+            CreateMap<CreateExperiance, CreateExperienceCommand>();
+            CreateMap<GetAllExperiances, GetAllExperiencesQuery>();
+            CreateMap<GetExperianceById, GetExperienceByIdQuery>();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CVBuilder.Application.CV.Responses;
 using CVBuilder.Repository;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +8,16 @@ using CVBuilder.Models.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using CVBuilder.Application.CV.Queries;
+using CVBuilder.Application.CV.Responses;
 
 namespace CVBuilder.Application.CV.Handlers
 {
     public class GetAllCvCardHandler : IRequestHandler<GetAllCvCardQueries, GetAllCvCardResult>
     {
-        private readonly IRepository<Models.Entities.Cv, int> _cvRepository;
+        private readonly IRepository<Cv, int> _cvRepository;
         private readonly IMapper _mapper;
 
-        public GetAllCvCardHandler(IRepository<Models.Entities.Cv, int> cvRepository, IMapper mapper)
+        public GetAllCvCardHandler(IRepository<Cv, int> cvRepository, IMapper mapper)
         {
             _cvRepository = cvRepository;
             _mapper = mapper;
@@ -25,12 +25,12 @@ namespace CVBuilder.Application.CV.Handlers
 
         public async Task<GetAllCvCardResult> Handle(GetAllCvCardQueries request, CancellationToken cancellationToken)
         {
-            List<Cv> result = new List<Cv>();
+            var result = new List<Cv>();
             if (request.UserRoles.Contains("HR"))
             {
                 result = await _cvRepository.Table
                     .Where(x => x.IsDraft == false)
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken: cancellationToken);
             }
             else if (request.UserRoles.Contains("Admin"))
             {
@@ -40,7 +40,7 @@ namespace CVBuilder.Application.CV.Handlers
             {
                 result = await _cvRepository.Table
                     .Where(x => x.UserId == request.UserId)
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken: cancellationToken);
             }
 
             return new GetAllCvCardResult

@@ -13,11 +13,11 @@ namespace CVBuilder.Application.User.Handlers
     {
         private readonly ICacheKeyService _cacheKeyService;
 
-        private readonly IRepository<Models.Entities.User, int> _repository;
+        private readonly IRepository<Models.User, int> _repository;
         private readonly IStaticCacheManager _staticCacheManager;
 
         public GetUserByIdHandler(
-            IRepository<Models.Entities.User, int> repository,
+            IRepository<Models.User, int> repository,
             ICacheKeyService cacheKeyService,
             IStaticCacheManager staticCacheManager)
         {

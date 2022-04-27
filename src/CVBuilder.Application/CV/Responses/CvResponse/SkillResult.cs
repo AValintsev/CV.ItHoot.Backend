@@ -1,4 +1,4 @@
-﻿namespace CVBuilder.Application.CV.Responses.CvResponses
+﻿namespace CVBuilder.Application.CV.Responses.CvResponse
 {
     public class SkillResult
     {

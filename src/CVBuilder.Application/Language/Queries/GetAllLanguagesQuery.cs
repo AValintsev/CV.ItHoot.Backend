@@ -2,9 +2,9 @@
 using CVBuilder.Application.Language.Responses;
 using MediatR;
 
-namespace CVBuilder.Application.Language.Commands
+namespace CVBuilder.Application.Language.Queries
 {
-    public class GetAllLanguagesCommand:IRequest<List<LanguageResult>>
+    public class GetAllLanguagesQuery:IRequest<List<LanguageResult>>
     {
         
     }

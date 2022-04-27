@@ -10,7 +10,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Data.Handlers
 {
-    public class GetDataHeandler: IRequestHandler<GetDataTypesQuery, IEnumerable<DataTypeResult>>
+    public class GetDataHandler: IRequestHandler<GetDataTypesQuery, IEnumerable<DataTypeResult>>
     {
         public async Task<IEnumerable<DataTypeResult>> Handle(GetDataTypesQuery request, CancellationToken cancellationToken)
         {

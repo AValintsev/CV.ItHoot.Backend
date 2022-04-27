@@ -1,17 +1,18 @@
-﻿using CVBuilder.Application.Education.Response;
-using CVBuilder.Application.Education.Commands;
+﻿using CVBuilder.Application.Education.Commands;
+using CVBuilder.Application.Education.Responses;
 
 namespace CVBuilder.Application.Education.Mappers
 {
+    using Models.Entities;
     internal class EducationMapper : AppMapperBase
     {
         public EducationMapper()
         {
-            CreateMap<CVBuilder.Models.Entities.Education, CreateEducationCommand>().ReverseMap();
+            CreateMap<Education, CreateEducationCommand>().ReverseMap();
 
             //CreateMap<CVBuilder.Models.Entities.Education, GetEducationByIdComand>().ReverseMap();
-            CreateMap<CVBuilder.Models.Entities.Education, EducationByIdResult>().ReverseMap();
-            CreateMap<CVBuilder.Models.Entities.Education, CreateEducationResult>();
+            CreateMap<Education, EducationByIdResult>().ReverseMap();
+            CreateMap<Education, CreateEducationResult>();
             
         }
     }

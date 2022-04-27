@@ -1,7 +1,7 @@
-﻿using CVBuilder.Application.CV.Commands.sharedCommands;
-using CVBuilder.Application.CV.Responses.CvResponses;
-using MediatR;
+﻿using MediatR;
 using System.Collections.Generic;
+using CVBuilder.Application.CV.Commands.SharedCommands;
+using CVBuilder.Application.CV.Responses.CvResponse;
 using CVBuilder.Models;
 
 
@@ -13,7 +13,7 @@ namespace CVBuilder.Application.CV.Commands
         public int UserId { get; set; }
         public string CvName { get; set; }
         public bool IsDraft { get; set; }
-        public string UserName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CVBuilder.Application.Education.Response
+namespace CVBuilder.Application.Education.Responses
 {
-    public class EducationResault
+    public class EducationResult
     {
         public int Id { get; set; }
         public int CvId { get; set; }

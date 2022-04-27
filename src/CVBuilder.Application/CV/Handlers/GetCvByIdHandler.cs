@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CVBuilder.Application.CV.Queries;
-using CVBuilder.Application.CV.Responses.CvResponses;
 using CVBuilder.Application.Extensions;
 using CVBuilder.Models.Entities;
 using CVBuilder.Repository;
@@ -9,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CVBuilder.Application.CV.Responses.CvResponse;
 
 namespace CVBuilder.Application.CV.Handlers
 {
@@ -35,17 +35,17 @@ namespace CVBuilder.Application.CV.Handlers
                     .ThenInclude(l => l.UserLanguage)
                .Include(x => x.Files)
                .Where(x => x.Id == request.Id)
-               .FirstOrDefaultAsync();
+               .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (cv == null)
             {
                 throw ValidationException.Build(nameof(request.Id), "Not Found");
             }
 
-            var cvResault = _mapper.Map<CvResult>(cv);
+            var cvResult = _mapper.Map<CvResult>(cv);
 
 
-            return cvResault;
+            return cvResult;
         }
     }
 }

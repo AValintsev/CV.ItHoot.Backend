@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CVBuilder.Application.CV.Responses.CvResponses
+namespace CVBuilder.Application.CV.Responses.CvResponse
 {
     public class CvResult
     {
@@ -28,7 +28,7 @@ namespace CVBuilder.Application.CV.Responses.CvResponses
         public string Picture { get; set; }
         public string AboutMe { get; set; }
         public List<EducationResult> Educations { get; set; }
-        public List<ExpirianceResult> Experiences { get; set; }
+        public List<ExperienceResult> Experiences { get; set; }
         public List<UserLanguageResult> UserLanguages { get; set; }
         public List<SkillResult> Skills { get; set; }
     }

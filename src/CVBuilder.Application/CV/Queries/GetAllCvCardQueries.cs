@@ -1,6 +1,6 @@
-﻿using CVBuilder.Application.CV.Responses;
-using MediatR;
+﻿using MediatR;
 using System.Collections.Generic;
+using CVBuilder.Application.CV.Responses;
 
 namespace CVBuilder.Application.CV.Queries
 {

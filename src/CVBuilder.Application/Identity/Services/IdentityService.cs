@@ -25,7 +25,7 @@ namespace CVBuilder.Application.Identity.Services
             _tokenService = tokenService;
         }
 
-        public async Task<AuthenticationResult> GenerateAuthenticationResultAsync(Models.Entities.User user)
+        public async Task<AuthenticationResult> GenerateAuthenticationResultAsync(Models.User user)
         {
             var claims = await GetUserClaims(user);
 
@@ -42,7 +42,7 @@ namespace CVBuilder.Application.Identity.Services
             };
         }
 
-        public async Task<IEnumerable<Claim>> GetUserClaims(Models.Entities.User user)
+        public async Task<IEnumerable<Claim>> GetUserClaims(Models.User user)
         {
             var claims = new List<Claim>
             {

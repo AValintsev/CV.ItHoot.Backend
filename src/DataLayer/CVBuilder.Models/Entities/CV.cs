@@ -12,8 +12,10 @@ namespace CVBuilder.Models.Entities
         public DateTime UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
         public bool IsDraft { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        
+        public string CvName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
         public string Phone { get; set; }

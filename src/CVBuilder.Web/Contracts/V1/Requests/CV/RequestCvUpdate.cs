@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CVBuilder.Web.Contracts.V1.Requests.CV.SharedCvRequest;
 
 namespace CVBuilder.Web.Contracts.V1.Requests.CV
 {

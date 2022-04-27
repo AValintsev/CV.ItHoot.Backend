@@ -1,18 +1,16 @@
 ﻿using System;
 
-namespace CVBuilder.Application.Expiriance.Respons
+namespace CVBuilder.Application.CV.Responses.CvResponse
 {
-    public class ExperianceResult
+    public class ExperienceResult
     {
         public int Id { get; set; }
+        public int Order { get; set; }
         public int CvId { get; set; }
         public string Company { get; set; }
         public string Position { get; set; }
         public string Description { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-
     }
 }

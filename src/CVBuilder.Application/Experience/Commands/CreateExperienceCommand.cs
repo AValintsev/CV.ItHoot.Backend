@@ -1,10 +1,10 @@
-﻿using CVBuilder.Application.Expiriance.Respons;
+﻿using System;
+using CVBuilder.Application.Experience.Responses;
 using MediatR;
-using System;
 
-namespace CVBuilder.Application.Expiriance.Queries
+namespace CVBuilder.Application.Experience.Commands
 {
-    public class CreateExperiencComand : IRequest<CreateExpirienceResult>
+    public class CreateExperienceCommand : IRequest<CreateExperienceResult>
     {
 
         public int CvId { get; set; }

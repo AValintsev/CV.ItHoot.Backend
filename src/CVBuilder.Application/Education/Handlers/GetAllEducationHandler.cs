@@ -2,18 +2,19 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using CVBuilder.Application.CV.Responses.CvResponses;
+using CVBuilder.Application.CV.Responses.CvResponse;
 using CVBuilder.Application.Education.Commands;
 using CVBuilder.Repository;
 using MediatR;
 
 namespace CVBuilder.Application.Education.Handlers
 {
-    internal class GetAllEducationHeandler : IRequestHandler<GetAllEducationsCommand, List<EducationResult>>
+    using Models.Entities;
+    internal class GetAllEducationHandler : IRequestHandler<GetAllEducationsCommand, List<EducationResult>>
     {
-        private IRepository<Models.Entities.Education,int> _repository;
-        private IMapper _mapper;
-        public GetAllEducationHeandler(IRepository<Models.Entities.Education, int> repository, IMapper mapper)
+        private readonly IRepository<Education,int> _repository;
+        private readonly IMapper _mapper;
+        public GetAllEducationHandler(IRepository<Education, int> repository, IMapper mapper)
         {
             _repository=repository;
             _mapper=mapper;

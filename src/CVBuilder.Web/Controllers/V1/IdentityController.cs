@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
 using CVBuilder.Application.Identity.Commands;
 using CVBuilder.Application.User.Commands;
+using CVBuilder.Application.User.Responses;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Identity;
 using CVBuilder.Web.Contracts.V1.Responses.Identity;
 using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CVBuilder.Web.Controllers.V1
@@ -14,6 +16,7 @@ namespace CVBuilder.Web.Controllers.V1
     {
         [AllowAnonymous]
         [HttpPost(ApiRoutes.Identity.Register)]
+        [ProducesResponseType(typeof(AuthSuccessResponse),StatusCodes.Status200OK)]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             var command = Mapper.Map<RegisterCommand>(request);
@@ -28,6 +31,7 @@ namespace CVBuilder.Web.Controllers.V1
 
         [AllowAnonymous]
         [HttpPost(ApiRoutes.Identity.Login)]
+        [ProducesResponseType(typeof(AuthSuccessResponse),StatusCodes.Status200OK)]
         public async Task<IActionResult> WebLogin([FromBody] WebLoginRequest request)
         {
             var command = Mapper.Map<WebLoginCommand>(request);
@@ -41,6 +45,7 @@ namespace CVBuilder.Web.Controllers.V1
         }
 
         [HttpGet(ApiRoutes.Identity.GetCurrentUserByToken)]
+        [ProducesResponseType(typeof(AuthSuccessResponse),StatusCodes.Status200OK)]
         public async Task<IActionResult> GetCurrentUserByToken()
         {
             var command = Mapper.Map<GetCurrentUserByTokenCommand>(new GetCurrentUserByTokenRequest());
@@ -57,6 +62,7 @@ namespace CVBuilder.Web.Controllers.V1
 
         [AllowAnonymous]
         [HttpPost(ApiRoutes.Identity.Refresh)]
+        [ProducesResponseType(typeof(AuthSuccessResponse),StatusCodes.Status200OK)]
         public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request)
         {
             var command = Mapper.Map<RefreshTokenCommand>(request);
@@ -86,7 +92,7 @@ namespace CVBuilder.Web.Controllers.V1
         
 
         [HttpPost(ApiRoutes.Identity.GenerateToken)]
-        public async Task<IActionResult> GenerateToken()
+        public async Task<ActionResult<UserAccessTokenResult>> GenerateToken()
         {
             var command = new CreateUserAccessTokenCommand()
             {

@@ -8,17 +8,17 @@ using System.Threading;
 using CVBuilder.Models.Entities;
 using CVBuilder.Repository;
 using AutoMapper;
-using CVBuilder.Application.CV.Responses.CvResponses;
+using CVBuilder.Application.CV.Responses.CvResponse;
 using CVBuilder.Models;
 
 namespace CVBuilder.Application.CV.Handlers
 {
-    public class CreateCVHandler : IRequestHandler<CreateCvCommand, CvResult>
+    internal class CreateCVHandler : IRequestHandler<CreateCvCommand, CvResult>
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Cv, int> _cvRepository;
         private readonly IRepository<Models.Entities.Skill, int> _skillRepository;
-        private readonly IRepository<Models.Entities.LevelSkill, int> _levelSkillRepository;
+        private readonly IRepository<LevelSkill, int> _levelSkillRepository;
 
         public CreateCVHandler(
             IMapper mapper,

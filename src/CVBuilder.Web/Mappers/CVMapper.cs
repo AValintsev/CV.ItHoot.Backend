@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using CVBuilder.Application.CV.Commands;
-using CVBuilder.Application.CV.Commands.sharedCommands;
+using CVBuilder.Application.CV.Commands.SharedCommands;
 using CVBuilder.Application.CV.Queries;
 using CVBuilder.Application.CV.Responses;
 using CVBuilder.Web.Contracts.V1.Requests.CV;
+using CVBuilder.Web.Contracts.V1.Requests.CV.SharedCvRequest;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
 using Microsoft.AspNetCore.Http;
 

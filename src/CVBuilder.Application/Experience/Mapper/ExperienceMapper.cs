@@ -1,21 +1,20 @@
-﻿using CVBuilder.Application.Expiriance.Queries;
-using CVBuilder.Application.Expiriance.Respons;
-using CVBuilder.Models.Entities;
-using System;
+﻿using System;
+using CVBuilder.Application.Experience.Commands;
+using CVBuilder.Application.Experience.Responses;
 
-namespace CVBuilder.Application.Expiriance.Mapper
+namespace CVBuilder.Application.Experience.Mapper
 {
     public class ExperienceMapper : AppMapperBase
     {
         public ExperienceMapper()
         {
-            CreateMap<CreateExperiencComand, Experience>();
+            CreateMap<CreateExperienceCommand, Models.Entities.Experience>();
 
-            CreateMap<Experience, ExperianceResult>();
+            CreateMap<Models.Entities.Experience, ExperienceResult>();
 
-            CreateMap<Experience, GetExpirianceByIdResult>().ReverseMap();
+            CreateMap<Models.Entities.Experience, GetExperienceByIdResult>().ReverseMap();
 
-            CreateMap<Exception, CreateExpirienceResult>();
+            CreateMap<Exception, CreateExperienceResult>();
 
         }
 

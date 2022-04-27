@@ -11,10 +11,10 @@ namespace CVBuilder.Application.User.Handlers
 {
     public class GetAllUsersHandler : IRequestHandler<GetAllUsersQuery, List<UserResponse>>
     {
-        private readonly IRepository<Models.Entities.User, int> _repository;
+        private readonly IRepository<Models.User, int> _repository;
 
         public GetAllUsersHandler(
-            IRepository<Models.Entities.User, int> repository)
+            IRepository<Models.User, int> repository)
         {
             _repository = repository;
         }

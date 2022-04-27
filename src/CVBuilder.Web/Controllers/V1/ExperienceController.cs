@@ -1,10 +1,13 @@
-﻿using CVBuilder.Application.Expiriance.Queries;
+﻿using System.Collections.Generic;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Experiance;
 using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using CVBuilder.Application.Experience.Commands;
+using CVBuilder.Application.Experience.Queries;
+using CVBuilder.Application.Experience.Responses;
 
 namespace CVBuilder.Web.Controllers.V1
 {
@@ -12,27 +15,27 @@ namespace CVBuilder.Web.Controllers.V1
     {
         [AllowAnonymous]
         [HttpPost(ApiRoutes.Experience.CreateExperience)]
-        public async Task<IActionResult> Create(CreateExperiance query)
+        public async Task<ActionResult<CreateExperienceResult>> Create(CreateExperiance query)
         {
-            var command = Mapper.Map<CreateExperiencComand>(query);
+            var command = Mapper.Map<CreateExperienceCommand>(query);
             var response = await Mediator.Send(command);
             
             return Ok(response);
         }
         [AllowAnonymous]
         [HttpGet(ApiRoutes.Experience.ExperienceGetAll)]
-        public async Task<IActionResult> GetAllExperiences([FromQuery]GetAllExperiances query)
+        public async Task<ActionResult<IEnumerable<CreateExperienceResult>>> GetAllExperiences([FromQuery]GetAllExperiances query)
         {
-            var command = Mapper.Map<GetAllExperiancesComand>(query);
+            var command = Mapper.Map<GetAllExperiencesQuery>(query);
             var response = await Mediator.Send(command);
 
             return Ok(response);
         }
         [AllowAnonymous]
         [HttpGet(ApiRoutes.Experience.GetExperience)]
-        public async Task<IActionResult> GetExperience([FromQuery] GetExperianceById query)
+        public async Task<ActionResult<GetExperienceByIdResult>> GetExperience([FromQuery] GetExperianceById query)
         {
-            var command = Mapper.Map<GetExperiancByIdComand>(query);
+            var command = Mapper.Map<GetExperienceByIdQuery>(query);
             var response = await Mediator.Send(command);
             return Ok(response);
         }

@@ -7,7 +7,7 @@ namespace CVBuilder.Application.Identity.Services.Interfaces
 {
     public interface IIdentityService
     {
-        Task<AuthenticationResult> GenerateAuthenticationResultAsync(Models.Entities.User user);
-        Task<IEnumerable<Claim>> GetUserClaims(Models.Entities.User user);
+        Task<AuthenticationResult> GenerateAuthenticationResultAsync(Models.User user);
+        Task<IEnumerable<Claim>> GetUserClaims(Models.User user);
     }
 }

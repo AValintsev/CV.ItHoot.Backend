@@ -1,4 +1,4 @@
-﻿namespace CVBuilder.Web.Contracts.V1.Requests.CV
+﻿namespace CVBuilder.Web.Contracts.V1.Requests.CV.SharedCvRequest
 {
     public class RequestSkill
     {

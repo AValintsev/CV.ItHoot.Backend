@@ -6,7 +6,6 @@ using CVBuilder.Application.Identity.Services;
 using CVBuilder.Application.Identity.Services.Interfaces;
 using CVBuilder.Application.User.Manager;
 using CVBuilder.EFContext;
-using CVBuilder.Models.Entities;
 using CVBuilder.Web.Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,6 +19,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using CVBuilder.Models;
 
 namespace CVBuilder.Web.Infrastructure.Extensions
 {

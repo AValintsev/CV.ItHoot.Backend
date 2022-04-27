@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CVBuilder.Application.CV.Commands.sharedCommands
+namespace CVBuilder.Application.CV.Commands.SharedCommands
 {
     public class EducationCommand
     {

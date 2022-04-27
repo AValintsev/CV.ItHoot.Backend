@@ -41,7 +41,7 @@ namespace CVBuilder.Application.Identity.Handlers
                 };
             }
 
-            var user = new Models.Entities.User
+            var user = new Models.User
             {
                 Email = request.Email,
                 UserName = request.Email,

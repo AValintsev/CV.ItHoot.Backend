@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CVBuilder.Application.Skill.Commands;
+using CVBuilder.Application.Skill.DTOs;
 using CVBuilder.Application.Skill.Queries;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Skill;
@@ -11,7 +13,7 @@ namespace CVBuilder.Web.Controllers.V1
     public class SkillController : BaseApiController
     {
         [HttpPost(ApiRoutes.SkillRoute.CreateSkill)]
-        public async Task<IActionResult> Create([FromBody] CreateSkillRequest request)
+        public async Task<ActionResult<SkillDTO>> Create([FromBody] CreateSkillRequest request)
         {
             var command = Mapper.Map<CreateSkillCommand>(request);
             var result = await Mediator.Send(command);
@@ -20,7 +22,7 @@ namespace CVBuilder.Web.Controllers.V1
         }
 
         [HttpGet(ApiRoutes.SkillRoute.GetSkill)]
-        public async Task<IActionResult> GetSkill([FromQuery] GetSkillByContainText query)
+        public async Task<ActionResult<IEnumerable<SkillDTO>>> GetSkill([FromQuery] GetSkillByContainText query)
         {
             var command = Mapper.Map<GetSkillByContainInTextQuery>(query);
             var result =  await Mediator.Send(command);

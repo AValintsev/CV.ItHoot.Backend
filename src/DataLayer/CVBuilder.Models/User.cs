@@ -2,7 +2,7 @@
 using CVBuilder.Models.Entities.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
-namespace CVBuilder.Models.Entities
+namespace CVBuilder.Models
 {
     public class User : IdentityUser<int>, IEntity<int>
     {

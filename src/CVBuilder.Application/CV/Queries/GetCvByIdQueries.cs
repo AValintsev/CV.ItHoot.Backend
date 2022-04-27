@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CVBuilder.Application.CV.Responses.CvResponses;
+using CVBuilder.Application.CV.Responses.CvResponse;
 using MediatR;
 
 namespace CVBuilder.Application.CV.Queries

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CVBuilder.Application.CV.Commands;
-using CVBuilder.Application.CV.Commands.sharedCommands;
+using CVBuilder.Application.CV.Commands.SharedCommands;
 using CVBuilder.Application.CV.Responses;
-using CVBuilder.Application.CV.Responses.CvResponses;
-using CVBuilder.Models.Entities;
+using CVBuilder.Application.CV.Responses.CvResponse;
 
 namespace CVBuilder.Application.CV.Mapper
 {
+    using Models.Entities;
     class CVMapper : AppMapperBase
     {
         public CVMapper()
@@ -16,11 +16,10 @@ namespace CVBuilder.Application.CV.Mapper
             CreateMap<CreateCvCommand, Cv>()
                 .ForMember(e => e.Files, d => d.MapFrom(c => c.Picture));
 
-
             CreateMap<CreateFileComand, File>()
                 .ForMember(p => p.ContentType, b => b.MapFrom(c => c.ContentType))
                 .ForMember(p => p.Data, b => b.MapFrom(c => c.Data));
-            
+
 
             CreateMap<Cv, CvCardResult>();
 
@@ -29,11 +28,11 @@ namespace CVBuilder.Application.CV.Mapper
                 .ForMember(d => d.Skills, b => b.MapFrom(s => MapToSkillResult(s.LevelSkills)))
                 .ForMember(d => d.UserLanguages, b => b.MapFrom(s => MapToUserLanguageResult(s.LevelLanguages)));
 
-            CreateMap<Experience, ExpirianceResult>();
-            CreateMap<Models.Entities.Education, EducationResult>();
+            CreateMap<Experience, ExperienceResult>();
+            CreateMap<Education, EducationResult>();
 
-            CreateMap<EducationCommand, CVBuilder.Models.Entities.Education>();
-            CreateMap<SkillCommand, Models.Entities.Skill>();
+            CreateMap<EducationCommand, Education>();
+            CreateMap<SkillCommand, Skill>();
             CreateMap<UserLanguageCommand, UserLanguage>();
 
             CreateMap<UpdateCvCommand, UpdateCvResult>();
@@ -86,7 +85,7 @@ namespace CVBuilder.Application.CV.Mapper
             return null;
         }
 
-        public static string GetPictureUrl(Models.Entities.File file)
+        public static string GetPictureUrl(File file)
         {
             //todo Remove from mapper
             return @"https://localhost:5001/api/v1/file/id?id=" + file.Id;

@@ -1,8 +1,8 @@
-﻿using CVBuilder.Application.CV.Commands.sharedCommands;
-using CVBuilder.Application.CV.Responses.CvResponses;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using CVBuilder.Application.CV.Commands.SharedCommands;
+using CVBuilder.Application.CV.Responses.CvResponse;
 
 namespace CVBuilder.Application.CV.Commands
 {

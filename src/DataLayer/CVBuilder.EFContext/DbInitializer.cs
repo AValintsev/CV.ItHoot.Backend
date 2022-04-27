@@ -124,8 +124,8 @@ namespace CVBuilder.EFContext
 
             var cv = new Cv()
             {
-                Name = "Andrii",
-                Surname = "Shevchuk",
+                FirstName = "Andrii",
+                LastName = "Shevchuk",
                 AboutMe = "I an is a .net developer",
                 City = "Kiev",
                 Birthdate = "12/05/1999",

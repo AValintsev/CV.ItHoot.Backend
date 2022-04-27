@@ -8,26 +8,26 @@ using Microsoft.Extensions.Options;
 
 namespace CVBuilder.Application.User.Manager
 {
-    public class AppUserManager : UserManager<Models.Entities.User>, IAppUserManager
+    public class AppUserManager : UserManager<Models.User>, IAppUserManager
     {
         public AppUserManager(
-            IUserStore<Models.Entities.User> store,
+            IUserStore<Models.User> store,
             IOptions<IdentityOptions> optionsAccessor,
-            IPasswordHasher<Models.Entities.User> passwordHasher,
-            IEnumerable<IUserValidator<Models.Entities.User>> userValidators,
-            IEnumerable<IPasswordValidator<Models.Entities.User>> passwordValidators,
+            IPasswordHasher<Models.User> passwordHasher,
+            IEnumerable<IUserValidator<Models.User>> userValidators,
+            IEnumerable<IPasswordValidator<Models.User>> passwordValidators,
             ILookupNormalizer keyNormalizer,
             IdentityErrorDescriber errors,
             IServiceProvider services,
-            ILogger<UserManager<Models.Entities.User>> logger)
+            ILogger<UserManager<Models.User>> logger)
             : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
         {
         }
 
-        public async Task<Models.Entities.User> FindByPhoneAsync(string phone) =>
+        public async Task<Models.User> FindByPhoneAsync(string phone) =>
             await Users.FirstOrDefaultAsync(r => r.PhoneNumber == phone);
 
-        public async Task<Models.Entities.User> FindByIdAsync(int userId) =>
+        public async Task<Models.User> FindByIdAsync(int userId) =>
             await Users.FirstOrDefaultAsync(r => r.Id == userId);
     }
 }

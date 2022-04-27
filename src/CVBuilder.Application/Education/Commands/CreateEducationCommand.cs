@@ -1,9 +1,10 @@
 ﻿using System;
-using CVBuilder.Application.Education.Response;
+using CVBuilder.Application.Education.Responses;
+using MediatR;
 
 namespace CVBuilder.Application.Education.Commands
 {
-    public class CreateEducationCommand : MediatR.IRequest<CreateEducationResult>
+    public class CreateEducationCommand : IRequest<CreateEducationResult>
     {
         public int CvId { get; set; }
         public string InstitutionName { get; set; }
