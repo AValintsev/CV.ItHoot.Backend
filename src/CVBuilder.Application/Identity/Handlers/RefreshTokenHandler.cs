@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace CVBuilder.Application.Identity.Handlers
 {
@@ -35,7 +36,7 @@ namespace CVBuilder.Application.Identity.Handlers
                 return new AuthenticationResult { Errors = new[] { "Invalid Token" } };
             }
 
-            var expiryDate = validatedToken.Claims.Single(x => x.Type == ClaimTypes.Expired).Value;
+            var expiryDate = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Exp).Value;
             var expiryDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 .AddSeconds(long.Parse(expiryDate));
             if (expiryDateTimeUtc > DateTime.UtcNow && !request.ForceRefresh)
@@ -65,7 +66,7 @@ namespace CVBuilder.Application.Identity.Handlers
                 return new AuthenticationResult { Errors = new[] { "This refresh token has been used" } };
             }
 
-            var jti = validatedToken.Claims.Single(x => x.Type == ClaimTypes.Sid).Value;
+            var jti = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
             if (storedRefreshToken.JwtId != jti)
             {
                 return new AuthenticationResult { Errors = new[] { "This refresh token does not match this JWT" } };

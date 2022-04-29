@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using JwtRegisteredClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames;
 
 namespace CVBuilder.Application.Identity.Services
 {
@@ -49,6 +50,7 @@ namespace CVBuilder.Application.Identity.Services
                 //new(JwtRegisteredClaimNames.Sub, user.Email),
                 new(ClaimTypes.GivenName, user.FullName),
                 new(ClaimTypes.Email, user.Email),
+                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new(ClaimTypes.Sid, Guid.NewGuid().ToString()),
                 new(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
