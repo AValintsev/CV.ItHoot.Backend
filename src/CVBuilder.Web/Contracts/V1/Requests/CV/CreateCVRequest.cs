@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
 namespace CVBuilder.Web.Contracts.V1.Requests.CV
 {
     public class CreateCvRequest
     {
-        public int Id { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public DateTime? DeletedAt { get; set; }
         public string CvName { get; set; }
         public bool IsDraft { get; set; }
         public string FirstName { get; set; }
