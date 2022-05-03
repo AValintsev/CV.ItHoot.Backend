@@ -44,10 +44,13 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get Experience by ID
         /// </summary>
         [AllowAnonymous]
-        [HttpGet(ApiRoutes.Experience.GetExperience)]
-        public async Task<ActionResult<GetExperienceByIdResult>> GetExperience([FromRoute] GetExperianceById query)
+        [HttpGet(ApiRoutes.Experience.GetExperienceById)]
+        public async Task<ActionResult<GetExperienceByIdResult>> GetExperience(int id)
         {
-            var command = Mapper.Map<GetExperienceByIdQuery>(query);
+            var command = new GetExperienceByIdQuery
+            {
+                Id = id
+            };
             var response = await Mediator.Send(command);
             return Ok(response);
         }

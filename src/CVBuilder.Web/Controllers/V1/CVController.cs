@@ -42,11 +42,14 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get CV by ID
         /// </summary>
         [HttpGet(ApiRoutes.CV.GetCvById)]
-        public async Task<ActionResult<CvResult>> GetCvById([FromRoute]GetCvByIdRequest request)
+        public async Task<ActionResult<CvResult>> GetCvById(int  id)
         {
-            var command = Mapper.Map<GetCvByIdQueries>(request);
-            command.UserId = LoggedUserId;
-            command.UserRoles = LoggedUserRoles;
+            var command = new GetCvByIdQueries
+            {
+                Id = id,
+                UserId = LoggedUserId,
+                UserRoles = LoggedUserRoles
+            };
             var response = await Mediator.Send(command);
 
             return Ok(response);

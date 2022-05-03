@@ -78,7 +78,7 @@
             private const string BaseExperience = Base + "/experiences";
             public const string CreateExperience = BaseExperience;
             public const string GetAllExperience = BaseExperience;
-            public const string GetExperience = BaseExperience+"/{id}";
+            public const string GetExperienceById = BaseExperience+"/{id}";
         }
         public static class Language
         {

@@ -17,9 +17,12 @@ namespace CVBuilder.Web.Controllers.V1
         /// </summary>
         [HttpGet(ApiRoutes.File.GetFileById)]
         //[Authorize(Policy = Constants.Policy.User)]
-        public async Task<IActionResult> GetFileById ([FromRoute] GetFileByIdRequest fileByIdRequest)
+        public async Task<IActionResult> GetFileById (int id)
         {
-            var command =  Mapper.Map<GetFileByIdComand>(fileByIdRequest);
+            var command = new GetFileByIdComand
+            {
+                Id = id
+            };
             var response = await Mediator.Send(command);
             return File(response.Data,response.ContentType,response.Name);
 

@@ -44,9 +44,13 @@ namespace CVBuilder.Web.Controllers.V1
         /// </summary>
         [AllowAnonymous]
         [HttpGet(ApiRoutes.EducationRoute.GetEducation)]
-        public async Task<ActionResult<EducationByIdResult>> GetEducations([FromRoute] GetEducationById query)
+        public async Task<ActionResult<EducationByIdResult>> GetEducations(int id)
         {
-            var command = Mapper.Map<GetEducationByIdCommand>(query);
+            var command = new GetEducationByIdCommand
+            {
+                Id = id
+            };
+            
             var response = await Mediator.Send(command);
             return Ok(response);
         }
