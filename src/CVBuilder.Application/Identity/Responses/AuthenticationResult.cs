@@ -4,6 +4,7 @@ namespace CVBuilder.Application.Identity.Responses
 {
     public class AuthenticationResult
     {
+        public int UserId { get; set; }
         public string Token { get; set; }
         public string RefreshToken { get; set; }
         public bool Success { get; set; }

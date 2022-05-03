@@ -25,21 +25,15 @@ namespace CVBuilder.Application.CV.Commands
         public string RequiredPosition { get; set; }
         public string Birthdate { get; set; }
         public string AboutMe { get; set; }
-        public List<CreateFileComand> Picture { get; set; } = new List<CreateFileComand>();
-        public List<EducationCommand> Educations { get; set; } = new List<EducationCommand>();
-        public List<ExperienceCommand> Experiences { get; set; } = new List<ExperienceCommand>();
-        //public List<SkillCommand> Skills { get; set; } = new List<SkillCommand>();
-        //public List<UserLanguageCommand> UserLanguages { get; set; } = new List<UserLanguageCommand>();
-
-        public List<CVSkill> Skills { get; set; } = new List<CVSkill>();
-        public List<CVLanguage> UserLanguages { get; set; } = new List<CVLanguage>();
+        public List<CreateFileCommand> Picture { get; set; } = new();
+        public List<EducationCommand> Educations { get; set; } = new();
+        public List<ExperienceCommand> Experiences { get; set; } = new();
+        public List<CVSkill> Skills { get; set; } = new();
+        public List<CVLanguage> UserLanguages { get; set; } = new();
     }
     public class CVSkill
     {
         public int? Id { get; set; }
-        public int CvId { get; set; }
-        public int Order { get; set; }
-        public int? SkillId { get; set; }
         public string Name { get; set; }
         public SkillLevel Level { get; set; }
     }
@@ -47,9 +41,6 @@ namespace CVBuilder.Application.CV.Commands
     public class CVLanguage
     {
         public int? Id { get; set; }
-        public int Order { get; set; }
-        public int CvId { get; set; }
-        public int? LanguageId { get; set; }
         public string Name { get; set; }
         public LanguageLevel Level { get; set; }
     }

@@ -27,12 +27,12 @@ namespace CVBuilder.Web.Mappers
             CreateMap<Contracts.V1.Requests.CV.CVLanguage, Application.CV.Commands.CVLanguage>();
 
 
-            CreateMap<IFormFile, CreateFileComand>()
+            CreateMap<IFormFile, CreateFileCommand>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(r => r.FileName))
                 .ForMember(dest => dest.ContentType, opt => opt.MapFrom(r => r.ContentType))
                 .ForMember(dest => dest.Data, opt => opt.MapFrom(r => GetByteArray(r.OpenReadStream())));
 
-            CreateMap<IFormFile, List<CreateFileComand>>()
+            CreateMap<IFormFile, List<CreateFileCommand>>()
                 .ConvertUsing(source => MapFile(source));
 
             CreateMap<GetCvByIdRequest, GetCvByIdQueries>();
@@ -61,14 +61,14 @@ namespace CVBuilder.Web.Mappers
             }
         }
 
-        public static List<CreateFileComand> MapFile(IFormFile source)
+        public static List<CreateFileCommand> MapFile(IFormFile source)
         {
             if (source == null)
             {
                 return null;
             }
 
-            return new List<CreateFileComand>()
+            return new List<CreateFileCommand>()
             {
                 new ()
                 {

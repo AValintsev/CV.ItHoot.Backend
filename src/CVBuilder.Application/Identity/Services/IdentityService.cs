@@ -35,6 +35,7 @@ namespace CVBuilder.Application.Identity.Services
 
             return new AuthenticationResult
             {
+                UserId = user.Id,
                 Success = true,
                 Token = token,
                 RefreshToken = refreshToken,

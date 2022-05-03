@@ -10,20 +10,22 @@ using CVBuilder.Repository;
 using AutoMapper;
 using CVBuilder.Application.CV.Responses.CvResponse;
 using CVBuilder.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.CV.Handlers
 {
+    using Models.Entities;
+
     internal class CreateCVHandler : IRequestHandler<CreateCvCommand, CvResult>
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Cv, int> _cvRepository;
-        private readonly IRepository<Models.Entities.Skill, int> _skillRepository;
+        private readonly IRepository<Skill, int> _skillRepository;
         private readonly IRepository<LevelSkill, int> _levelSkillRepository;
-
         public CreateCVHandler(
             IMapper mapper,
             IRepository<Cv, int> cvRepository,
-            IRepository<Models.Entities.Skill, int> skillRepository, IRepository<LevelSkill, int> levelSkill)
+            IRepository<Skill, int> skillRepository, IRepository<LevelSkill, int> levelSkill)
         {
             _cvRepository = cvRepository;
             _skillRepository = skillRepository;
@@ -33,58 +35,28 @@ namespace CVBuilder.Application.CV.Handlers
 
         public async Task<CvResult> Handle(CreateCvCommand command, CancellationToken cancellationToken)
         {
-            var newCv = _mapper.Map<Cv>(command);
-
-            var newSkillsWithLevel = GetNewSkills(command.Skills);
-            await _skillRepository.CreateManyAsync(newSkillsWithLevel.Select(skill => skill.Key ).ToList());
-            var existSkillsWithLevel = GetExistsSkill(command.Skills);
-
-            var allSkill = newSkillsWithLevel.Concat(existSkillsWithLevel);
-
-            //await _skillRepository.CreateManyAsync(newSkills);
-            //var existingSkill = GetExistingSkills(command.Skills);
-
-            var cv = await _cvRepository.CreateAsync(newCv);
-            return null;
+            var cv = _mapper.Map<Cv>(command);
+            await CheckSkillsDuplicate(cv);
+            cv = await _cvRepository.CreateAsync(cv);
+            return _mapper.Map<CvResult>(cv);
         }
 
-        private List<LevelSkill> CreateNewSkillLevel(List<KeyValuePair<Models.Entities.Skill, SkillLevel>> skills, Cv cv)
+        private async Task CheckSkillsDuplicate(Cv cv)
         {
-            return skills.Select(skill => new LevelSkill()
+            var allSkills = await _skillRepository.GetListAsync();
+            foreach (var skill in allSkills)
             {
-                Skill = skill.Key,
-                SkillId = skill.Key.Id,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                Cv = cv,
-                CvId = cv.Id,
-            }).ToList();
-        }
-
-        private List<KeyValuePair<Models.Entities.Skill, SkillLevel>> GetNewSkills(IEnumerable<CVSkill> skills)
-        {
-            return skills
-                .Where(skill => skill.SkillId == null)
-                .Select(skill => new KeyValuePair<Models.Entities.Skill, SkillLevel>(new Models.Entities.Skill
+                foreach (var cvSkill in cv.LevelSkills)
                 {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Name = skill.Name,
-                },
-                skill.Level)).ToList();
+                    if (skill.Name == cvSkill.Skill.Name)
+                    {
+                        cvSkill.Skill = skill;
+                        cvSkill.SkillId = skill.Id;
+                    }                        
+                }
+            }
         }
-
-        private List<KeyValuePair<Models.Entities.Skill, SkillLevel>> GetExistsSkill(IEnumerable<CVSkill> skills)
-        {
-            return skills
-                .Where(skill => skill.SkillId == null)
-                .Select(skill => new KeyValuePair<Models.Entities.Skill, SkillLevel>(new Models.Entities.Skill
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Name = skill.Name,
-                },
-                skill.Level)).ToList();
-        }
+        
+        
     }
 }

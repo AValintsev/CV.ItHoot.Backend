@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CVBuilder.Application.CV.Commands;
 using CVBuilder.Application.CV.Commands.SharedCommands;
@@ -14,9 +15,21 @@ namespace CVBuilder.Application.CV.Mapper
         {
 
             CreateMap<CreateCvCommand, Cv>()
-                .ForMember(e => e.Files, d => d.MapFrom(c => c.Picture));
-
-            CreateMap<CreateFileComand, File>()
+                .ForMember(e => e.Files, d => d.MapFrom(c => c.Picture))
+                .ForMember(x => x.LevelSkills, y => y.MapFrom(z => z.Skills));
+            CreateMap<CVSkill, Skill>();
+            CreateMap<CVSkill, LevelSkill>()
+                .ForMember(x => x.Id, y => y.Ignore())
+                .ForMember(x => x.SkillId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.SkillLevel, y => y.MapFrom(z => z.Level))
+                .ForMember(x => x.Skill, y => y.MapFrom(z => z.Id == null
+                    ? new Skill()
+                    {
+                        Name = z.Name,
+                        CreatedAt = DateTime.UtcNow
+                    }
+                    : null));
+            CreateMap<CreateFileCommand, File>()
                 .ForMember(p => p.ContentType, b => b.MapFrom(c => c.ContentType))
                 .ForMember(p => p.Data, b => b.MapFrom(c => c.Data));
 
@@ -38,13 +51,13 @@ namespace CVBuilder.Application.CV.Mapper
             CreateMap<UpdateCvCommand, UpdateCvResult>();
         }
 
-        public static List<UserLanguageResult> MapToUserLanguageResult(List<LevelLanguage> levelLanguages)
+        private static List<UserLanguageResult> MapToUserLanguageResult(IEnumerable<LevelLanguage> levelLanguages)
         {
-            return  levelLanguages.Select(e => MapToUserLanguageResult(e)).ToList();
+            return  levelLanguages.Select(MapToUserLanguage).ToList();
 
-            UserLanguageResult MapToUserLanguageResult(LevelLanguage levelLanguage)
+            UserLanguageResult MapToUserLanguage(LevelLanguage levelLanguage)
             {
-                return new()
+                return new UserLanguageResult
                 {
                     CvId = levelLanguage.CvId,
                     LanguageId = levelLanguage.UserLanguageId,
@@ -54,18 +67,17 @@ namespace CVBuilder.Application.CV.Mapper
             }
         }
 
-        public static List<SkillResult> MapToSkillResult(List<LevelSkill> levelSkill)
+        private static List<SkillResult> MapToSkillResult(IEnumerable<LevelSkill> levelSkill)
         {
-            return levelSkill.Select(e => MapToSkillResult(e)).ToList();
+            return levelSkill.Select(MapToSkill).ToList();
 
-            SkillResult MapToSkillResult(LevelSkill levelSkill)
+            SkillResult MapToSkill(LevelSkill skill)
             {
-                return new()
+                return new SkillResult
                 {
-                    CvId = levelSkill.CvId,
-                    SkillId = levelSkill.SkillId,
-                    Name = levelSkill.Skill.Name,
-                    Level = (int)levelSkill.SkillLevel,
+                    Id = skill.SkillId,
+                    Name = skill.Skill.Name,
+                    Level = (int)skill.SkillLevel,
                 };
             }
         }

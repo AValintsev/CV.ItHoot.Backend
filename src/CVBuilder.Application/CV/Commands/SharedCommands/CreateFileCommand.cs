@@ -1,6 +1,6 @@
 ﻿namespace CVBuilder.Application.CV.Commands.SharedCommands
 {
-    public class CreateFileComand
+    public class CreateFileCommand
     {
         public string Name { get; set; }
         public byte[] Data { get; set; }
