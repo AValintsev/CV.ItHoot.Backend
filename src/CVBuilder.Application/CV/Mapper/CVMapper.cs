@@ -9,11 +9,11 @@ using CVBuilder.Application.CV.Responses.CvResponse;
 namespace CVBuilder.Application.CV.Mapper
 {
     using Models.Entities;
+
     class CVMapper : AppMapperBase
     {
         public CVMapper()
         {
-
             CreateMap<CreateCvCommand, Cv>()
                 // .ForMember(e => e.Files, d => d.MapFrom(c => c.Picture))
                 .ForMember(x => x.LevelSkills, y => y.MapFrom(z => z.Skills))
@@ -25,44 +25,44 @@ namespace CVBuilder.Application.CV.Mapper
                 .ForMember(x => x.Id, y => y.Ignore())
                 .ForMember(x => x.SkillId, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.SkillLevel, y => y.MapFrom(z => z.Level))
-                .ForMember(x => x.Skill, y => y.MapFrom(z => z.Id == null
-                    ? new Skill()
+                .ForMember(x => x.Skill, y => y.MapFrom(z =>
+                    new Skill()
                     {
+                        Id = z.Id.GetValueOrDefault(),
                         Name = z.Name,
                         CreatedAt = DateTime.UtcNow
-                    }
-                    : null));
-            
+                    }));
+
             CreateMap<CVLanguage, LevelLanguage>()
                 .ForMember(x => x.Id, y => y.Ignore())
                 .ForMember(x => x.UserLanguageId, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.LanguageLevel, y => y.MapFrom(z => z.Level))
-                .ForMember(x => x.UserLanguage, y => y.MapFrom(z => z.Id == null
-                    ? new UserLanguage()
+                .ForMember(x => x.UserLanguage, y => y.MapFrom(z =>
+                    new UserLanguage()
                     {
+                        Id = z.Id.GetValueOrDefault(),
                         Name = z.Name,
                         CreatedAt = DateTime.UtcNow
-                    }
-                    : null));
-            
+                    }));
+
             CreateMap<CVSkill, LevelSkill>()
                 .ForMember(x => x.Id, y => y.Ignore())
                 .ForMember(x => x.SkillId, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.SkillLevel, y => y.MapFrom(z => z.Level))
-                .ForMember(x => x.Skill, y => y.MapFrom(z => z.Id == null
-                    ? new Skill()
+                .ForMember(x => x.Skill, y => y.MapFrom(z =>
+                    new Skill()
                     {
+                        Id = z.Id.GetValueOrDefault(),
                         Name = z.Name,
                         CreatedAt = DateTime.UtcNow
-                    }
-                    : null));
+                    }));
             CreateMap<CVEducation, Education>()
                 .ForMember(x => x.StartDate, y => y.MapFrom(z => z.StartDate.GetValueOrDefault().Date))
-                    .ForMember(x => x.EndDate, y => y.MapFrom(z => z.EndDate.GetValueOrDefault().Date));
+                .ForMember(x => x.EndDate, y => y.MapFrom(z => z.EndDate.GetValueOrDefault().Date));
             CreateMap<CVExperience, Experience>()
                 .ForMember(x => x.StartDate, y => y.MapFrom(z => z.StartDate.GetValueOrDefault().Date))
                 .ForMember(x => x.EndDate, y => y.MapFrom(z => z.EndDate.GetValueOrDefault().Date));
-            
+
             CreateMap<CreateFileCommand, File>()
                 .ForMember(p => p.ContentType, b => b.MapFrom(c => c.ContentType))
                 .ForMember(p => p.Data, b => b.MapFrom(c => c.Data));
@@ -87,7 +87,7 @@ namespace CVBuilder.Application.CV.Mapper
 
         private static List<UserLanguageResult> MapToUserLanguageResult(IEnumerable<LevelLanguage> levelLanguages)
         {
-            return  levelLanguages.Select(MapToUserLanguage).ToList();
+            return levelLanguages.Select(MapToUserLanguage).ToList();
 
             UserLanguageResult MapToUserLanguage(LevelLanguage levelLanguage)
             {
@@ -95,7 +95,7 @@ namespace CVBuilder.Application.CV.Mapper
                 {
                     LanguageId = levelLanguage.UserLanguageId,
                     Name = levelLanguage.UserLanguage.Name,
-                    Level = (int)levelLanguage.LanguageLevel,
+                    Level = (int) levelLanguage.LanguageLevel,
                 };
             }
         }
@@ -110,7 +110,7 @@ namespace CVBuilder.Application.CV.Mapper
                 {
                     Id = skill.SkillId,
                     Name = skill.Skill.Name,
-                    Level = (int)skill.SkillLevel,
+                    Level = (int) skill.SkillLevel,
                 };
             }
         }
@@ -127,6 +127,7 @@ namespace CVBuilder.Application.CV.Mapper
 
                 return rsoult;
             }
+
             return null;
         }
 

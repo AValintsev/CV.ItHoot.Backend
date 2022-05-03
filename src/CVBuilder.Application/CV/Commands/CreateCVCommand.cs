@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using MediatR;
 using System.Collections.Generic;
 using CVBuilder.Application.CV.Commands.SharedCommands;

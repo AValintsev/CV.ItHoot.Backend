@@ -1,4 +1,5 @@
-﻿using CVBuilder.Application.CV.Commands;
+﻿using System.Linq;
+using CVBuilder.Application.CV.Commands;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
@@ -16,10 +17,12 @@ namespace CVBuilder.Application.CV.Handlers
         private readonly IRepository<Cv, int> _cvRepository;
         private readonly IRepository<Skill, int> _skillRepository;
         private readonly IRepository<UserLanguage, int> _languageRepository;
+
         public CreateCVHandler(
             IMapper mapper,
             IRepository<Cv, int> cvRepository,
-            IRepository<Skill, int> skillRepository, IRepository<LevelSkill, int> levelSkill, IRepository<UserLanguage, int> languageRepository)
+            IRepository<Skill, int> skillRepository, IRepository<LevelSkill, int> levelSkill,
+            IRepository<UserLanguage, int> languageRepository)
         {
             _cvRepository = cvRepository;
             _skillRepository = skillRepository;
@@ -39,34 +42,28 @@ namespace CVBuilder.Application.CV.Handlers
         private async Task CheckLanguageDuplicate(Cv cv)
         {
             var allLanguage = await _languageRepository.GetListAsync();
-            foreach (var language in allLanguage)
+            foreach (var cvLanguage in cv.LevelLanguages)
             {
-                foreach (var cvLanguage in cv.LevelLanguages)
-                {
-                    if (language.Name == cvLanguage.UserLanguage.Name)
-                    {
-                        cvLanguage.UserLanguage = language;
-                        cvLanguage.UserLanguageId = language.Id;
-                    }     
-                }
+                var language = allLanguage
+                    .FirstOrDefault(x => x.Id == cvLanguage.UserLanguageId || x.Name == cvLanguage.UserLanguage?.Name);
+                if (language == null)
+                    continue;
+                cvLanguage.UserLanguage = language;
+                cvLanguage.UserLanguageId = language.Id;
             }
         }
+
         private async Task CheckSkillsDuplicate(Cv cv)
         {
             var allSkills = await _skillRepository.GetListAsync();
-            foreach (var skill in allSkills)
+            foreach (var cvSkill in cv.LevelSkills)
             {
-                foreach (var cvSkill in cv.LevelSkills)
-                {
-                    if (skill.Name == cvSkill.Skill.Name)
-                    {
-                        cvSkill.Skill = skill;
-                        cvSkill.SkillId = skill.Id;
-                    }                        
-                }
+                var skill = allSkills.FirstOrDefault(x => x.Id == cvSkill.SkillId || x.Name == cvSkill.Skill?.Name);
+                if (skill == null)
+                    continue;
+                cvSkill.SkillId = skill.Id;
+                cvSkill.Skill = skill;
             }
         }
-        
-        
     }
 }
