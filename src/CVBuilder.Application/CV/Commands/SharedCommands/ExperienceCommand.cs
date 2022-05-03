@@ -5,7 +5,6 @@ namespace CVBuilder.Application.CV.Commands.SharedCommands
      public class ExperienceCommand
     {
         public int Id { get; set; }
-        public int CvId { get; set; }
         public string Company { get; set; }
         public string Position { get; set; }
         public string Description { get; set; }

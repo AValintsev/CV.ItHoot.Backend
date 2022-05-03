@@ -1,17 +1,18 @@
 ﻿using CVBuilder.Application.CV.Commands;
+using CVBuilder.Application.CV.Commands.SharedCommands;
 using FluentValidation;
 
 namespace CVBuilder.Application.CV.Validators
 {
-    public class ValidationCreateCv: AbstractValidator<CreateCvCommand>
+    public class CreateCvValidation: AbstractValidator<CreateCvCommand>
     {
-        public ValidationCreateCv()
+        public CreateCvValidation()
         {
             RuleForEach(x => x.Skills).SetValidator(new ValidationSkill());
             RuleForEach(x => x.UserLanguages).SetValidator(new ValidationLanguage());
         }
 
-        private class ValidationSkill:AbstractValidator<CVSkill>
+        public class ValidationSkill:AbstractValidator<SkillCommand>
         {
             public ValidationSkill()
             {
@@ -20,7 +21,7 @@ namespace CVBuilder.Application.CV.Validators
             }
         }
 
-        private class ValidationLanguage:AbstractValidator<CVLanguage>
+        public class ValidationLanguage:AbstractValidator<UserLanguageCommand>
         {
             public ValidationLanguage()
             {

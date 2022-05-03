@@ -8,7 +8,7 @@ namespace CVBuilder.Web.Contracts.V1.Requests.CV
         public int Id { get; set; }
         public string CvName { get; set; }
         public bool IsDraft { get; set; }
-        public string UserName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
@@ -21,16 +21,10 @@ namespace CVBuilder.Web.Contracts.V1.Requests.CV
         public string Birthdate { get; set; }
         //public IFormFile Picture { get; set; }
         public string AboutMe { get; set; }
-        public List<RequestEducation> Educations { get; set; }
-        public List<RequestExperience> Experiences { get; set; }
-        public List<RequestSkill> Skills { get; set; }
-        public List<RequestUserLanguage> UserLanguages { get; set; }
-
-        public List<RequestSkill> RSkills { get; set; }
-        public List<RequestUserLanguage> RUserLanguages { get; set; }
-        public List<RequestEducation> REducations { get; set; }
-        public List<RequestExperience> RExperiences { get; set; }
-
+        public List<EducationRequest> Educations { get; set; }
+        public List<ExperienceRequest> Experiences { get; set; }
+        public List<SkillRequest> Skills { get; set; }
+        public List<UserLanguageRequest> UserLanguages { get; set; }
 
     }
 }

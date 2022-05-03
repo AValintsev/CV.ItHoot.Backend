@@ -4,11 +4,8 @@ using CVBuilder.Application.Identity.Services.Interfaces;
 using CVBuilder.Application.User.Manager;
 using MediatR;
 using System;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace CVBuilder.Application.Identity.Handlers
 {

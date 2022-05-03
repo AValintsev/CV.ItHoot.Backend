@@ -59,10 +59,10 @@ namespace CVBuilder.Web.Controllers.V1
         /// Updates an existing CV
         /// </summary>
         [HttpPut(ApiRoutes.CV.UpdateCv)]
-        public async Task<ActionResult<UpdateCvResult>> UpdateCv([FromBody] RequestCvUpdate request)
+        public async Task<ActionResult<CvResult>> UpdateCv([FromBody] RequestCvUpdate request)
         {
             var command = Mapper.Map<UpdateCvCommand>(request);
-
+            command.UserId = LoggedUserId;
             var response = await Mediator.Send(command);
 
             return Ok(response);

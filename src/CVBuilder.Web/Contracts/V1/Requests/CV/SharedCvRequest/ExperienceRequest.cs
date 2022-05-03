@@ -2,10 +2,9 @@
 
 namespace CVBuilder.Web.Contracts.V1.Requests.CV.SharedCvRequest
 {
-     public class RequestExperience
+     public class ExperienceRequest
     {
-        public int Id { get; set; }
-        public int CvId { get; set; }
+        public int? Id { get; set; }
         public string Company { get; set; }
         public string Position { get; set; }
         public string Description { get; set; }

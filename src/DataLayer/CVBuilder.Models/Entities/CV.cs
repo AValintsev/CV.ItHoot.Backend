@@ -32,8 +32,5 @@ namespace CVBuilder.Models.Entities
 
         public List<LevelLanguage> LevelLanguages { get; set; } = new List<LevelLanguage>();
         public List<LevelSkill> LevelSkills { get; set; } = new List<LevelSkill>();
-
-        //public List<UserLanguage> UserLanguages { get; set; }
-        //public List<Skill> Skills { get; set; }
     }
 }

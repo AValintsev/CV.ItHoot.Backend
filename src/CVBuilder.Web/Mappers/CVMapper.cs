@@ -8,9 +8,6 @@ using CVBuilder.Web.Contracts.V1.Requests.CV;
 using CVBuilder.Web.Contracts.V1.Requests.CV.SharedCvRequest;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
 using Microsoft.AspNetCore.Http;
-using CVEducationRequest = CVBuilder.Web.Contracts.V1.Requests.CV.CVEducationRequest;
-using CVExperienceRequest = CVBuilder.Web.Contracts.V1.Requests.CV.CVExperienceRequest;
-using CVSkillRequest = CVBuilder.Web.Contracts.V1.Requests.CV.CVSkillRequest;
 
 namespace CVBuilder.Web.Mappers
 {
@@ -22,10 +19,10 @@ namespace CVBuilder.Web.Mappers
             CreateMap<GetAllCvCardResult, GetAllCvCardResponse>();
             CreateMap<CvCardResult, CvCardResponse>();
             CreateMap<CreateCvRequest, CreateCvCommand>();
-            CreateMap<CVEducationRequest, CVEducation>();
-            CreateMap<CVExperienceRequest, CVExperience>();
-            CreateMap<CVSkillRequest, CVSkill>();
-            CreateMap<CVLanguageRequesst, CVLanguage>();
+            CreateMap<EducationRequest, EducationCommand>();
+            CreateMap<ExperienceRequest, ExperienceCommand>();
+            CreateMap<SkillRequest, SkillCommand>();
+            CreateMap<UserLanguageRequest, UserLanguageCommand>();
             
             CreateMap<IFormFile, CreateFileCommand>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(r => r.FileName))
@@ -36,7 +33,8 @@ namespace CVBuilder.Web.Mappers
                 .ConvertUsing(source => MapFile(source));
 
             CreateMap<GetCvByIdRequest, GetCvByIdQueries>();
-            CreateMap<UpdateCvCommand, RequestCvUpdate>().ReverseMap();
+            CreateMap<UpdateCvCommand, RequestCvUpdate>()
+                .ReverseMap();
 
         }
         private static byte[] GetByteArray(Stream stream)
