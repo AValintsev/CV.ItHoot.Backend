@@ -2,8 +2,8 @@
 {
     public class RefreshTokenRequest
     {
-        public string Token { get; set; }
+        // public string Token { get; set; }
         public string RefreshToken { get; set; }
-        public bool ForceRefresh { get; set; } = false;
+        // public bool ForceRefresh { get; set; } = false;
     }
 }

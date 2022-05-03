@@ -30,22 +30,22 @@ namespace CVBuilder.Application.Identity.Handlers
 
         public async Task<AuthenticationResult> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var validatedToken = _tokenService.GetPrincipalFromToken(request.Token);
-            if (validatedToken == null)
-            {
-                return new AuthenticationResult { Errors = new[] { "Invalid Token" } };
-            }
+            // var validatedToken = _tokenService.GetPrincipalFromToken(request.Token);
+            // if (validatedToken == null)
+            // {
+            //     return new AuthenticationResult { Errors = new[] { "Invalid Token" } };
+            // }
 
-            var expiryDate = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Exp).Value;
-            var expiryDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
-                .AddSeconds(long.Parse(expiryDate));
-            if (expiryDateTimeUtc > DateTime.UtcNow && !request.ForceRefresh)
-            {
-                return new AuthenticationResult { Errors = new[] { "This token hasn't expired yet" } };
-            }
+            // var expiryDate = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Exp).Value;
+            // var expiryDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            //     .AddSeconds(long.Parse(expiryDate));
+            // if (expiryDateTimeUtc > DateTime.UtcNow && !request.ForceRefresh)
+            // {
+            //     return new AuthenticationResult { Errors = new[] { "This token hasn't expired yet" } };
+            // }
 
-            var userId = validatedToken.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            var storedRefreshToken = await _tokenService.GetRefreshTokenAsync(int.Parse(userId), request.RefreshToken);
+            // var userId = validatedToken.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            var storedRefreshToken = await _tokenService.GetRefreshTokenAsync(request.RefreshToken);
             if (storedRefreshToken == null)
             {
                 return new AuthenticationResult { Errors = new[] { "This refresh token does not exist" } };
@@ -66,12 +66,12 @@ namespace CVBuilder.Application.Identity.Handlers
                 return new AuthenticationResult { Errors = new[] { "This refresh token has been used" } };
             }
 
-            var jti = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
-            if (storedRefreshToken.JwtId != jti)
-            {
-                return new AuthenticationResult { Errors = new[] { "This refresh token does not match this JWT" } };
-            }
-
+            // var jti = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
+            // if (storedRefreshToken.JwtId != jti)
+            // {
+            //     return new AuthenticationResult { Errors = new[] { "This refresh token does not match this JWT" } };
+            // }
+            var userId = storedRefreshToken.UserId;
             storedRefreshToken.IsUsed = true;
             await _tokenService.UpdateRefreshTokenAsync(storedRefreshToken);
             var user = await _userManager.FindByIdAsync(userId);

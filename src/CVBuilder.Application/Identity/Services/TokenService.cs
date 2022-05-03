@@ -83,6 +83,12 @@ namespace CVBuilder.Application.Identity.Services
             return null;
         }
 
+        public async Task<RefreshToken> GetRefreshTokenAsync(string refreshToken)
+        {
+            return await _refreshTokenRepository
+                .GetByFilter(r => r.Token == refreshToken);
+        }
+
         public async Task<RefreshToken> GetRefreshTokenAsync(int userId, string refreshToken)
         {
             return await _refreshTokenRepository
