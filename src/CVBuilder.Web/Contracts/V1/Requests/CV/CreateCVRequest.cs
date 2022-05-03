@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using CVBuilder.Models.Entities;
-using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
+using CVBuilder.Models;
 
 namespace CVBuilder.Web.Contracts.V1.Requests.CV
 {
@@ -22,24 +22,43 @@ namespace CVBuilder.Web.Contracts.V1.Requests.CV
         // public IFormFile Picture { get; set; }
         public string AboutMe { get; set; }
 
-        public List<Education> Educations { get; set; }
-        public List<Experience> Experiences { get; set; }
-        public List<CVSkill> Skills { get; set; } = new();
-        public List<CVLanguage> UserLanguages { get; set; } = new();
+        public List<CVEducationRequest> Educations { get; set; }
+        public List<CVExperienceRequest> Experiences { get; set; }
+        public List<CVSkillRequest> Skills { get; set; } = new();
+        public List<CVLanguageRequesst> UserLanguages { get; set; } = new();
     }
 
-    public class CVSkill
+    public class CVSkillRequest
     {
         public int? Id { get; set; }
         public string Name { get; set; }
-        public int Level { get; set; }
+        public SkillLevel Level { get; set; }
     }
 
-    public class CVLanguage
+    public class CVLanguageRequesst
     {
         public int? Id { get; set; }
         public string Name { get; set; }
-        public int Level { get; set; }
+        public LanguageLevel Level { get; set; }
+    }
+
+    public class CVExperienceRequest
+    {
+        public string Company { get; set; }
+        public string Position { get; set; }
+        public string Description { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+    }
+
+    public class CVEducationRequest
+    {
+        public string InstitutionName { get; set; }
+        public string Specialization { get; set; }
+        public string Degree { get; set; }
+        public string Description { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 
 

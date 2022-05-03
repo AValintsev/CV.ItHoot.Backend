@@ -8,6 +8,9 @@ using CVBuilder.Web.Contracts.V1.Requests.CV;
 using CVBuilder.Web.Contracts.V1.Requests.CV.SharedCvRequest;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
 using Microsoft.AspNetCore.Http;
+using CVEducationRequest = CVBuilder.Web.Contracts.V1.Requests.CV.CVEducationRequest;
+using CVExperienceRequest = CVBuilder.Web.Contracts.V1.Requests.CV.CVExperienceRequest;
+using CVSkillRequest = CVBuilder.Web.Contracts.V1.Requests.CV.CVSkillRequest;
 
 namespace CVBuilder.Web.Mappers
 {
@@ -18,15 +21,12 @@ namespace CVBuilder.Web.Mappers
             CreateMap<GetAllCvCardRequest, GetAllCvCardQueries>();
             CreateMap<GetAllCvCardResult, GetAllCvCardResponse>();
             CreateMap<CvCardResult, CvCardResponse>();
-
-
-
             CreateMap<CreateCvRequest, CreateCvCommand>();
-
-            CreateMap<Contracts.V1.Requests.CV.CVSkill, Application.CV.Commands.CVSkill>();
-            CreateMap<Contracts.V1.Requests.CV.CVLanguage, Application.CV.Commands.CVLanguage>();
-
-
+            CreateMap<CVEducationRequest, CVEducation>();
+            CreateMap<CVExperienceRequest, CVExperience>();
+            CreateMap<CVSkillRequest, CVSkill>();
+            CreateMap<CVLanguageRequesst, CVLanguage>();
+            
             CreateMap<IFormFile, CreateFileCommand>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(r => r.FileName))
                 .ForMember(dest => dest.ContentType, opt => opt.MapFrom(r => r.ContentType))
@@ -36,13 +36,6 @@ namespace CVBuilder.Web.Mappers
                 .ConvertUsing(source => MapFile(source));
 
             CreateMap<GetCvByIdRequest, GetCvByIdQueries>();
-
-            //CreateMap<UpdateEducation,EducationRoute>
-
-            CreateMap<EducationCommand, RequestEducation>().ReverseMap();
-            CreateMap<ExperienceCommand, RequestExperience>().ReverseMap();
-            CreateMap<SkillCommand, RequestSkill>().ReverseMap();
-            CreateMap<UserLanguageCommand, RequestUserLanguage>().ReverseMap();
             CreateMap<UpdateCvCommand, RequestCvUpdate>().ReverseMap();
 
         }
@@ -60,8 +53,7 @@ namespace CVBuilder.Web.Mappers
                 return memoryStream.ToArray();
             }
         }
-
-        public static List<CreateFileCommand> MapFile(IFormFile source)
+        private static List<CreateFileCommand> MapFile(IFormFile source)
         {
             if (source == null)
             {

@@ -15,8 +15,11 @@ namespace CVBuilder.Application.CV.Mapper
         {
 
             CreateMap<CreateCvCommand, Cv>()
-                .ForMember(e => e.Files, d => d.MapFrom(c => c.Picture))
-                .ForMember(x => x.LevelSkills, y => y.MapFrom(z => z.Skills));
+                // .ForMember(e => e.Files, d => d.MapFrom(c => c.Picture))
+                .ForMember(x => x.LevelSkills, y => y.MapFrom(z => z.Skills))
+                .ForMember(x => x.LevelLanguages, y => y.MapFrom(z => z.UserLanguages))
+                .ForMember(x => x.Educations, y => y.MapFrom(x => x.Educations))
+                .ForMember(x => x.Experiences, y => y.MapFrom(x => x.Experiences));
             CreateMap<CVSkill, Skill>();
             CreateMap<CVSkill, LevelSkill>()
                 .ForMember(x => x.Id, y => y.Ignore())
@@ -29,6 +32,37 @@ namespace CVBuilder.Application.CV.Mapper
                         CreatedAt = DateTime.UtcNow
                     }
                     : null));
+            
+            CreateMap<CVLanguage, LevelLanguage>()
+                .ForMember(x => x.Id, y => y.Ignore())
+                .ForMember(x => x.UserLanguageId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.LanguageLevel, y => y.MapFrom(z => z.Level))
+                .ForMember(x => x.UserLanguage, y => y.MapFrom(z => z.Id == null
+                    ? new UserLanguage()
+                    {
+                        Name = z.Name,
+                        CreatedAt = DateTime.UtcNow
+                    }
+                    : null));
+            
+            CreateMap<CVSkill, LevelSkill>()
+                .ForMember(x => x.Id, y => y.Ignore())
+                .ForMember(x => x.SkillId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.SkillLevel, y => y.MapFrom(z => z.Level))
+                .ForMember(x => x.Skill, y => y.MapFrom(z => z.Id == null
+                    ? new Skill()
+                    {
+                        Name = z.Name,
+                        CreatedAt = DateTime.UtcNow
+                    }
+                    : null));
+            CreateMap<CVEducation, Education>()
+                .ForMember(x => x.StartDate, y => y.MapFrom(z => z.StartDate.GetValueOrDefault().Date))
+                    .ForMember(x => x.EndDate, y => y.MapFrom(z => z.EndDate.GetValueOrDefault().Date));
+            CreateMap<CVExperience, Experience>()
+                .ForMember(x => x.StartDate, y => y.MapFrom(z => z.StartDate.GetValueOrDefault().Date))
+                .ForMember(x => x.EndDate, y => y.MapFrom(z => z.EndDate.GetValueOrDefault().Date));
+            
             CreateMap<CreateFileCommand, File>()
                 .ForMember(p => p.ContentType, b => b.MapFrom(c => c.ContentType))
                 .ForMember(p => p.Data, b => b.MapFrom(c => c.Data));
@@ -59,7 +93,6 @@ namespace CVBuilder.Application.CV.Mapper
             {
                 return new UserLanguageResult
                 {
-                    CvId = levelLanguage.CvId,
                     LanguageId = levelLanguage.UserLanguageId,
                     Name = levelLanguage.UserLanguage.Name,
                     Level = (int)levelLanguage.LanguageLevel,

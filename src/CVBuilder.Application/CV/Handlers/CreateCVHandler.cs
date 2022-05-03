@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CVBuilder.Application.CV.Commands;
+﻿using CVBuilder.Application.CV.Commands;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using CVBuilder.Models.Entities;
 using CVBuilder.Repository;
 using AutoMapper;
 using CVBuilder.Application.CV.Responses.CvResponse;
-using CVBuilder.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.CV.Handlers
 {
@@ -21,15 +15,15 @@ namespace CVBuilder.Application.CV.Handlers
         private readonly IMapper _mapper;
         private readonly IRepository<Cv, int> _cvRepository;
         private readonly IRepository<Skill, int> _skillRepository;
-        private readonly IRepository<LevelSkill, int> _levelSkillRepository;
+        private readonly IRepository<UserLanguage, int> _languageRepository;
         public CreateCVHandler(
             IMapper mapper,
             IRepository<Cv, int> cvRepository,
-            IRepository<Skill, int> skillRepository, IRepository<LevelSkill, int> levelSkill)
+            IRepository<Skill, int> skillRepository, IRepository<LevelSkill, int> levelSkill, IRepository<UserLanguage, int> languageRepository)
         {
             _cvRepository = cvRepository;
             _skillRepository = skillRepository;
-            _levelSkillRepository = levelSkill;
+            _languageRepository = languageRepository;
             _mapper = mapper;
         }
 
@@ -37,10 +31,26 @@ namespace CVBuilder.Application.CV.Handlers
         {
             var cv = _mapper.Map<Cv>(command);
             await CheckSkillsDuplicate(cv);
+            await CheckLanguageDuplicate(cv);
             cv = await _cvRepository.CreateAsync(cv);
             return _mapper.Map<CvResult>(cv);
         }
 
+        private async Task CheckLanguageDuplicate(Cv cv)
+        {
+            var allLanguage = await _languageRepository.GetListAsync();
+            foreach (var language in allLanguage)
+            {
+                foreach (var cvLanguage in cv.LevelLanguages)
+                {
+                    if (language.Name == cvLanguage.UserLanguage.Name)
+                    {
+                        cvLanguage.UserLanguage = language;
+                        cvLanguage.UserLanguageId = language.Id;
+                    }     
+                }
+            }
+        }
         private async Task CheckSkillsDuplicate(Cv cv)
         {
             var allSkills = await _skillRepository.GetListAsync();
