@@ -30,9 +30,4 @@
 		<ProjectReference Include="..\DataLayer\CVBuilder.Models\CVBuilder.Models.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Contracts\V1\Requests\Data\" />
-	  <Folder Include="data\" />
-	</ItemGroup>
-
 </Project>
