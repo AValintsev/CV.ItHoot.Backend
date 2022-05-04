@@ -47,6 +47,7 @@
             public const string GetAllCv = BaseCv ;
             public const string GetCvById = BaseCv+"/{id}";
             public const string UpdateCv = BaseCv;
+            public const string DeleteCv = BaseCv+"/{id}";
 
         } 
         public static class File

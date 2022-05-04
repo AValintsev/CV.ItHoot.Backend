@@ -67,5 +67,19 @@ namespace CVBuilder.Web.Controllers.V1
 
             return Ok(response);
         }
+        
+        /// <summary>
+        /// Deleting an existing CV
+        /// </summary>
+        [HttpDelete(ApiRoutes.CV.DeleteCv)]
+        public async Task<ActionResult<CvResult>> DeleteCv(int id)
+        {
+            var command = new DeleteCvCommand
+            {
+                Id = id
+            };
+            var response = await Mediator.Send(command);
+            return Ok();
+        }
     }
 }
