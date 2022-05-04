@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CVBuilder.Application.CV.Commands;
 using CVBuilder.Application.CV.Commands.SharedCommands;
+using CVBuilder.Application.CV.Responses;
 using CVBuilder.Application.CV.Responses.CvResponse;
 
 namespace CVBuilder.Application.CV.Mapper
@@ -62,9 +63,12 @@ namespace CVBuilder.Application.CV.Mapper
 
             CreateMap<Education, EducationResult>();
             CreateMap<Experience, ExperienceResult>();
+            CreateMap<Cv, CvCardResult>();
 
             #endregion
         }
+
+        #region Methods
 
         private static List<UserLanguageResult> MapToUserLanguageResult(IEnumerable<LevelLanguage> levelLanguages)
         {
@@ -117,5 +121,7 @@ namespace CVBuilder.Application.CV.Mapper
             //todo Remove from mapper
             return @"https://localhost:5001/api/v1/file/id?id=" + file.Id;
         }
+
+        #endregion
     }
 }
