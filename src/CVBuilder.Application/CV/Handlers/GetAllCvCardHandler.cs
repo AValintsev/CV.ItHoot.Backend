@@ -29,16 +29,23 @@ namespace CVBuilder.Application.CV.Handlers
             if (request.UserRoles.Contains("HR"))
             {
                 result = await _cvRepository.Table
+                    .Include(x=>x.LevelSkills)
+                    .ThenInclude(x=>x.Skill)
                     .Where(x => x.IsDraft == false)
                     .ToListAsync(cancellationToken: cancellationToken);
             }
             else if (request.UserRoles.Contains("Admin"))
             {
-                result = await _cvRepository.GetListAsync();
+                result = await _cvRepository.Table
+                    .Include(x => x.LevelSkills)
+                    .ThenInclude(x => x.Skill)
+                    .ToListAsync(cancellationToken: cancellationToken);
             }
             else if (request.UserRoles.Contains("User"))
             {
                 result = await _cvRepository.Table
+                    .Include(x=>x.LevelSkills)
+                    .ThenInclude(x=>x.Skill)
                     .Where(x => x.UserId == request.UserId)
                     .ToListAsync(cancellationToken: cancellationToken);
             }

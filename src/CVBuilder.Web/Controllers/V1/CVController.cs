@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CVBuilder.Application.CV.Commands;
 using CVBuilder.Application.CV.Queries;
 using CVBuilder.Application.CV.Responses.CvResponse;
@@ -28,13 +29,13 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get list of CV
         /// </summary>
         [HttpGet(ApiRoutes.CV.GetAllCv)]
-        public async Task<ActionResult<GetAllCvCardResponse>> GetAllCvCard([FromQuery]GetAllCvCardRequest request)
+        public async Task<ActionResult<IEnumerable<CvCardResponse>>> GetAllCvCard([FromQuery]GetAllCvCardRequest request)
         {
             var command = Mapper.Map<GetAllCvCardQueries>(request);
             command.UserId = LoggedUserId;
             command.UserRoles = LoggedUserRoles;
             var response = await Mediator.Send(command);
-            var result = Mapper.Map<GetAllCvCardResponse>(response);
+            var result = Mapper.Map<List<CvCardResponse>>(response.CvCards);
             return Ok(result);
         }
     

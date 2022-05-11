@@ -62,7 +62,11 @@ namespace CVBuilder.Application.CV.Mapper
 
             CreateMap<Education, EducationResult>();
             CreateMap<Experience, ExperienceResult>();
-            CreateMap<Cv, CvCardResult>();
+            CreateMap<Cv, CvCardResult>()
+                .ForMember(x=>x.Skills, y=>y.MapFrom(x=>x.LevelSkills));
+            CreateMap<LevelSkill, SkillResult>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Skill.Name));
 
             #endregion
         }

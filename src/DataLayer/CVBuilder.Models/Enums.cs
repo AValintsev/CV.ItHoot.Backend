@@ -8,7 +8,8 @@ namespace CVBuilder.Models
         {
             [Description("Admin")] Admin = 1,
             [Description("HR")] HR = 2,
-            [Description("User")] User = 3
+            [Description("User")] User = 3,
+            [Description("Client")] Client = 4
         }
     }
 

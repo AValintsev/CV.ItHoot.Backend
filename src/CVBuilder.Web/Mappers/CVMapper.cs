@@ -4,9 +4,11 @@ using CVBuilder.Application.CV.Commands;
 using CVBuilder.Application.CV.Commands.SharedCommands;
 using CVBuilder.Application.CV.Queries;
 using CVBuilder.Application.CV.Responses;
+using CVBuilder.Application.CV.Responses.CvResponse;
 using CVBuilder.Web.Contracts.V1.Requests.CV;
 using CVBuilder.Web.Contracts.V1.Requests.CV.SharedCvRequest;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
+using CVBuilder.Web.Contracts.V1.Responses.Skill;
 using Microsoft.AspNetCore.Http;
 
 namespace CVBuilder.Web.Mappers
@@ -17,7 +19,10 @@ namespace CVBuilder.Web.Mappers
         {
             CreateMap<GetAllCvCardRequest, GetAllCvCardQueries>();
             CreateMap<GetAllCvCardResult, GetAllCvCardResponse>();
-            CreateMap<CvCardResult, CvCardResponse>();
+            CreateMap<CvCardResult, CvCardResponse>()
+                .ForMember(x=>x.Skills, y=>y.MapFrom(z=>z.Skills));
+
+            CreateMap<SkillResult, SkillResponse>();
             CreateMap<CreateCvRequest, CreateCvCommand>();
             CreateMap<EducationRequest, EducationCommand>();
             CreateMap<ExperienceRequest, ExperienceCommand>();
