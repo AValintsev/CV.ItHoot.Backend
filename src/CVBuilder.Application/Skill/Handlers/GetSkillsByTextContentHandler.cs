@@ -12,10 +12,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Skill.Handlers
 {
-    class GetSkillsByTextContentHandler: IRequestHandler<GetSkillByContainInTextQuery, IEnumerable<SkillDTO>>
+    class GetSkillsByTextContentHandler : IRequestHandler<GetSkillByContainInTextQuery, IEnumerable<SkillDTO>>
     {
         private readonly IRepository<Models.Entities.Skill, int> _skillRepository;
         private readonly IMapper _mapper;
+
         public GetSkillsByTextContentHandler(IRepository<Models.Entities.Skill, int> cvRepository, IMapper mapper)
         {
             _skillRepository = cvRepository;
@@ -23,23 +24,24 @@ namespace CVBuilder.Application.Skill.Handlers
         }
 
 
-        public async Task<IEnumerable<SkillDTO>> Handle(GetSkillByContainInTextQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<SkillDTO>> Handle(GetSkillByContainInTextQuery request,
+            CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.Content))
             {
                 request.Content = "";
             }
 
-            var skills=  await _skillRepository
+            var skills = await _skillRepository
                 .Table
                 .Where(skill => skill.Name.ToLower().StartsWith(request.Content.ToLower()))
                 .Take(10)
                 .ToListAsync();
 
 
-           var result = _mapper.Map<List<SkillDTO>>(skills);
+            var result = _mapper.Map<List<SkillDTO>>(skills);
 
-           return result;
+            return result;
         }
     }
 }

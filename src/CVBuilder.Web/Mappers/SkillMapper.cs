@@ -10,6 +10,8 @@ namespace CVBuilder.Web.Mappers
         {
             CreateMap<GetSkillByContainText, GetSkillByContainInTextQuery>();
             CreateMap<CreateSkillRequest, CreateSkillCommand>();
+            CreateMap<GetAllSkillRequest, GetAllSkillQuery>();
+            CreateMap<UpdateSkillRequest, UpdateSkillCommand>();
         }
     }
 }

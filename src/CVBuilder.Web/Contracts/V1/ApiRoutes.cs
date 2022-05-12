@@ -62,8 +62,10 @@
         {
             private const string BaseSkill = Base + "/skills";
             public const string CreateSkill = BaseSkill;
+            public const string UpdateSkill = BaseSkill;
+            public const string DeleteSkill = BaseSkill+"/{id}";
             public const string GetSkill = BaseSkill+"/search";
-            public const string SkillsGetAll = BaseSkill + "/all";
+            public const string SkillsGetAll = BaseSkill;
         }
 
         public static class EducationRoute
@@ -85,6 +87,8 @@
         {
             private const string BaseLanguage = Base + "/languages";
             public const string CreateLanguage = BaseLanguage;
+            public const string UpdateLanguage = BaseLanguage;
+            public const string DeleteLanguage = BaseLanguage+"/{id}";
             public const string GetLanguage = BaseLanguage+"/search";
             public const string LanguageGetAll = BaseLanguage;
         }

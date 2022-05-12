@@ -24,7 +24,44 @@ namespace CVBuilder.Web.Controllers.V1
 
             return Ok(result);
         }
+        
+        
+        /// <summary>
+        /// Get list of Skills
+        /// </summary>
+        [HttpGet(ApiRoutes.SkillRoute.SkillsGetAll)]
+        public async Task<ActionResult<IEnumerable<SkillDTO>>> GetAllSkills([FromQuery] GetAllSkillRequest request)
+        {
+            var command = Mapper.Map<GetAllSkillQuery>(request);
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
 
+        
+        /// <summary>
+        /// Updates an existing Skill
+        /// </summary>
+        [HttpPut(ApiRoutes.SkillRoute.UpdateSkill)]
+        public async Task<ActionResult<SkillDTO>> UpdateSkill(UpdateSkillRequest request)
+        {
+            var command = Mapper.Map<UpdateSkillCommand>(request);
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Deleting an existing Skill
+        /// </summary>
+        [HttpDelete(ApiRoutes.SkillRoute.DeleteSkill)]
+        public async Task<ActionResult> DeleteSkill([FromRoute]int id)
+        {
+            var command = new DeleteSkillCommand
+            {
+                Id = id
+            };
+            var result = await Mediator.Send(command);
+            return Ok();
+        }
         /// <summary>
         /// Get Skill by content Text
         /// </summary>
