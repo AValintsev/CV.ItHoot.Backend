@@ -45,6 +45,7 @@ namespace CVBuilder.Application.CV.Handlers
         {
             dtoCv.UserId = requestCV.UserId;
             dtoCv.UpdatedAt = DateTime.UtcNow;
+            dtoCv.AboutMe = requestCV.AboutMe;
             dtoCv.CvName = requestCV.CvName;
             dtoCv.FirstName = requestCV.FirstName;
             dtoCv.LastName = requestCV.LastName;
