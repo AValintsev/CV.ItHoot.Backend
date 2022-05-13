@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using CVBuilder.Application.CV.Queries;
 using CVBuilder.Application.Extensions;
 using CVBuilder.Models.Entities;
@@ -41,9 +42,13 @@ namespace CVBuilder.Application.CV.Handlers
             {
                 throw ValidationException.Build(nameof(request.Id), "Not Found");
             }
+            
+            
 
             var cvResult = _mapper.Map<CvResult>(cv);
-
+            var inArray = cv.Files?.FirstOrDefault()?.Data;
+            if (inArray != null)
+                cvResult.Picture = Convert.ToBase64String(inArray);
 
             return cvResult;
         }

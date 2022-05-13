@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CVBuilder.Application.CV.Commands;
@@ -6,6 +7,7 @@ using CVBuilder.Application.CV.Responses.CvResponse;
 using CVBuilder.Models.Entities;
 using CVBuilder.Repository;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.CV.Handlers
 {
@@ -24,7 +26,10 @@ namespace CVBuilder.Application.CV.Handlers
 
         public async Task<bool> Handle(DeleteCvCommand command, CancellationToken cancellationToken)
         {
-            await _cvRepository.DeleteAsync(command.Id);
+            var cv = _cvRepository.Table.Include(x=>x.Files).FirstOrDefault(x => x.Id == command.Id);
+            cv.Files = null;
+            await _cvRepository.UpdateAsync(cv);
+            await _cvRepository.DeleteAsync(cv.Id);
             return true;
         }
 

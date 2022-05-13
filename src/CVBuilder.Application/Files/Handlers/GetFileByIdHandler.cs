@@ -25,7 +25,7 @@ namespace CVBuilder.Application.Files.Handlers
         }
         public async Task<FileResult> Handle(GetFileByIdComand request, CancellationToken cancellationToken)
         {
-            var file =  await _fileRepository.Table.FirstOrDefaultAsync(file => file.Id == request.Id, cancellationToken);
+            var file =  await _fileRepository.Table.FirstOrDefaultAsync(file => file.CvId == request.Id, cancellationToken);
 
             return _mapper.Map<FileResult>(file);
         }
