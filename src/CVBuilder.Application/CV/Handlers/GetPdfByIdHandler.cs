@@ -24,10 +24,18 @@ namespace CVBuilder.Application.CV.Handlers
             var cv = _cvRepository.GetByIdAsync(request.ResumeId);
             if (cv == null)
                 throw new NullReferenceException("Resume not found");
-
+            var array = new[]
+            {
+                ""
+            };
             using var browserFetcher = new BrowserFetcher();
             await browserFetcher.DownloadAsync();
-            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions {Headless = true});
+            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions {Headless = true, IgnoredDefaultArgs =  new[]
+            {
+                "--disable-extensions"
+            },
+                Args = new[] { "--no-sandbox" },
+            });
             await using var page = await browser.NewPageAsync();
             await page.GoToAsync("https://tester-lamvb6we0-sominola.vercel.app");
             await page.EvaluateExpressionHandleAsync("document.fonts.ready");
