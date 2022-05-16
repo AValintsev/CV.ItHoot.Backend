@@ -28,13 +28,14 @@ namespace CVBuilder.Application.CV.Handlers
             {
                 ""
             };
-            using var browserFetcher = new BrowserFetcher();
-            await browserFetcher.DownloadAsync();
-            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions {Headless = true, IgnoredDefaultArgs =  new[]
+            var downloadsFolder = Path.GetTempPath();
+            using var browserFetcher = new BrowserFetcher(new BrowserFetcherOptions
             {
-                "--disable-extensions"
-            },
-                Args = new[] { "--no-sandbox" },
+                Path = downloadsFolder
+            });
+            await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
+            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions {Headless = true,
+                ExecutablePath = browserFetcher.RevisionInfo(BrowserFetcher.DefaultChromiumRevision).ExecutablePath
             });
             await using var page = await browser.NewPageAsync();
             await page.GoToAsync("https://tester-lamvb6we0-sominola.vercel.app");
