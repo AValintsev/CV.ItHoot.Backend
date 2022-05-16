@@ -44,6 +44,7 @@
         {
             private const string BaseCv = Base + "/cv";
             public const string CreateCv = BaseCv;
+            public const string CvFile = BaseCv + "/pdf/{id}";
             public const string GetAllCv = BaseCv ;
             public const string GetCvById = BaseCv+"/{id}";
             public const string UpdateCv = BaseCv;

@@ -1,5 +1,4 @@
-﻿using CVBuilder.Application.CV.Responses.CvResponse;
-using MediatR;
+﻿using MediatR;
 
 namespace CVBuilder.Application.CV.Commands
 {

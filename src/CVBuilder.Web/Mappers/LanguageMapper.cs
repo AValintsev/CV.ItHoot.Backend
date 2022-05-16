@@ -1,6 +1,5 @@
 ﻿using CVBuilder.Application.Language.Commands;
 using CVBuilder.Application.Language.Queries;
-using CVBuilder.Application.Skill.Commands;
 using CVBuilder.Web.Contracts.V1.Requests.Language;
 
 namespace CVBuilder.Web.Mappers

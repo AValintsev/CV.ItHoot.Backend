@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using AutoMapper;
 using CVBuilder.Application.CV.Commands;
 using CVBuilder.Repository;
 using MediatR;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CVBuilder.Application.CV.Responses.CvResponse;
-using CVBuilder.Models;
 
 namespace CVBuilder.Application.CV.Handlers
 {

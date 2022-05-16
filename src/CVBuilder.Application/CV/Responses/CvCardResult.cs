@@ -3,7 +3,6 @@ using CVBuilder.Application.CV.Responses.CvResponse;
 
 namespace CVBuilder.Application.CV.Responses
 {
-    using Models.Entities;
     public class CvCardResult
     {
         public int Id { get; set; }

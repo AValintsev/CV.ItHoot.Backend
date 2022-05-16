@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using CVBuilder.Application.CV.Commands;
 using CVBuilder.Application.CV.Queries;
@@ -13,6 +14,18 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class CVController : BaseAuthApiController
     {
+        [HttpGet(ApiRoutes.CV.CvFile)]
+        public async Task<ActionResult<Stream>> CvFile(int id)
+        {
+            var command = new GetPdfByIdQueries
+            {
+                ResumeId = id
+            };
+
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
         /// <summary>
         /// Create a new CV
         /// </summary>
@@ -29,7 +42,8 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get list of CV
         /// </summary>
         [HttpGet(ApiRoutes.CV.GetAllCv)]
-        public async Task<ActionResult<IEnumerable<CvCardResponse>>> GetAllCvCard([FromQuery]GetAllCvCardRequest request)
+        public async Task<ActionResult<IEnumerable<CvCardResponse>>> GetAllCvCard(
+            [FromQuery] GetAllCvCardRequest request)
         {
             var command = Mapper.Map<GetAllCvCardQueries>(request);
             command.UserId = LoggedUserId;
@@ -38,12 +52,12 @@ namespace CVBuilder.Web.Controllers.V1
             var result = Mapper.Map<List<CvCardResponse>>(response.CvCards);
             return Ok(result);
         }
-    
+
         /// <summary>
         /// Get CV by ID
         /// </summary>
         [HttpGet(ApiRoutes.CV.GetCvById)]
-        public async Task<ActionResult<CvResult>> GetCvById(int  id)
+        public async Task<ActionResult<CvResult>> GetCvById(int id)
         {
             var command = new GetCvByIdQueries
             {
@@ -68,7 +82,7 @@ namespace CVBuilder.Web.Controllers.V1
 
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Deleting an existing CV
         /// </summary>

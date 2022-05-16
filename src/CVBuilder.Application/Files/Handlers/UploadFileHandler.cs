@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using AutoMapper;
 using CVBuilder.Application.Files.Comands;
 using CVBuilder.Application.Files.Responses;

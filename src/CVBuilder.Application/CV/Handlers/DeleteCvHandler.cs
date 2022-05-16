@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CVBuilder.Application.CV.Commands;
-using CVBuilder.Application.CV.Responses.CvResponse;
 using CVBuilder.Models.Entities;
 using CVBuilder.Repository;
 using MediatR;
