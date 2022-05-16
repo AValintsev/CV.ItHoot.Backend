@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,18 +24,16 @@ namespace CVBuilder.Application.CV.Handlers
             var cv = _cvRepository.GetByIdAsync(request.ResumeId);
             if (cv == null)
                 throw new NullReferenceException("Resume not found");
-            var array = new[]
+            
+            using var browserFetcher = new BrowserFetcher();
+            // await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
+            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
             {
-                ""
-            };
-            var downloadsFolder = Path.GetTempPath();
-            using var browserFetcher = new BrowserFetcher(new BrowserFetcherOptions
-            {
-                Path = downloadsFolder
-            });
-            await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
-            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions {Headless = true,
-                ExecutablePath = browserFetcher.RevisionInfo(BrowserFetcher.DefaultChromiumRevision).ExecutablePath
+                Headless = true,
+                Args = new[]
+                {
+                    "--no-sandbox"
+                }
             });
             await using var page = await browser.NewPageAsync();
             await page.GoToAsync("https://tester-lamvb6we0-sominola.vercel.app");
