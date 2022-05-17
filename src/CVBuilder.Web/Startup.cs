@@ -1,5 +1,7 @@
+using System;
 using CVBuilder.Application.Core.Infrastructure.Interfaces;
 using CVBuilder.Application.Core.Settings;
+using CVBuilder.Application.CV.Commands;
 using CVBuilder.EFContext;
 using CVBuilder.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +33,8 @@ namespace CVBuilder.Web
 
             services.AddDbContext<EFDbContext>(options =>
                 options.UseSqlServer(connectionString));
-
+            services.AddSingleton<BrowserExtension>();
+            // serviceProvider.GetRequiredService<BrowserExtension>().Init();
             (_engine, _appSettings) = services.ConfigureApplicationServices(_configuration, _webHostEnvironment);
         }
 
@@ -42,10 +45,11 @@ namespace CVBuilder.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BrowserExtension browserExtension)
         {
+            browserExtension.Init();
             app.ConfigureRequestPipeline();
-            //app.StartEngine();
+            // app.StartEngine();
         }
     }
 }

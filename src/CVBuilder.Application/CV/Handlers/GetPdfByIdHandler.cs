@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using CVBuilder.Application.CV.Commands;
 using CVBuilder.Application.CV.Queries;
 using CVBuilder.Models.Entities;
 using CVBuilder.Repository;
@@ -13,28 +14,31 @@ namespace CVBuilder.Application.CV.Handlers
     public class GetPdfByIdHandler : IRequestHandler<GetPdfByIdQueries, Stream>
     {
         private readonly IRepository<Cv, int> _cvRepository;
+        private readonly BrowserExtension _browserExtension;
 
-        public GetPdfByIdHandler(IRepository<Cv, int> cvRepository)
+        public GetPdfByIdHandler(IRepository<Cv, int> cvRepository,BrowserExtension browserExtension)
         {
             _cvRepository = cvRepository;
+            _browserExtension = browserExtension;
         }
 
         public async Task<Stream> Handle(GetPdfByIdQueries request, CancellationToken cancellationToken)
         {
-            var cv = _cvRepository.GetByIdAsync(request.ResumeId);
+            var cv = await _cvRepository.GetByIdAsync(request.ResumeId);
             if (cv == null)
                 throw new NullReferenceException("Resume not found");
             
-            using var browserFetcher = new BrowserFetcher();
+            // using var browserFetcher = new BrowserFetcher();
             // await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
-            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
-            {
-                Headless = true,
-                Args = new[]
-                {
-                    "--no-sandbox"
-                }
-            });
+            // await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+            // {
+            //     Headless = true,
+            //     Args = new[]
+            //     {
+            //         "--no-sandbox"
+            //     }
+            // });
+            var browser = _browserExtension.Browser;
             await using var page = await browser.NewPageAsync();
             await page.GoToAsync("https://tester-lamvb6we0-sominola.vercel.app");
             await page.EvaluateExpressionHandleAsync("document.fonts.ready");
