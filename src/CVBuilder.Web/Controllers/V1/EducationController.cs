@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using CVBuilder.Web.Contracts.V1;
-using CVBuilder.Web.Contracts.V1.Requests.Educatio;
 using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using CVBuilder.Application.Education.Commands;
 using CVBuilder.Application.Education.Responses;
-using EducationResult = CVBuilder.Application.CV.Responses.CvResponse.EducationResult;
+using CVBuilder.Web.Contracts.V1.Requests.Education;
+using EducationResult = CVBuilder.Application.Resume.Responses.CvResponse.EducationResult;
 
 namespace CVBuilder.Web.Controllers.V1
 {
@@ -18,7 +18,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Create a new Education
         /// </summary>
         [AllowAnonymous]
-        [HttpPost(ApiRoutes.EducationRoute.CreateEducation)]
+        [HttpPost(ApiRoutes.Education.CreateEducation)]
         public async Task<ActionResult<CreateEducationResult>> Create(CreateEducation query)
         {
             var command = Mapper.Map<CreateEducationCommand>(query);
@@ -30,7 +30,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get list of Educations
         /// </summary>
         [AllowAnonymous]
-        [HttpGet(ApiRoutes.EducationRoute.GetAllEducation)]
+        [HttpGet(ApiRoutes.Education.GetAllEducation)]
         public async Task<ActionResult<IEnumerable<EducationResult>>> GetAllEducations([FromQuery] GetAllEducation query)
         {
             var command = Mapper.Map<GetAllEducationsCommand>(query);
@@ -43,7 +43,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get Education by ID
         /// </summary>
         [AllowAnonymous]
-        [HttpGet(ApiRoutes.EducationRoute.GetEducation)]
+        [HttpGet(ApiRoutes.Education.GetEducation)]
         public async Task<ActionResult<EducationByIdResult>> GetEducations(int id)
         {
             var command = new GetEducationByIdCommand

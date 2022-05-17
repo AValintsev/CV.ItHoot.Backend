@@ -40,15 +40,16 @@
             public const string LevelSkill = BaseDataType + "/levelSkills";
         }
 
-        public static class CV
+        public static class Resume
         {
-            private const string BaseCv = Base + "/cv";
-            public const string CreateCv = BaseCv;
-            public const string CvFile = BaseCv + "/pdf/{id}";
-            public const string GetAllCv = BaseCv ;
-            public const string GetCvById = BaseCv+"/{id}";
-            public const string UpdateCv = BaseCv;
-            public const string DeleteCv = BaseCv+"/{id}";
+            private const string BaseCv = Base + "/resume";
+            public const string CreateResume = BaseCv;
+            public const string GetResumePdf = BaseCv + "/pdf/{id}";
+            public const string GetAllResume = BaseCv ;
+            public const string GetResumeById = BaseCv+"/{id}";
+            public const string UpdateResume = BaseCv;
+            public const string DeleteResume = BaseCv+"/{id}";
+            public const string UploadImage = BaseCv+"/{resumeId}/image";
 
         } 
         public static class File
@@ -59,7 +60,7 @@
             public const string GetAllFileUrl = BaseFile + "/list";
         }
 
-        public static class SkillRoute
+        public static class Skill
         {
             private const string BaseSkill = Base + "/skills";
             public const string CreateSkill = BaseSkill;
@@ -69,7 +70,7 @@
             public const string SkillsGetAll = BaseSkill;
         }
 
-        public static class EducationRoute
+        public static class Education
         {
             private const string BaseEducation = Base + "/educations";
             public const string CreateEducation = BaseEducation;

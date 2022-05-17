@@ -10,9 +10,9 @@ namespace CVBuilder.Application.Language.Handlers
 {
     public class DeleteLanguageHandler: IRequestHandler<DeleteLanguageCommand, bool>
     {
-        private readonly IRepository<UserLanguage, int> _languageRepository;
+        private readonly IRepository<Models.Entities.Language, int> _languageRepository;
         private readonly IMapper _mapper;
-        public DeleteLanguageHandler(IRepository<UserLanguage, int> languageRepository, IMapper mapper)
+        public DeleteLanguageHandler(IRepository<Models.Entities.Language, int> languageRepository, IMapper mapper)
         {
             _languageRepository = languageRepository;
             _mapper = mapper;

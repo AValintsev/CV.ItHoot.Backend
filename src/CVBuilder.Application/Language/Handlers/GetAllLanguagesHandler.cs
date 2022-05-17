@@ -12,10 +12,10 @@ namespace CVBuilder.Application.Language.Handlers
 {
     public class GetAllLanguagesHandler : IRequestHandler<GetAllLanguagesQuery, List<LanguageResult>>
     {
-        private readonly IRepository<UserLanguage, int> _repository;
+        private readonly IRepository<Models.Entities.Language, int> _repository;
         private readonly IMapper _mapper;
 
-        public GetAllLanguagesHandler(IRepository<UserLanguage, int> repository, IMapper mapper)
+        public GetAllLanguagesHandler(IRepository<Models.Entities.Language, int> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

@@ -16,7 +16,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Create a new Skill
         /// </summary>
-        [HttpPost(ApiRoutes.SkillRoute.CreateSkill)]
+        [HttpPost(ApiRoutes.Skill.CreateSkill)]
         public async Task<ActionResult<SkillDTO>> Create([FromBody] CreateSkillRequest request)
         {
             var command = Mapper.Map<CreateSkillCommand>(request);
@@ -29,7 +29,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Get list of Skills
         /// </summary>
-        [HttpGet(ApiRoutes.SkillRoute.SkillsGetAll)]
+        [HttpGet(ApiRoutes.Skill.SkillsGetAll)]
         public async Task<ActionResult<IEnumerable<SkillDTO>>> GetAllSkills([FromQuery] GetAllSkillRequest request)
         {
             var command = Mapper.Map<GetAllSkillQuery>(request);
@@ -41,7 +41,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Updates an existing Skill
         /// </summary>
-        [HttpPut(ApiRoutes.SkillRoute.UpdateSkill)]
+        [HttpPut(ApiRoutes.Skill.UpdateSkill)]
         public async Task<ActionResult<SkillDTO>> UpdateSkill(UpdateSkillRequest request)
         {
             var command = Mapper.Map<UpdateSkillCommand>(request);
@@ -52,7 +52,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Deleting an existing Skill
         /// </summary>
-        [HttpDelete(ApiRoutes.SkillRoute.DeleteSkill)]
+        [HttpDelete(ApiRoutes.Skill.DeleteSkill)]
         public async Task<ActionResult> DeleteSkill([FromRoute]int id)
         {
             var command = new DeleteSkillCommand
@@ -65,7 +65,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Get Skill by content Text
         /// </summary>
-        [HttpGet(ApiRoutes.SkillRoute.GetSkill)]
+        [HttpGet(ApiRoutes.Skill.GetSkill)]
         public async Task<ActionResult<IEnumerable<SkillDTO>>> GetSkill([FromQuery] GetSkillByContainText query)
         {
             var command = Mapper.Map<GetSkillByContainInTextQuery>(query);

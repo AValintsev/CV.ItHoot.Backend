@@ -64,9 +64,9 @@ namespace CVBuilder.EFContext
 
         static async Task SeedLanguageAsync(EFDbContext context)
         {
-            if (!await context.UserLanguages.AnyAsync())
+            if (!await context.Languages.AnyAsync())
             {
-                await context.UserLanguages.AddRangeAsync(new List<UserLanguage>()
+                await context.Languages.AddRangeAsync(new List<Language>()
                 {
                     new ()
                     {
@@ -113,16 +113,16 @@ namespace CVBuilder.EFContext
 
         static async Task SeedCv(EFDbContext context)
         { 
-            if (await context.CVs.AnyAsync())
+            if (await context.Resumes.AnyAsync())
             {
                 return;
             }
 
             var skills = await context.Skills.Take(2).ToListAsync();
 
-            var languages = await context.UserLanguages.Take(2).ToListAsync();
+            var languages = await context.Languages.Take(2).ToListAsync();
 
-            var cv = new Cv()
+            var cv = new Resume()
             {
                 FirstName = "Andrii",
                 LastName = "Shevchuk",
@@ -145,12 +145,12 @@ namespace CVBuilder.EFContext
                 {
                     new ()
                     {
-                        UserLanguageId = languages[0].Id,
+                        LanguageId = languages[0].Id,
                         LanguageLevel = LanguageLevel.Advanced
                     },
                     new ()
                     {
-                        UserLanguageId = languages[1].Id,
+                        LanguageId = languages[1].Id,
                         LanguageLevel = LanguageLevel.Advanced
                     }
                 },

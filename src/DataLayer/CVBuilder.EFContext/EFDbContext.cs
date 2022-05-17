@@ -14,13 +14,14 @@ namespace CVBuilder.EFContext
         {
         }
         public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
-        public virtual DbSet<Cv> CVs { get; set; }
+        public virtual DbSet<Resume> Resumes { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<Experience> Experiences { get; set; }
-        public virtual DbSet<UserLanguage> UserLanguages { get; set; }
+        public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<File> Files { get; set; }
-        public virtual DbSet<LevelSkill> LevelSkillS { get; set; }
+        public virtual DbSet<LevelSkill> LevelSkills { get; set; }
         public virtual  DbSet<LevelLanguage> LevelLanguages { get; set; }
 
 

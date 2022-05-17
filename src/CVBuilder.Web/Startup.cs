@@ -1,7 +1,7 @@
 using System;
 using CVBuilder.Application.Core.Infrastructure.Interfaces;
 using CVBuilder.Application.Core.Settings;
-using CVBuilder.Application.CV.Commands;
+using CVBuilder.Application.Resume.Commands;
 using CVBuilder.EFContext;
 using CVBuilder.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
