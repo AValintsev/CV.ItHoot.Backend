@@ -14,8 +14,11 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class CVController : BaseAuthApiController
     {
+        /// <summary>
+        /// Get a PDF file
+        /// </summary>
         [HttpGet(ApiRoutes.CV.CvFile)]
-        public async Task<ActionResult<Stream>> CvFile(int id)
+        public async Task<ActionResult> CvFile(int id)
         {
             var command = new GetPdfByIdQueries
             {
