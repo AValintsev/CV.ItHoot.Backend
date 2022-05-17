@@ -37,7 +37,7 @@ namespace CVBuilder.Application.Resume.Handlers
             var file = await page.PdfStreamAsync(new PdfOptions
             {
                 PrintBackground = true,
-                Height = 1415
+                Height = 1450
             });
             return file;
         }

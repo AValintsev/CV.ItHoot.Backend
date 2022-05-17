@@ -48,7 +48,7 @@ namespace CVBuilder.Web.Controllers.V1
             };
 
             var result = await Mediator.Send(command);
-            return Ok(result);
+            return File(result, "application/pdf","Resume.pdf");
         }
 
         /// <summary>
