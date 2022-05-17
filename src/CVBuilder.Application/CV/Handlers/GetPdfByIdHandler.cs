@@ -24,26 +24,14 @@ namespace CVBuilder.Application.CV.Handlers
 
         public async Task<Stream> Handle(GetPdfByIdQueries request, CancellationToken cancellationToken)
         {
-            var cv = await _cvRepository.GetByIdAsync(request.ResumeId);
-            if (cv == null)
-                throw new NullReferenceException("Resume not found");
-            
-            // using var browserFetcher = new BrowserFetcher();
-            // await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
-            // await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
-            // {
-            //     Headless = true,
-            //     Args = new[]
-            //     {
-            //         "--no-sandbox"
-            //     }
-            // });
+            // var cv = await _cvRepository.GetByIdAsync(request.ResumeId);
+            // if (cv == null)
+            //     throw new NullReferenceException("Resume not found");
+     
             var browser = _browserExtension.Browser;
             await using var page = await browser.NewPageAsync();
-            await page.GoToAsync("https://tester-lamvb6we0-sominola.vercel.app");
-            await page.EvaluateExpressionHandleAsync("document.fonts.ready");
-            await page.EvaluateExpressionAsync($"window.localStorage.setItem('JWT_TOKEN', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiICIsImVtYWlsIjoibnNhdmNodWsyMjRAZ21haWwuY29tIiwianRpIjoiNTVkNzMxMTQtMGVhMi00Y2MwLWE4ZjItNmVjOWRhNDk1NmExIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc2lkIjoiYTJmYmRlMTUtZTRiNS00ZmUwLWI3NzctMGIxM2NlYWNhNGU3IiwibmFtZWlkIjoiMiIsInJvbGUiOiJBZG1pbiIsIm5iZiI6MTY1MjY0MDU5MywiZXhwIjoxNjYxMjg0MTkzLCJpYXQiOjE2NTI2NDA1OTN9.j60cyTOSjehhfClc_h7WOzIY-eMZjBWX5MS1ckyVqCo');");
-            await page.GoToAsync($"https://tester-lamvb6we0-sominola.vercel.app/home/cv/{request.ResumeId}");
+            await page.EvaluateExpressionOnNewDocumentAsync($"window.localStorage.setItem('JWT_TOKEN', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiICIsImVtYWlsIjoibnNhdmNodWsyMjRAZ21haWwuY29tIiwianRpIjoiNTVkNzMxMTQtMGVhMi00Y2MwLWE4ZjItNmVjOWRhNDk1NmExIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc2lkIjoiYTJmYmRlMTUtZTRiNS00ZmUwLWI3NzctMGIxM2NlYWNhNGU3IiwibmFtZWlkIjoiMiIsInJvbGUiOiJBZG1pbiIsIm5iZiI6MTY1MjY0MDU5MywiZXhwIjoxNjYxMjg0MTkzLCJpYXQiOjE2NTI2NDA1OTN9.j60cyTOSjehhfClc_h7WOzIY-eMZjBWX5MS1ckyVqCo');");
+            await page.GoToAsync($"https://cvbuilder-front-c4x1i5jhw-sominola.vercel.app/home/cv/{request.ResumeId}");
             await Task.Delay(2000, cancellationToken);
             await page.EvaluateExpressionAsync(
                 @"var doc = document.getElementById(""doc"");document.body.innerHTML = '';document.body.appendChild(doc);");
