@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CVBuilder.Models.Entities.Interfaces;
 
 namespace CVBuilder.Models.Entities;

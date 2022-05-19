@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using CVBuilder.Models.Entities;
 using CVBuilder.Models.Entities.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
@@ -16,10 +18,14 @@ namespace CVBuilder.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        //[ProtectedPersonalData]
+        [ProtectedPersonalData]
         public override string NormalizedUserName { get; set; }
 
         //[ProtectedPersonalData]
         public override string NormalizedEmail { get; set; }
+        
+        private List<Resume> CreatedResumes { get; set; }
+        private List<Team> CreatedTeams { get; set; }
+        private List<Team> ClientTeams { get; set; }
     }
 }

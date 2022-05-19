@@ -1,9 +1,7 @@
-﻿using CVBuilder.Application.Resume.Responses;
-using CVBuilder.Application.Resume.Responses.CvResponse;
+﻿using CVBuilder.Application.Resume.Responses.CvResponse;
 using CVBuilder.Application.Skill.Commands;
 using CVBuilder.Application.Skill.Queries;
 using CVBuilder.Web.Contracts.V1.Requests.Skill;
-using CVBuilder.Web.Contracts.V1.Responses.CV;
 using CVBuilder.Web.Contracts.V1.Responses.Skill;
 using CreateSkillRequest = CVBuilder.Web.Contracts.V1.Requests.Skill.CreateSkillRequest;
 using UpdateSkillRequest = CVBuilder.Web.Contracts.V1.Requests.Skill.UpdateSkillRequest;

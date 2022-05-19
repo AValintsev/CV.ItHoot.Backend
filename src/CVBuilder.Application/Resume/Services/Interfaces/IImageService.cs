@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using CVBuilder.Models.Entities;
 
 namespace CVBuilder.Application.Resume.Services.Interfaces;
 

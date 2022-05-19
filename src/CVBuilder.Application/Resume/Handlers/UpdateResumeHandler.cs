@@ -6,7 +6,6 @@ using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Responses.CvResponse;
 using CVBuilder.Repository;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Resume.Handlers;
 
@@ -34,7 +33,7 @@ class UpdateResumeHandler : IRequestHandler<UpdateResumeCommand, ResumeResult>
 
     private void MapFromRequest(Resume requestResume, Resume dtoResume)
     {
-        dtoResume.UserId = requestResume.UserId;
+        dtoResume.CreatedUserId = requestResume.CreatedUserId;
         dtoResume.UpdatedAt = DateTime.UtcNow;
         dtoResume.AboutMe = requestResume.AboutMe;
         dtoResume.ResumeName = requestResume.ResumeName;

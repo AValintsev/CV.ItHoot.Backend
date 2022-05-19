@@ -46,7 +46,7 @@ namespace CVBuilder.Application.Resume.Handlers
                 result = await _cvRepository.Table
                     .Include(x => x.LevelSkills)
                     .ThenInclude(x => x.Skill)
-                    .Where(x => x.UserId == request.UserId)
+                    .Where(x => x.CreatedUserId == request.UserId)
                     .ToListAsync(cancellationToken: cancellationToken);
             }
 

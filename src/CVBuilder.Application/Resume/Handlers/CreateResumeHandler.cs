@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Responses.CvResponse;
-using CVBuilder.Models.Entities;
 using CVBuilder.Repository;
 using MediatR;
 

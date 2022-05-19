@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace CVBuilder.Application.Resume.Commands;
 

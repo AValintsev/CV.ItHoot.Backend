@@ -21,6 +21,7 @@ namespace CVBuilder.EFContext
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<LevelSkill> LevelSkills { get; set; }
         public virtual  DbSet<LevelLanguage> LevelLanguages { get; set; }
 

@@ -7,7 +7,8 @@ namespace CVBuilder.Models.Entities;
 public class Resume : IDeletableEntity<int>
 {
     public int Id { get; set; }
-    public int UserId { get; set; }
+    public int? CreatedUserId { get; set; }
+    public User CreatedUser { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public DateTime? DeletedAt { get; set; }

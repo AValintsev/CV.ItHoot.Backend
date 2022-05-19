@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using CVBuilder.Application.Language.Commands;
-using CVBuilder.Models.Entities;
 using CVBuilder.Repository;
 using MediatR;
 

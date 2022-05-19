@@ -1,7 +1,4 @@
-﻿using CVBuilder.Application.Experience.Commands;
-using CVBuilder.Application.Experience.Queries;
-using CVBuilder.Application.Resume.Commands.SharedCommands;
-using CVBuilder.Web.Contracts.V1.Requests.CV.SharedCvRequest;
+﻿using CVBuilder.Application.Experience.Queries;
 using CVBuilder.Web.Contracts.V1.Requests.Experiance;
 using CreateExperienceCommand = CVBuilder.Application.Experience.Commands.CreateExperienceCommand;
 

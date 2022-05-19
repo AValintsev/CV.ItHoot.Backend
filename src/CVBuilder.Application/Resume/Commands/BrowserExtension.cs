@@ -1,8 +1,10 @@
-﻿using PuppeteerSharp;
+﻿using System;
+using System.Threading.Tasks;
+using PuppeteerSharp;
 
 namespace CVBuilder.Application.Resume.Commands;
 
-public class BrowserExtension
+public class BrowserExtension:IAsyncDisposable
 {
     public Browser Browser { get; private set; }
    
@@ -16,5 +18,10 @@ public class BrowserExtension
                 "--no-sandbox"
             }
         });
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await Browser.DisposeAsync();
     }
 }

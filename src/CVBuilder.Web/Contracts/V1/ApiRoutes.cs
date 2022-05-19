@@ -40,6 +40,15 @@
             public const string LevelSkill = BaseDataType + "/levelSkills";
         }
 
+        public static class Team
+        {
+            private const string BaseTeam = Base + "/teams";
+            public const string CreateTeam = BaseTeam;
+            public const string GetTeamById = BaseTeam + "/{id}";
+            public const string UpdateTeam = BaseTeam;
+            public const string GetAllTeams = BaseTeam;
+        }
+
         public static class Resume
         {
             private const string BaseCv = Base + "/resume";

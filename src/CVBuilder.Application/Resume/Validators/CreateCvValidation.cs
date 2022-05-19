@@ -1,5 +1,4 @@
 ﻿using CVBuilder.Application.Resume.Commands;
-using CVBuilder.Application.Resume.Commands.SharedCommands;
 using FluentValidation;
 
 namespace CVBuilder.Application.Resume.Validators
