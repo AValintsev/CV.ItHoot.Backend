@@ -24,8 +24,8 @@ namespace CVBuilder.Application.Resume.Handlers
         public async Task<bool> Handle(DeleteResumeCommand command, CancellationToken cancellationToken)
         {
             var resume = await _resumeRepository.GetByIdAsync(command.Id);
-            resume.DeletedAt = DateTime.UtcNow;
-            await _resumeRepository.UpdateAsync(resume);
+            // resume.DeletedAt = DateTime.UtcNow;
+            await _resumeRepository.DeleteAsync(resume);
             return true;
         }
 

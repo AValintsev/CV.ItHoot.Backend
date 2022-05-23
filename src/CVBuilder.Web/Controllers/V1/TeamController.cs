@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CVBuilder.Application.Team.Commands;
-using CVBuilder.Application.Team.Handlers;
 using CVBuilder.Application.Team.Queries;
 using CVBuilder.Application.Team.Responses;
 using CVBuilder.Web.Contracts.V1;
@@ -44,6 +43,20 @@ public class TeamController : BaseAuthApiController
     public async Task<ActionResult<List<SmallTeamResult>>> GetAllTeams()
     {
         var command = new GetAllTeamsQuery();
+        var result = await Mediator.Send(command);
+        return result;
+    }
+    
+    /// <summary>
+    /// Get team by ID
+    /// </summary>
+    [HttpGet(ApiRoutes.Team.GetTeamById)]
+    public async Task<ActionResult<TeamResult>> GetTeamById([FromRoute]int id)
+    {
+        var command = new GetTeamByIdQuery()
+        {
+            Id = id
+        };
         var result = await Mediator.Send(command);
         return result;
     }

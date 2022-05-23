@@ -1,4 +1,5 @@
 ﻿using System;
+using CVBuilder.Models;
 
 namespace CVBuilder.Application.Team.Responses;
 
@@ -10,5 +11,5 @@ public class SmallTeamResult
     public int TeamSize { get; set; }
     public string LastUpdated { get; set; }
     public string CreatedUserName { get; set; }
-    public string StatusTeam { get; set; }
+    public StatusTeam StatusTeam { get; set; }
 }
