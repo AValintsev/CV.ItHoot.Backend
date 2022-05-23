@@ -7,6 +7,7 @@ namespace CVBuilder.Application.Team.Commands;
 public class CreateTeamCommand: IRequest<TeamResult>
 {
     public int UserId { get; set; }
+    public int ClientId { get; set; }
     public string TeamName { get; set; }
     public List<CreateResumeCommand> Resumes { get; set; }
 }

@@ -10,7 +10,7 @@ public class TeamConfiguration: IEntityTypeConfiguration<Team>
     {
         builder.ToTable("Teams");
         builder.HasMany(x => x.Resumes).WithOne(x => x.Team);
-        builder.HasOne(x => x.CreatedUser).WithMany("CreatedTeams");
-        builder.HasOne(x => x.Client).WithMany("ClientTeams");
+        builder.HasOne(x => x.CreatedUser).WithMany("CreatedTeams").OnDelete(DeleteBehavior.ClientSetNull);
+        builder.HasOne(x => x.Client).WithMany("ClientTeams").OnDelete(DeleteBehavior.ClientSetNull);
     }
 }

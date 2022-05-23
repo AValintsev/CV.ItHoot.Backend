@@ -14,8 +14,8 @@ public class Team: IDeletableEntity<int>
     public User Client { get; set; }
     public string TeamName { get; set; }
     public List<TeamResume> Resumes { get; set; }
-    public StatusTeam StatusTeam { get; set; } = StatusTeam.Created;
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public StatusTeam StatusTeam { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
     public DateTime? DeletedAt { get; set; }
 }

@@ -10,6 +10,7 @@
 		<DockerfileContext>..\..</DockerfileContext>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="Bogus" Version="34.0.2" />
 		<PackageReference Include="MediatR" Version="10.0.1" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />

@@ -20,6 +20,13 @@
 
             public const string GenerateToken = BaseIdentity + "/generateToken";
         }
+        
+        public static class User
+        {
+            private const string BaseUser = Base + "/user";
+
+            public const string ByRole = BaseUser;
+        }
 
         public static class Confirmation
         {
