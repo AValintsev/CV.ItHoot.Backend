@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -34,9 +35,18 @@ public class UpdateTeamHandler : IRequestHandler<UpdateTeamCommand, TeamResult>
             .Include(x => x.Resumes)
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
         UpdateTeam(teamDto, team);
+        RemoveDuplicate(teamDto);
         teamDto = await _teamRepository.UpdateAsync(teamDto);
         var result = await _mediator.Send(new GetTeamByIdQuery {Id = teamDto.Id}, cancellationToken);
         return result;
+    }
+
+    private void RemoveDuplicate(Team teamDto)
+    {
+        teamDto.Resumes = teamDto.Resumes
+            .GroupBy(x => x.ResumeId)
+            .Select(y => y.First())
+            .ToList();
     }
 
 
