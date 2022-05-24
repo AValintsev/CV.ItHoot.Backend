@@ -12,21 +12,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Team.Handlers;
 using Models.Entities;
-public class GetAllTeamsHandler : IRequestHandler<GetAllTeamsQuery, List<SmallTeamResult>>
+public class GetAllArchiveTeamsHandler: IRequestHandler<GetAllArchiveTeamsQuery, List<SmallTeamResult>>
 {
     private readonly IMapper _mapper;
     private readonly IRepository<Team, int> _teamRepository;
 
-    public GetAllTeamsHandler(IMapper mapper, IRepository<Team, int> teamRepository)
+    public GetAllArchiveTeamsHandler(IMapper mapper, IRepository<Team, int> teamRepository)
     {
         _mapper = mapper;
         _teamRepository = teamRepository;
     }
 
-    public async Task<List<SmallTeamResult>> Handle(GetAllTeamsQuery request, CancellationToken cancellationToken)
+    public async Task<List<SmallTeamResult>> Handle(GetAllArchiveTeamsQuery request, CancellationToken cancellationToken)
     {
         var teams = await _teamRepository.Table
-            .Where(x=>x.StatusTeam != StatusTeam.Done)
+            .Where(x=>x.StatusTeam == StatusTeam.Done)
             .Include(x => x.Resumes)
             .Include(x=>x.CreatedUser)
             .Include(x=>x.Client)

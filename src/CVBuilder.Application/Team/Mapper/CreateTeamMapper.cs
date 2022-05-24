@@ -30,6 +30,7 @@ public class CreateTeamMapper : AppMapperBase
             .ForMember(x => x.ResumeId, y => y.MapFrom(z => z.ResumeId))
             .ForMember(x => x.FirstName, y => y.MapFrom(z => z.Resume.FirstName))
             .ForMember(x => x.LastName, y => y.MapFrom(z => z.Resume.LastName))
+            .ForMember(x => x.IsSelected, y => y.MapFrom(z => z.IsSelected))
             .ForMember(x => x.ResumeName, y => y.MapFrom(z => z.Resume.ResumeName));
     }
 }

@@ -54,6 +54,7 @@
             public const string GetTeamById = BaseTeam + "/{id}";
             public const string UpdateTeam = BaseTeam;
             public const string GetAllTeams = BaseTeam;
+            public const string GetAllArchiveTeams = BaseTeam+"/archive";
         }
 
         public static class Resume

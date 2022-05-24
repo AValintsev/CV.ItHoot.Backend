@@ -48,6 +48,18 @@ public class TeamController : BaseAuthApiController
     }
     
     /// <summary>
+    /// Get list of archive Team
+    /// </summary>
+    [HttpGet(ApiRoutes.Team.GetAllArchiveTeams)]
+    public async Task<ActionResult<List<SmallTeamResult>>> GetAllArchiveTeams()
+    {
+        var command = new GetAllArchiveTeamsQuery();
+        var result = await Mediator.Send(command);
+        return result;
+    }
+
+    
+    /// <summary>
     /// Get team by ID
     /// </summary>
     [HttpGet(ApiRoutes.Team.GetTeamById)]

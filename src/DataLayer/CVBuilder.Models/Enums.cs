@@ -33,6 +33,8 @@ namespace CVBuilder.Models
        [Description("Created")] Created =1,
        [Description("InReview")] InReview,
        [Description("Approved")] Approved,
-       [Description("Done")] Done
+       [Description("Done")] Done,
+       [Description("Denied")] Denied,
+       [Description("In Working")] InWorking,
     }
 }
