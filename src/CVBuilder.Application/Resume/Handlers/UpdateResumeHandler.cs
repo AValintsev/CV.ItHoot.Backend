@@ -33,7 +33,6 @@ class UpdateResumeHandler : IRequestHandler<UpdateResumeCommand, ResumeResult>
 
     private void MapFromRequest(Resume requestResume, Resume dtoResume)
     {
-        dtoResume.CreatedUserId = requestResume.CreatedUserId;
         dtoResume.UpdatedAt = DateTime.UtcNow;
         dtoResume.AboutMe = requestResume.AboutMe;
         dtoResume.ResumeName = requestResume.ResumeName;
