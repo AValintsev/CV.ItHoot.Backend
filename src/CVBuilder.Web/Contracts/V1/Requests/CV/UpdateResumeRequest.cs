@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using CVBuilder.Application.Position.Responses;
 using CVBuilder.Web.Contracts.V1.Requests.CV.SharedCvRequest;
+using CVBuilder.Web.Contracts.V1.Requests.Position;
 
 namespace CVBuilder.Web.Contracts.V1.Requests.CV
 {
@@ -10,6 +12,7 @@ namespace CVBuilder.Web.Contracts.V1.Requests.CV
         public bool IsDraft { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public PositionRequest Position { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
         public string Phone { get; set; }

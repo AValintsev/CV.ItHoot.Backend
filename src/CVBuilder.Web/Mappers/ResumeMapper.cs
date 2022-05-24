@@ -16,7 +16,8 @@ namespace CVBuilder.Web.Mappers
             CreateMap<ResumeCardResult, ResumeCardResponse>();
 
             #region CreateResume
-            CreateMap<CreateResumeRequest, CreateResumeCommand>();
+            CreateMap<CreateResumeRequest, CreateResumeCommand>()
+                .ForMember(x=>x.PositionId,y=>y.MapFrom(z=>z.Position.PositionId));
             CreateMap<CreateLanguageRequest, CreateLanguageCommand>();
             CreateMap<CreateSkillRequest, CreateSkillCommand>();
             CreateMap<CreateEducationRequest, CreateEducationCommand>();
@@ -24,7 +25,8 @@ namespace CVBuilder.Web.Mappers
             #endregion
 
             #region UpdateResume
-            CreateMap<UpdateResumeRequest, UpdateResumeCommand>();
+            CreateMap<UpdateResumeRequest, UpdateResumeCommand>()
+                .ForMember(x=>x.PositionId,y=>y.MapFrom(z=>z.Position.PositionId));
             CreateMap<UpdateLanguageRequest, UpdateLanguageCommand>();
             CreateMap<UpdateSkillRequest, UpdateSkillCommand>();
             CreateMap<UpdateEducationRequest, UpdateEducationCommand>();

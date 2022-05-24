@@ -17,6 +17,7 @@ namespace CVBuilder.EFContext
         public virtual DbSet<Resume> Resumes { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<Experience> Experiences { get; set; }
+        public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }

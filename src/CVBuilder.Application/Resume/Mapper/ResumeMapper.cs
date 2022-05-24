@@ -63,7 +63,8 @@ class ResumeMapper : AppMapperBase
         CreateMap<Education, EducationResult>();
         CreateMap<Experience, ExperienceResult>();
         CreateMap<Resume, ResumeCardResult>()
-            .ForMember(x => x.Skills, y => y.MapFrom(x => x.LevelSkills));
+            .ForMember(x => x.Skills, y => y.MapFrom(x => x.LevelSkills))
+            .ForMember(x => x.PositionName, y => y.MapFrom(z => z.Position.PositionName));
         CreateMap<LevelSkill, SkillResult>()
             .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
             .ForMember(x => x.SkillName, y => y.MapFrom(z => z.Skill.Name));

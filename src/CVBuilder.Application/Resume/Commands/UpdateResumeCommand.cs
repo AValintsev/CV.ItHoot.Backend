@@ -11,6 +11,7 @@ namespace CVBuilder.Application.Resume.Commands
         public int UserId { get; set; }
         public string ResumeName { get; set; }
         public bool IsDraft { get; set; }
+        public int? PositionId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

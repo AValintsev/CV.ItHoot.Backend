@@ -31,6 +31,7 @@ namespace CVBuilder.Application.Resume.Handlers
                .Include(x => x.Experiences)
                .Include(x => x.LevelSkills)
                     .ThenInclude(l => l.Skill)
+                .Include(x=>x.Position)
                .Include(x => x.LevelLanguages)
                     .ThenInclude(l => l.Language)
                .Where(x => x.Id == request.Id)
@@ -41,11 +42,8 @@ namespace CVBuilder.Application.Resume.Handlers
                 throw ValidationException.Build(nameof(request.Id), "Not Found");
             }
             
-            
 
             var cvResult = _mapper.Map<ResumeResult>(cv);
-           
-
             return cvResult;
         }
     }

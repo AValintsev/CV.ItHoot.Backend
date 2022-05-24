@@ -10,6 +10,7 @@ namespace CVBuilder.Web.Contracts.V1.Responses.CV
         public bool IsDraft { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string PositionName { get; set; }
         public List<SkillResponse> Skills { get; set; } 
     }
 }

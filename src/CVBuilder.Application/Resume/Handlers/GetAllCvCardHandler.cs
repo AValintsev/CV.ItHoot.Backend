@@ -11,12 +11,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Resume.Handlers
 {
+    using Models.Entities;
     public class GetAllCvCardHandler : IRequestHandler<GetAllResumeCardQueries, List<ResumeCardResult>>
     {
-        private readonly IRepository<Models.Entities.Resume, int> _cvRepository;
+        private readonly IRepository<Resume, int> _cvRepository;
         private readonly IMapper _mapper;
 
-        public GetAllCvCardHandler(IRepository<Models.Entities.Resume, int> cvRepository, IMapper mapper)
+        public GetAllCvCardHandler(IRepository<Resume, int> cvRepository, IMapper mapper)
         {
             _cvRepository = cvRepository;
             _mapper = mapper;
@@ -25,10 +26,11 @@ namespace CVBuilder.Application.Resume.Handlers
         public async Task<List<ResumeCardResult>> Handle(GetAllResumeCardQueries request,
             CancellationToken cancellationToken)
         {
-            var result = new List<Models.Entities.Resume>();
+            var result = new List<Resume>();
             if (request.UserRoles.Contains("HR"))
             {
                 result = await _cvRepository.Table
+                    .Include(x=>x.Position)
                     .Include(x => x.LevelSkills)
                     .ThenInclude(x => x.Skill)
                     .Where(x => x.IsDraft == false)
@@ -37,6 +39,7 @@ namespace CVBuilder.Application.Resume.Handlers
             else if (request.UserRoles.Contains("Admin"))
             {
                 result = await _cvRepository.Table
+                    .Include(x=>x.Position)
                     .Include(x => x.LevelSkills)
                     .ThenInclude(x => x.Skill)
                     .ToListAsync(cancellationToken: cancellationToken);
@@ -44,6 +47,7 @@ namespace CVBuilder.Application.Resume.Handlers
             else if (request.UserRoles.Contains("User"))
             {
                 result = await _cvRepository.Table
+                    .Include(x=>x.Position)
                     .Include(x => x.LevelSkills)
                     .ThenInclude(x => x.Skill)
                     .Where(x => x.CreatedUserId == request.UserId)

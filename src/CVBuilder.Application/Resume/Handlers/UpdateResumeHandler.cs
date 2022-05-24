@@ -38,6 +38,7 @@ class UpdateResumeHandler : IRequestHandler<UpdateResumeCommand, ResumeResult>
         dtoResume.ResumeName = requestResume.ResumeName;
         dtoResume.FirstName = requestResume.FirstName;
         dtoResume.LastName = requestResume.LastName;
+        dtoResume.PositionId = requestResume.PositionId;
         dtoResume.Email = requestResume.Email;
         dtoResume.Site = requestResume.Site;
         dtoResume.Phone = requestResume.Phone;

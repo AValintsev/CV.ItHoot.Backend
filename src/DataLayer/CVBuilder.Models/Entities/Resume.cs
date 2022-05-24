@@ -16,6 +16,9 @@ public class Resume : IDeletableEntity<int>
     
     public int? ImageId { get; set; }
     public Image Image { get; set; }
+    
+    public int? PositionId { get; set; }
+    public Position Position { get; set; }
     public string ResumeName { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }

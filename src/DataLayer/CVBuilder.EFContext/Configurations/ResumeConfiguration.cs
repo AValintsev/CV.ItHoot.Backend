@@ -9,7 +9,7 @@ public class ResumeConfiguration:IEntityTypeConfiguration<Resume>
     public void Configure(EntityTypeBuilder<Resume> builder)
     {
         builder.ToTable("Resumes");
+        builder.HasOne(x => x.Position).WithMany(x => x.Resumes).OnDelete(DeleteBehavior.SetNull);
         builder.HasOne(x => x.CreatedUser).WithMany("CreatedResumes");
-
     }
 }

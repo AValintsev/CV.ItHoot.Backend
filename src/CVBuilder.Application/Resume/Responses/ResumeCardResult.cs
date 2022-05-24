@@ -7,6 +7,7 @@ namespace CVBuilder.Application.Resume.Responses
     {
         public int Id { get; set; }
         public string ResumeName { get; set; }
+        public string PositionName { get; set; }
         public bool IsDraft { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

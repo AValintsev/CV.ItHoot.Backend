@@ -251,6 +251,31 @@ namespace CVBuilder.EFContext.Migrations
                     b.ToTable("LevelSkills");
                 });
 
+            modelBuilder.Entity("CVBuilder.Models.Entities.Position", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PositionName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Positions");
+                });
+
             modelBuilder.Entity("CVBuilder.Models.Entities.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -340,6 +365,9 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PositionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RequiredPosition")
                         .HasColumnType("nvarchar(max)");
 
@@ -360,6 +388,8 @@ namespace CVBuilder.EFContext.Migrations
                     b.HasIndex("CreatedUserId");
 
                     b.HasIndex("ImageId");
+
+                    b.HasIndex("PositionId");
 
                     b.ToTable("Resumes", (string)null);
                 });
@@ -749,9 +779,16 @@ namespace CVBuilder.EFContext.Migrations
                         .WithMany()
                         .HasForeignKey("ImageId");
 
+                    b.HasOne("CVBuilder.Models.Entities.Position", "Position")
+                        .WithMany("Resumes")
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("CreatedUser");
 
                     b.Navigation("Image");
+
+                    b.Navigation("Position");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.Entities.Team", b =>
@@ -837,6 +874,11 @@ namespace CVBuilder.EFContext.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.Position", b =>
+                {
+                    b.Navigation("Resumes");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.Entities.Resume", b =>

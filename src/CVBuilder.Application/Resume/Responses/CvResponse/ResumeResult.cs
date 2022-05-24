@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CVBuilder.Application.Position.Responses;
 
 namespace CVBuilder.Application.Resume.Responses.CvResponse
 {
@@ -9,6 +10,7 @@ namespace CVBuilder.Application.Resume.Responses.CvResponse
         public bool IsDraft { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public PositionResult Position { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
         public string Phone { get; set; }

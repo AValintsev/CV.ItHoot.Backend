@@ -20,7 +20,7 @@ namespace CVBuilder.Application.Resume.Handlers
         public CreateResumeHandler(
             IMapper mapper,
             IRepository<Resume, int> cvRepository,
-            IRepository<Skill, int> skillRepository, IRepository<LevelSkill, int> levelSkill,
+            IRepository<Skill, int> skillRepository, 
             IRepository<Language, int> languageRepository)
         {
             _cvRepository = cvRepository;

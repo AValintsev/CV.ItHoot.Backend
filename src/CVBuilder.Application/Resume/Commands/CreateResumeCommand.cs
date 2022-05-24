@@ -12,6 +12,7 @@ namespace CVBuilder.Application.Resume.Commands
         public bool IsDraft { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public int? PositionId { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
         public string Phone { get; set; }

@@ -77,6 +77,16 @@
             public const string GetAllFileUrl = BaseFile + "/list";
         }
 
+        public static class Position
+        {
+            private const string BasePosition = Base + "/positions";
+            public const string CreatePosition = BasePosition;
+            public const string UpdatePosition = BasePosition;
+            public const string DeletePosition = BasePosition+"/{id}";
+            public const string GetAllPositions = BasePosition;
+            public const string GetPositionsById = BasePosition+"/{id}";
+        }
+        
         public static class Skill
         {
             private const string BaseSkill = Base + "/skills";
