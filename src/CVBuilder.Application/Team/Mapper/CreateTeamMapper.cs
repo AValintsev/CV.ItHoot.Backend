@@ -17,7 +17,8 @@ public class CreateTeamMapper : AppMapperBase
             .ForMember(x=>x.UpdatedAt, y=>y.MapFrom(z=>DateTime.UtcNow))
             .ForMember(x => x.CreatedUserId, y => y.MapFrom(z => z.UserId))
             .ForMember(x=>x.ClientId,y=>y.MapFrom(z=>z.ClientId));
-        CreateMap<CreateResumeCommand, TeamResume>();
+        CreateMap<CreateResumeCommand, TeamResume>()
+            .ForMember(x=>x.StatusResume, y=>y.MapFrom(z=>StatusTeamResume.NotSelected));
 
         CreateMap<Team, TeamResult>()
             .ForMember(x=>x.Client,y=>y.MapFrom(z=>new TeamClientResult
@@ -30,7 +31,6 @@ public class CreateTeamMapper : AppMapperBase
             .ForMember(x => x.ResumeId, y => y.MapFrom(z => z.ResumeId))
             .ForMember(x => x.FirstName, y => y.MapFrom(z => z.Resume.FirstName))
             .ForMember(x => x.LastName, y => y.MapFrom(z => z.Resume.LastName))
-            .ForMember(x => x.IsSelected, y => y.MapFrom(z => z.IsSelected))
             .ForMember(x => x.ResumeName, y => y.MapFrom(z => z.Resume.ResumeName));
     }
 }

@@ -23,6 +23,17 @@ public class TeamController : BaseAuthApiController
         var result = await Mediator.Send(command);
         return Ok(result);
     }
+    
+    /// <summary>
+    /// Approve Team
+    /// </summary>
+    [HttpPost(ApiRoutes.Team.ApproveTeam)]
+    public async Task<ActionResult<TeamResult>> ApproveTeam(ApproveTeamRequest request)
+    {
+        var command = Mapper.Map<ApproveTeamCommand>(request);
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
 
     /// <summary>
     /// Updates an existing Team

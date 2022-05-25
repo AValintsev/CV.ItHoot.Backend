@@ -37,4 +37,11 @@ namespace CVBuilder.Models
        [Description("Denied")] Denied,
        [Description("In Working")] InWorking,
     }
+
+    public enum StatusTeamResume
+    {
+        [Description("NotSelected")]NotSelected=1,
+        [Description("Selected")]Selected,
+        [Description("Denied")]Denied
+    }
 }

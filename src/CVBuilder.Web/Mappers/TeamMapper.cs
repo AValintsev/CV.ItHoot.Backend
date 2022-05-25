@@ -11,6 +11,8 @@ public class TeamMapper:MapperBase
         CreateMap<CreateResumeRequest, CreateResumeCommand>();
         CreateMap<UpdateTeamRequest, UpdateTeamCommand>();
         CreateMap<UpdateResumeRequest, UpdateResumeCommand>();
+        CreateMap<ApproveTeamRequest, ApproveTeamCommand>();
+        CreateMap<ApproveTeamResumeRequest, ApproveTeamResumeCommand>();
     }
 
 }

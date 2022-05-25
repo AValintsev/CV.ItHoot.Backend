@@ -468,10 +468,10 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsSelected")
-                        .HasColumnType("bit");
-
                     b.Property<int>("ResumeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusResume")
                         .HasColumnType("int");
 
                     b.Property<int>("TeamId")
