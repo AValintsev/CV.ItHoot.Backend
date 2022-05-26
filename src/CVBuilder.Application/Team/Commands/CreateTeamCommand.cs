@@ -8,6 +8,8 @@ public class CreateTeamCommand: IRequest<TeamResult>
 {
     public int UserId { get; set; }
     public int ClientId { get; set; }
+    public bool ShowLogo { get; set; }
+    public bool ShowContacts { get; set; }
     public string TeamName { get; set; }
     public List<CreateResumeCommand> Resumes { get; set; }
 }
