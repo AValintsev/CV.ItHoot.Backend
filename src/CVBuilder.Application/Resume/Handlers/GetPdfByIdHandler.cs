@@ -31,9 +31,14 @@ public class GetPdfByIdHandler : IRequestHandler<GetPdfByIdQueries, Stream>
         var browser = _browserExtension.Browser;
         await using var page = await browser.NewPageAsync();
         await page.EvaluateExpressionOnNewDocumentAsync(
-            $"window.localStorage.setItem('JWT_TOKEN', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiICIsImVtYWlsIjoibnNhdmNodWsyMjRAZ21haWwuY29tIiwianRpIjoiNTVkNzMxMTQtMGVhMi00Y2MwLWE4ZjItNmVjOWRhNDk1NmExIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc2lkIjoiYTJmYmRlMTUtZTRiNS00ZmUwLWI3NzctMGIxM2NlYWNhNGU3IiwibmFtZWlkIjoiMiIsInJvbGUiOiJBZG1pbiIsIm5iZiI6MTY1MjY0MDU5MywiZXhwIjoxNjYxMjg0MTkzLCJpYXQiOjE2NTI2NDA1OTN9.j60cyTOSjehhfClc_h7WOzIY-eMZjBWX5MS1ckyVqCo');");
+            $"window.localStorage.setItem('JWT_TOKEN', '{request.JwtToken}');");
         await page.GoToAsync($"https://cvbuilder-front.vercel.app/home/cv/{request.ResumeId}");
-        await Task.Delay(2000, cancellationToken);
+        await page.WaitForSelectorAsync("#doc", new WaitForSelectorOptions()
+        {
+            Visible = true,
+            Timeout = 5000
+        });
+        
         await page.EvaluateExpressionAsync(
             @"var doc = document.getElementById(""doc"");document.body.innerHTML = '';document.body.appendChild(doc);");
 

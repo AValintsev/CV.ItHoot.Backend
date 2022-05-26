@@ -78,7 +78,7 @@ public class TeamController : BaseAuthApiController
             JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
         };
         var result = await Mediator.Send(command);
-        return Ok(result);
+        return File(result, "application/octet-stream", "resume.pdf");
     }
     
     /// <summary>

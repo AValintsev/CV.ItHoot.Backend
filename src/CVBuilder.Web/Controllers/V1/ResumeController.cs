@@ -44,7 +44,8 @@ namespace CVBuilder.Web.Controllers.V1
         {
             var command = new GetPdfByIdQueries
             {
-                ResumeId = id
+                ResumeId = id,
+                JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
             };
 
             var result = await Mediator.Send(command);
