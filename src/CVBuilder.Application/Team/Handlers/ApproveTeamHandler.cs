@@ -31,7 +31,6 @@ public class ApproveTeamHandler : IRequestHandler<ApproveTeamCommand, TeamResult
         var team = await _teamRepository.Table
             .Include(x => x.Resumes)
             .FirstOrDefaultAsync(x=>x.Id == request.TeamId, cancellationToken: cancellationToken);
-        
         foreach (var resume in team.Resumes)
         {
             var resumeRequest = request.Resumes.FirstOrDefault(x => x.Id == resume.Id);
@@ -44,6 +43,10 @@ public class ApproveTeamHandler : IRequestHandler<ApproveTeamCommand, TeamResult
                 resume.StatusResume = resumeRequest.IsSelected ? StatusTeamResume.Selected : StatusTeamResume.Denied;
             }
         }
+
+        team.StatusTeam = team.Resumes.Any(x => x.StatusResume == StatusTeamResume.Selected)
+            ? StatusTeam.Approved
+            : StatusTeam.Denied;
 
         team = await _teamRepository.UpdateAsync(team);
         return await _mediator.Send(new GetTeamByIdQuery {Id = team.Id}, cancellationToken);
