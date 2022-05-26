@@ -84,7 +84,7 @@ namespace CVBuilder.Web.Controllers.V1
         [HttpGet(ApiRoutes.Resume.GetResumeById)]
         public async Task<ActionResult<ResumeResult>> GetResumeById(int id)
         {
-            var command = new GetResumeByIdQueries
+            var command = new GetResumeByIdQuery
             {
                 Id = id,
                 UserId = LoggedUserId,

@@ -1,4 +1,5 @@
 ﻿using System;
+using CVBuilder.Application.Skill.DTOs;
 using CVBuilder.Application.Team.Commands;
 using CVBuilder.Application.Team.Responses;
 using CVBuilder.Models;
@@ -20,17 +21,7 @@ public class CreateTeamMapper : AppMapperBase
         CreateMap<CreateResumeCommand, TeamResume>()
             .ForMember(x=>x.StatusResume, y=>y.MapFrom(z=>StatusTeamResume.NotSelected));
 
-        CreateMap<Team, TeamResult>()
-            .ForMember(x=>x.Client,y=>y.MapFrom(z=>new TeamClientResult
-            {
-                UserId = z.ClientId.GetValueOrDefault(),
-                FirstName = z.Client.FirstName,
-                LastName = z.Client.LastName
-            }));
-        CreateMap<TeamResume, ResumeResult>()
-            .ForMember(x => x.ResumeId, y => y.MapFrom(z => z.ResumeId))
-            .ForMember(x => x.FirstName, y => y.MapFrom(z => z.Resume.FirstName))
-            .ForMember(x => x.LastName, y => y.MapFrom(z => z.Resume.LastName))
-            .ForMember(x => x.ResumeName, y => y.MapFrom(z => z.Resume.ResumeName));
+     
+
     }
 }

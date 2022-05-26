@@ -6,7 +6,7 @@ namespace CVBuilder.Application.Skill.Mapper
     {
         public SkillMapper()
         {
-            CreateMap<Models.Entities.Skill, SkillDTO>();
+            CreateMap<Models.Entities.Skill, SkillResult>();
         }
     }
 }

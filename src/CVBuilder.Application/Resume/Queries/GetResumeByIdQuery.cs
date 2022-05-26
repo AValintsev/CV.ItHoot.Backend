@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Resume.Queries
 {
-    public class GetResumeByIdQueries : IRequest<ResumeResult>
+    public class GetResumeByIdQuery : IRequest<ResumeResult>
     {
         public int Id { get; set; }
         public int UserId { get; set; }

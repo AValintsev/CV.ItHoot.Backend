@@ -17,7 +17,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Create a new Skill
         /// </summary>
         [HttpPost(ApiRoutes.Skill.CreateSkill)]
-        public async Task<ActionResult<SkillDTO>> Create([FromBody] CreateSkillRequest request)
+        public async Task<ActionResult<SkillResult>> Create([FromBody] CreateSkillRequest request)
         {
             var command = Mapper.Map<CreateSkillCommand>(request);
             var result = await Mediator.Send(command);
@@ -30,7 +30,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get list of Skills
         /// </summary>
         [HttpGet(ApiRoutes.Skill.SkillsGetAll)]
-        public async Task<ActionResult<IEnumerable<SkillDTO>>> GetAllSkills([FromQuery] GetAllSkillRequest request)
+        public async Task<ActionResult<IEnumerable<SkillResult>>> GetAllSkills([FromQuery] GetAllSkillRequest request)
         {
             var command = Mapper.Map<GetAllSkillQuery>(request);
             var result = await Mediator.Send(command);
@@ -42,7 +42,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Updates an existing Skill
         /// </summary>
         [HttpPut(ApiRoutes.Skill.UpdateSkill)]
-        public async Task<ActionResult<SkillDTO>> UpdateSkill(UpdateSkillRequest request)
+        public async Task<ActionResult<SkillResult>> UpdateSkill(UpdateSkillRequest request)
         {
             var command = Mapper.Map<UpdateSkillCommand>(request);
             var result = await Mediator.Send(command);
@@ -66,7 +66,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get Skill by content Text
         /// </summary>
         [HttpGet(ApiRoutes.Skill.GetSkill)]
-        public async Task<ActionResult<IEnumerable<SkillDTO>>> GetSkill([FromQuery] GetSkillByContainText query)
+        public async Task<ActionResult<IEnumerable<SkillResult>>> GetSkill([FromQuery] GetSkillByContainText query)
         {
             var command = Mapper.Map<GetSkillByContainInTextQuery>(query);
             var result =  await Mediator.Send(command);

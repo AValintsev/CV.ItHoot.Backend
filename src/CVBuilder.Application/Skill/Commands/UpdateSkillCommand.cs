@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Skill.Commands
 {
-    public class UpdateSkillCommand: IRequest<SkillDTO>
+    public class UpdateSkillCommand: IRequest<SkillResult>
     {
         public int Id { get; set; }
         public string Name { get; set; }

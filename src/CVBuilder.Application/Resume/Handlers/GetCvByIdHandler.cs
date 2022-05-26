@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Resume.Handlers
 {
-    public class GetCvByIdHandler : IRequestHandler<GetResumeByIdQueries, ResumeResult>
+    public class GetCvByIdHandler : IRequestHandler<GetResumeByIdQuery, ResumeResult>
     {
         private readonly IRepository<Models.Entities.Resume, int> _cvRepository;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace CVBuilder.Application.Resume.Handlers
             _mapper = mapper;
         }
 
-        public async Task<ResumeResult> Handle(GetResumeByIdQueries request, CancellationToken cancellationToken)
+        public async Task<ResumeResult> Handle(GetResumeByIdQuery request, CancellationToken cancellationToken)
         {
             var cv = await _cvRepository.Table
                 .Include(x=>x.Image)

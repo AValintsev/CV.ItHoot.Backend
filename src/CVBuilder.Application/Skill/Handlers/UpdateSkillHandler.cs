@@ -10,7 +10,7 @@ using MediatR;
 namespace CVBuilder.Application.Skill.Handlers
 {
     using Models.Entities;
-    public class UpdateSkillHandler : IRequestHandler<UpdateSkillCommand, SkillDTO>
+    public class UpdateSkillHandler : IRequestHandler<UpdateSkillCommand, SkillResult>
     {
         private readonly IRepository<Skill, int> _skillRepository;
         private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace CVBuilder.Application.Skill.Handlers
             _skillRepository = cvRepository;
             _mapper = mapper;
         }
-        public async Task<SkillDTO> Handle(UpdateSkillCommand request, CancellationToken cancellationToken)
+        public async Task<SkillResult> Handle(UpdateSkillCommand request, CancellationToken cancellationToken)
         {
             var model = new Skill
             {
@@ -29,7 +29,7 @@ namespace CVBuilder.Application.Skill.Handlers
             };
 
             var skill = await _skillRepository.UpdateAsync(model);
-            return _mapper.Map<SkillDTO>(skill);
+            return _mapper.Map<SkillResult>(skill);
         }
     }
 }

@@ -25,6 +25,8 @@ public class GetTeamByIdHandler: IRequestHandler<GetTeamByIdQuery, TeamResult>
         var team = await _teamRepository.Table
             .Include(x => x.Resumes)
             .ThenInclude(x => x.Resume)
+            .ThenInclude(x=>x.LevelSkills)
+            .ThenInclude(x=>x.Skill)
             .Include(x=>x.Client)
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
         var result = _mapper.Map<TeamResult>(team);

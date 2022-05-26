@@ -10,6 +10,8 @@ public class UpdateTeamCommand:IRequest<TeamResult>
     public int Id { get; set; }
     public int? ClientId { get; set; }
     public StatusTeam StatusTeam { get; set; }
+    public bool ShowLogo { get; set; }
+    public bool ShowContacts { get; set; }
     public int UserId { get; set; }
     public string TeamName { get; set; }
     public List<UpdateResumeCommand> Resumes { get; set; }

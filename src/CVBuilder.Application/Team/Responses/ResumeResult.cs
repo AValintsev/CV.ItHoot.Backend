@@ -1,4 +1,6 @@
-﻿using CVBuilder.Models;
+﻿using System.Collections.Generic;
+using CVBuilder.Models;
+using SkillResult = CVBuilder.Application.Skill.DTOs.SkillResult;
 
 namespace CVBuilder.Application.Team.Responses;
 
@@ -10,4 +12,5 @@ public class ResumeResult
     public string ResumeName { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public List<SkillResult> Skills { get; set; }
 }

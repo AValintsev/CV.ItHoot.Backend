@@ -56,6 +56,9 @@
             public const string GetAllTeams = BaseTeam;
             public const string GetAllArchiveTeams = BaseTeam+"/archive";
             public const string ApproveTeam = BaseTeam + "/approve";
+            public const string GetTeamResume = BaseTeam + "/{teamId}/resume/{resumeId}";
+            public const string GetPdfTeamResume = BaseTeam + "/{teamId}/resume/{resumeId}/pdf";
+
         }
 
         public static class Resume

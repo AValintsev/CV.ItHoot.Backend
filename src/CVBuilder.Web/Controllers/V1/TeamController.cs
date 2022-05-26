@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CVBuilder.Application.Team.Commands;
 using CVBuilder.Application.Team.Queries;
@@ -47,6 +48,39 @@ public class TeamController : BaseAuthApiController
         return Ok(result);
     }
 
+    /// <summary>
+    /// Get resume from Team
+    /// </summary>
+    [HttpGet(ApiRoutes.Team.GetTeamResume)]
+    public async Task<ActionResult<TeamResumeResult>> GetTeamResume(int teamId, int resumeId)
+    {
+        var command = new GetTeamResumeQuery()
+        {
+            UserRoles = LoggedUserRoles.ToList(),
+            TeamId = teamId,
+            ResumeId = resumeId
+        };
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
+    
+    /// <summary>
+    /// Get pdf resume from Team
+    /// </summary>
+    [HttpGet(ApiRoutes.Team.GetPdfTeamResume)]
+    public async Task<ActionResult<TeamResumeResult>> GetPdfTeamResume(int teamId, int resumeId)
+    {
+        var command = new GetTeamResumePdfQuery
+        {
+            UserRoles = LoggedUserRoles.ToList(),
+            TeamId = teamId,
+            ResumeId = resumeId,
+            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
+        };
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
+    
     /// <summary>
     /// Get list of Team
     /// </summary>

@@ -9,6 +9,6 @@ public class UpdateTeamMapper: AppMapperBase
     {
         CreateMap<UpdateTeamCommand, Team>();
         CreateMap<UpdateResumeCommand, TeamResume>()
-            .ForMember(x=>x.StatusResume,y=>y.MapFrom(z=>StatusTeamResume.NotSelected));
+            .ForMember(x => x.StatusResume, y => y.MapFrom(z => StatusTeamResume.NotSelected));
     }
 }

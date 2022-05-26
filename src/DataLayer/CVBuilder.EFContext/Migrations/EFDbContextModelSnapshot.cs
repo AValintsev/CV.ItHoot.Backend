@@ -436,6 +436,12 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("ShowContacts")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ShowLogo")
+                        .HasColumnType("bit");
+
                     b.Property<int>("StatusTeam")
                         .HasColumnType("int");
 
