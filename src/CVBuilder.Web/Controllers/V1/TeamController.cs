@@ -87,7 +87,11 @@ public class TeamController : BaseAuthApiController
     [HttpGet(ApiRoutes.Team.GetAllTeams)]
     public async Task<ActionResult<List<SmallTeamResult>>> GetAllTeams()
     {
-        var command = new GetAllTeamsQuery();
+        var command = new GetAllTeamsQuery()
+        {
+            UserId = LoggedUserId,
+            UserRoles = LoggedUserRoles.ToList()
+        };
         var result = await Mediator.Send(command);
         return result;
     }
