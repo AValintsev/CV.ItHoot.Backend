@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Services.Interfaces;
 using CVBuilder.Repository;
@@ -30,6 +31,9 @@ public class UploadImageHandler : IRequestHandler<UploadResumeImageCommand, bool
         var resume = await _cvRepository.Table
             .Include(x => x.Image)
             .FirstOrDefaultAsync(x => x.Id == request.ResumeId, cancellationToken: cancellationToken);
+        
+        if (resume == null)
+            throw new NotFoundException("Resume not found");
         
         var imagePath = await _imageService.UploadImage(request.FileType, request.Data);
 

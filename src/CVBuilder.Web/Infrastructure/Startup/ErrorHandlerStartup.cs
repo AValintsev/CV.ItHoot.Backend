@@ -1,5 +1,6 @@
 ﻿using CVBuilder.Application.Core.Infrastructure.Interfaces;
 using CVBuilder.Web.Infrastructure.Extensions;
+using CVBuilder.Web.Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,9 +29,9 @@ namespace CVBuilder.Web.Infrastructure.Startup
         /// <param name="application">Builder for configuring an application's request pipeline</param>
         public void Configure(IApplicationBuilder application)
         {
-            //application.UseMiddleware<ExceptionMiddleware>();
+            application.UseMiddleware<ExceptionMiddleware>();
 
-            application.ConfigureExceptionHandler();
+            // application.ConfigureExceptionHandler();
         }
     }
 }

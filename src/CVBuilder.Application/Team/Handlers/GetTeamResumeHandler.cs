@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Resume.Queries;
 using CVBuilder.Application.Team.Queries;
 using CVBuilder.Application.Team.Responses;
@@ -35,14 +36,24 @@ public class GetTeamResumeHandler:IRequestHandler<GetTeamResumeQuery, TeamResume
                 .Include(x=>x.Resumes)
                 .FirstOrDefaultAsync(x => x.Id == request.TeamId,
                 cancellationToken: cancellationToken);
-        var resumeId = team.Resumes.FirstOrDefault(x => x.ResumeId == request.ResumeId).ResumeId;
+        
+        if (team == null)
+        {
+            throw new NotFoundException("Team not found");
+        }
+        
+        var resumeId = team.Resumes.FirstOrDefault(x => x.Id == request.TeamResumeId)?.ResumeId;
+        
+        if (resumeId == null)
+        {
+            throw new NotFoundException("Resume not found");
+        }
         
         var resume = await _mediator.Send(new GetResumeByIdQuery()
         {
-            Id = resumeId
+            Id = resumeId.GetValueOrDefault()
         }, cancellationToken);
         
-        //
         if (request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()) && !team.ShowContacts)
         {
             HideContacts(resume);

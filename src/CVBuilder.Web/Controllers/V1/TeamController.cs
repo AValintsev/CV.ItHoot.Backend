@@ -52,13 +52,13 @@ public class TeamController : BaseAuthApiController
     /// Get resume from Team
     /// </summary>
     [HttpGet(ApiRoutes.Team.GetTeamResume)]
-    public async Task<ActionResult<TeamResumeResult>> GetTeamResume(int teamId, int resumeId)
+    public async Task<ActionResult<TeamResumeResult>> GetTeamResume(int teamId, int teamResumeId)
     {
         var command = new GetTeamResumeQuery()
         {
             UserRoles = LoggedUserRoles.ToList(),
             TeamId = teamId,
-            ResumeId = resumeId
+            TeamResumeId = teamResumeId
         };
         var result = await Mediator.Send(command);
         return Ok(result);
@@ -68,13 +68,13 @@ public class TeamController : BaseAuthApiController
     /// Get pdf resume from Team
     /// </summary>
     [HttpGet(ApiRoutes.Team.GetPdfTeamResume)]
-    public async Task<ActionResult<TeamResumeResult>> GetPdfTeamResume(int teamId, int resumeId)
+    public async Task<ActionResult<TeamResumeResult>> GetPdfTeamResume(int teamId, int teamResumeId)
     {
         var command = new GetTeamResumePdfQuery
         {
             UserRoles = LoggedUserRoles.ToList(),
             TeamId = teamId,
-            ResumeId = resumeId,
+            ResumeId = teamResumeId,
             JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
         };
         var result = await Mediator.Send(command);

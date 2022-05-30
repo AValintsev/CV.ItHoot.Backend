@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using CsvHelper.Configuration;
+using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Identity.Commands;
 using CVBuilder.Application.Identity.Responses;
 using CVBuilder.Application.Identity.Services.Interfaces;
@@ -35,10 +37,7 @@ namespace CVBuilder.Application.Identity.Handlers
             var existedUser = await _userManager.FindByEmailAsync(request.Email);
             if (existedUser != null)
             {
-                return new AuthenticationResult
-                {
-                    Errors = new[] { "User already exist" }
-                };
+                throw new ForbiddenException("User already exists");
             }
 
             var user = new Models.User

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Team.Commands;
 using CVBuilder.Application.Team.Queries;
 using CVBuilder.Application.Team.Responses;
@@ -31,6 +32,12 @@ public class ApproveTeamHandler : IRequestHandler<ApproveTeamCommand, TeamResult
         var team = await _teamRepository.Table
             .Include(x => x.Resumes)
             .FirstOrDefaultAsync(x=>x.Id == request.TeamId, cancellationToken: cancellationToken);
+        
+        if (team == null)
+        {
+            throw new NotFoundException("Team not found");
+        }
+        
         foreach (var resume in team.Resumes)
         {
             var resumeRequest = request.Resumes.FirstOrDefault(x => x.Id == resume.Id);

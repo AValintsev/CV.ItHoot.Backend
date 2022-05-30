@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Team.Commands;
 using CVBuilder.Application.Team.Queries;
 using CVBuilder.Application.Team.Responses;
@@ -34,6 +35,12 @@ public class UpdateTeamHandler : IRequestHandler<UpdateTeamCommand, TeamResult>
         var teamDto = await _teamRepository.Table
             .Include(x => x.Resumes)
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
+        
+        if (teamDto == null)
+        {
+            throw new NotFoundException("Team not found");
+        }
+        
         UpdateTeam(teamDto, team);
         RemoveDuplicate(teamDto);
         teamDto = await _teamRepository.UpdateAsync(teamDto);

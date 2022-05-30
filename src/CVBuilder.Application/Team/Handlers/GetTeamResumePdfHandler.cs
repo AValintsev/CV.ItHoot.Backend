@@ -6,6 +6,7 @@ using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Team.Queries;
 using CVBuilder.Repository;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using PuppeteerSharp;
 
 namespace CVBuilder.Application.Team.Handlers;
