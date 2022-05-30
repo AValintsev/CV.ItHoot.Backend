@@ -27,6 +27,7 @@ public class TeamCreateHandler : IRequestHandler<CreateTeamCommand, TeamResult>
     public async Task<TeamResult> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<Team>(request);
+        model.ResumeTemplateId = model.ResumeTemplateId == 0 ? 1 : model.ResumeTemplateId;
         model = await _teamRepository.CreateAsync(model);
         var result = await _mediator.Send(new GetTeamByIdQuery {Id = model.Id}, cancellationToken);
         return result;
