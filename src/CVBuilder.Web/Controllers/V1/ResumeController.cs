@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Queries;
+using CVBuilder.Application.Resume.Responses;
 using CVBuilder.Application.Resume.Responses.CvResponse;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.CV;
@@ -121,6 +122,17 @@ namespace CVBuilder.Web.Controllers.V1
             };
             var response = await Mediator.Send(command);
             return Ok();
+        }
+
+        /// <summary>
+        /// Get list of Resume templates
+        /// </summary>
+        [HttpGet(ApiRoutes.Resume.GetAllResumeTemplates)]
+        public async Task<ActionResult<List<ResumeTemplateResult>>> GetAllResumeTemplates()
+        {
+            var command = new GetAllResumeTemplatesQuery();
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
     }
 }

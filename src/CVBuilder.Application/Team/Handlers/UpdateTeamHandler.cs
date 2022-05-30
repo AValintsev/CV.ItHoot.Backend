@@ -60,6 +60,7 @@ public class UpdateTeamHandler : IRequestHandler<UpdateTeamCommand, TeamResult>
     private void UpdateTeam(Team teamDto, Team team)
     {
         teamDto.UpdatedAt = DateTime.UtcNow;
+        team.ResumeTemplateId = team.ResumeTemplateId;
         teamDto.ShowLogo = team.ShowLogo;
         teamDto.ShowContacts = team.ShowContacts;
         teamDto.StatusTeam = team.StatusTeam;

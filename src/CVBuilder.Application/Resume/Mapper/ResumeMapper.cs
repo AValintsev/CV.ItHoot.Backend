@@ -69,6 +69,9 @@ class ResumeMapper : AppMapperBase
             .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
             .ForMember(x => x.SkillName, y => y.MapFrom(z => z.Skill.Name));
 
+        CreateMap<ResumeTemplate, ResumeTemplateResult>()
+            .ForMember(x => x.TemplateId, y => y.MapFrom(z => z.Id));
+
         #endregion
     }
 

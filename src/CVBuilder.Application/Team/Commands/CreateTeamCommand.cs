@@ -11,5 +11,6 @@ public class CreateTeamCommand: IRequest<TeamResult>
     public bool ShowLogo { get; set; }
     public bool ShowContacts { get; set; }
     public string TeamName { get; set; }
+    public int ResumeTemplateId { get; set; }
     public List<CreateResumeCommand> Resumes { get; set; }
 }
