@@ -1,5 +1,6 @@
 using CVBuilder.Application.Core.Infrastructure.Interfaces;
 using CVBuilder.Application.Core.Settings;
+using CVBuilder.Application.Resume.Commands;
 using CVBuilder.EFContext;
 using CVBuilder.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +32,8 @@ namespace CVBuilder.Web
 
             services.AddDbContext<EFDbContext>(options =>
                 options.UseSqlServer(connectionString));
-
+            services.AddSingleton<BrowserExtension>();
+            // serviceProvider.GetRequiredService<BrowserExtension>().Init();
             (_engine, _appSettings) = services.ConfigureApplicationServices(_configuration, _webHostEnvironment);
         }
 
@@ -45,7 +47,7 @@ namespace CVBuilder.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.ConfigureRequestPipeline();
-            //app.StartEngine();
+            // app.StartEngine();
         }
     }
 }

@@ -40,6 +40,32 @@ namespace CVBuilder.Web.Controllers.V1
         }
 
         /// <summary>
+        /// Updates an existing Language
+        /// </summary>
+        [HttpPut(ApiRoutes.Language.UpdateLanguage)]
+        public async Task<ActionResult<LanguageDTO>> UpdateLanguage(UpdateLanguageRequest request)
+        {
+            var command = Mapper.Map<UpdateLanguageCommand>(request);
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+        
+        
+        /// <summary>
+        /// Deleting an existing Language
+        /// </summary>
+        [HttpDelete(ApiRoutes.Language.DeleteLanguage)]
+        public async Task<ActionResult> DeleteSkill([FromRoute]int id)
+        {
+            var command = new DeleteLanguageCommand
+            {
+                Id = id
+            };
+            var result = await Mediator.Send(command);
+            return Ok();
+        }
+        
+        /// <summary>
         /// Get Language by content Text
         /// </summary>
         [HttpGet(ApiRoutes.Language.GetLanguage)]

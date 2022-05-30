@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CVBuilder.Application.Skill.Handlers
 {
-    internal class CreateSkillHandler : IRequestHandler<CreateSkillCommand, SkillDTO>
+    internal class CreateSkillHandler : IRequestHandler<CreateSkillCommand, SkillResult>
     {
         private readonly IRepository<Models.Entities.Skill, int> _skillRepository;
         private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ namespace CVBuilder.Application.Skill.Handlers
             _skillRepository = cvRepository;
             _mapper = mapper;
         }
-        public async Task<SkillDTO> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
+        public async Task<SkillResult> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.Name))
             {
@@ -34,7 +34,7 @@ namespace CVBuilder.Application.Skill.Handlers
 
             var skill = await _skillRepository.CreateAsync(model);
 
-            return _mapper.Map<SkillDTO>(skill);
+            return _mapper.Map<SkillResult>(skill);
         }
     }
 }

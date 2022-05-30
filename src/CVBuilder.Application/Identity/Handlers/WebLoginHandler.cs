@@ -1,5 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using CsvHelper.Configuration;
+using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Identity.Commands;
 using CVBuilder.Application.Identity.Responses;
 using CVBuilder.Application.Identity.Services.Interfaces;
@@ -26,19 +28,13 @@ namespace CVBuilder.Application.Identity.Handlers
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null)
             {
-                return new AuthenticationResult
-                {
-                    Errors = new[] { "User does not exist" }
-                };
+                throw new ForbiddenException("User does not exist");
             }
 
             var userHasValidPassword = await _userManager.CheckPasswordAsync(user, request.Password);
             if (!userHasValidPassword)
             {
-                return new AuthenticationResult
-                {
-                    Errors = new[] { "Incorrect password" }
-                };
+                throw new ForbiddenException("Incorrect password");
             }
 
             return await _identityService.GenerateAuthenticationResultAsync(user);

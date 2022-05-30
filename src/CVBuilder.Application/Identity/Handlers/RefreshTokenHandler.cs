@@ -6,6 +6,7 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CVBuilder.Application.Core.Exceptions;
 
 namespace CVBuilder.Application.Identity.Handlers
 {
@@ -45,22 +46,23 @@ namespace CVBuilder.Application.Identity.Handlers
             var storedRefreshToken = await _tokenService.GetRefreshTokenAsync(request.RefreshToken);
             if (storedRefreshToken == null)
             {
-                return new AuthenticationResult { Errors = new[] { "This refresh token does not exist" } };
+                throw new ForbiddenException("This refresh token does not exist");
             }
 
             if (DateTime.UtcNow > storedRefreshToken.ExpiryAt)
             {
-                return new AuthenticationResult { Errors = new[] { "This refresh token has expired" } };
+                throw new ForbiddenException("This refresh token has expired");
             }
 
             if (storedRefreshToken.IsRevoked)
             {
-                return new AuthenticationResult { Errors = new[] { "This refresh token has been revoked" } };
+
+                throw new ForbiddenException("This refresh token has been revoked");
             }
 
             if (storedRefreshToken.IsUsed)
             {
-                return new AuthenticationResult { Errors = new[] { "This refresh token has been used" } };
+                throw new ForbiddenException("This refresh token has been used");
             }
 
             // var jti = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;

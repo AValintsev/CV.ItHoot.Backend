@@ -6,7 +6,7 @@ namespace CVBuilder.Models.Entities
     public class Experience : IEntity<int>
     {
         public int Id { get; set; }
-        public int CvId { get; set; }
+        public int ResumeId { get; set; }
         public string Company { get; set; }
         public string Position { get; set; }
         public string Description { get; set; }

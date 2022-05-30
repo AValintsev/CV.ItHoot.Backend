@@ -12,8 +12,8 @@ namespace CVBuilder.Models.Entities
         public int Order { get; set; }
 
 
-        public int CvId { get; set; }
-        public Cv Cv { get; set; }
+        public int ResumeId { get; set; }
+        public Resume Resume { get; set; }
         public int SkillId { get; set; }
         public Skill Skill { get; set; }
         public SkillLevel SkillLevel { get; set; }

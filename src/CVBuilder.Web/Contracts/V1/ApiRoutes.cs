@@ -20,6 +20,13 @@
 
             public const string GenerateToken = BaseIdentity + "/generateToken";
         }
+        
+        public static class User
+        {
+            private const string BaseUser = Base + "/user";
+
+            public const string ByRole = BaseUser;
+        }
 
         public static class Confirmation
         {
@@ -40,14 +47,30 @@
             public const string LevelSkill = BaseDataType + "/levelSkills";
         }
 
-        public static class CV
+        public static class Team
         {
-            private const string BaseCv = Base + "/cv";
-            public const string CreateCv = BaseCv;
-            public const string GetAllCv = BaseCv ;
-            public const string GetCvById = BaseCv+"/{id}";
-            public const string UpdateCv = BaseCv;
-            public const string DeleteCv = BaseCv+"/{id}";
+            private const string BaseTeam = Base + "/teams";
+            public const string CreateTeam = BaseTeam;
+            public const string GetTeamById = BaseTeam + "/{id}";
+            public const string UpdateTeam = BaseTeam;
+            public const string GetAllTeams = BaseTeam;
+            public const string GetAllArchiveTeams = BaseTeam+"/archive";
+            public const string ApproveTeam = BaseTeam + "/approve";
+            public const string GetTeamResume = BaseTeam + "/{teamId}/resume/{teamResumeId}";
+            public const string GetPdfTeamResume = BaseTeam + "/{teamId}/resume/{teamResumeId}/pdf";
+
+        }
+
+        public static class Resume
+        {
+            private const string BaseCv = Base + "/resume";
+            public const string CreateResume = BaseCv;
+            public const string GetResumePdf = BaseCv + "/pdf/{id}";
+            public const string GetAllResume = BaseCv ;
+            public const string GetResumeById = BaseCv+"/{id}";
+            public const string UpdateResume = BaseCv;
+            public const string DeleteResume = BaseCv+"/{id}";
+            public const string UploadImage = BaseCv+"/{resumeId}/image";
 
         } 
         public static class File
@@ -58,15 +81,27 @@
             public const string GetAllFileUrl = BaseFile + "/list";
         }
 
-        public static class SkillRoute
+        public static class Position
+        {
+            private const string BasePosition = Base + "/positions";
+            public const string CreatePosition = BasePosition;
+            public const string UpdatePosition = BasePosition;
+            public const string DeletePosition = BasePosition+"/{id}";
+            public const string GetAllPositions = BasePosition;
+            public const string GetPositionsById = BasePosition+"/{id}";
+        }
+        
+        public static class Skill
         {
             private const string BaseSkill = Base + "/skills";
             public const string CreateSkill = BaseSkill;
+            public const string UpdateSkill = BaseSkill;
+            public const string DeleteSkill = BaseSkill+"/{id}";
             public const string GetSkill = BaseSkill+"/search";
-            public const string SkillsGetAll = BaseSkill + "/all";
+            public const string SkillsGetAll = BaseSkill;
         }
 
-        public static class EducationRoute
+        public static class Education
         {
             private const string BaseEducation = Base + "/educations";
             public const string CreateEducation = BaseEducation;
@@ -85,6 +120,8 @@
         {
             private const string BaseLanguage = Base + "/languages";
             public const string CreateLanguage = BaseLanguage;
+            public const string UpdateLanguage = BaseLanguage;
+            public const string DeleteLanguage = BaseLanguage+"/{id}";
             public const string GetLanguage = BaseLanguage+"/search";
             public const string LanguageGetAll = BaseLanguage;
         }

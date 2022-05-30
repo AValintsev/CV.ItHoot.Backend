@@ -13,10 +13,10 @@ namespace CVBuilder.Application.Language.Handlers
 {
     public class GetLanguageByContainInTextHandler : IRequestHandler<GetLanguageByContainInTextQuery, IEnumerable<LanguageDTO>>
     {
-        private readonly IRepository<Models.Entities.UserLanguage, int> _languageRepository;
+        private readonly IRepository<Models.Entities.Language, int> _languageRepository;
         private readonly IMapper _mapper;
         public GetLanguageByContainInTextHandler(IMapper mapper,
-            IRepository<Models.Entities.UserLanguage, int> languageRepository)
+            IRepository<Models.Entities.Language, int> languageRepository)
         {
             _mapper = mapper;
             _languageRepository = languageRepository;
