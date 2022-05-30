@@ -8,5 +8,5 @@ public class GetTeamResumeQuery:IRequest<TeamResumeResult>
 {
     public List<string> UserRoles { get; set; }
     public int TeamId { get; set; }
-    public int ResumeId { get; set; }
+    public int TeamResumeId { get; set; }
 }

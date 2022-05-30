@@ -46,7 +46,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions
 
             //add accessor to HttpContext
             services.AddHttpContextAccessor();
-
+            
             services.AddTransient<IAppUserManager, AppUserManager>();
 
             var appSection = configuration.GetSection("AppSettings");

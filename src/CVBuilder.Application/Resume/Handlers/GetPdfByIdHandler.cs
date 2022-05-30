@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Queries;
 using CVBuilder.Repository;
@@ -24,9 +25,9 @@ public class GetPdfByIdHandler : IRequestHandler<GetPdfByIdQueries, Stream>
 
     public async Task<Stream> Handle(GetPdfByIdQueries request, CancellationToken cancellationToken)
     {
-        // var cv = await _cvRepository.GetByIdAsync(request.ResumeId);
-        // if (cv == null)
-        //     throw new NullReferenceException("Resume not found");
+        var resume = await _cvRepository.GetByIdAsync(request.ResumeId);
+        if (resume == null)
+            throw new NotFoundException("Resume not found");
 
         var browser = _browserExtension.Browser;
         await using var page = await browser.NewPageAsync();
@@ -40,7 +41,7 @@ public class GetPdfByIdHandler : IRequestHandler<GetPdfByIdQueries, Stream>
         });
         
         await page.EvaluateExpressionAsync(
-            @"var doc = document.getElementById(""doc"");document.body.innerHTML = '';document.body.appendChild(doc);");
+        @"var doc = document.getElementById(""doc"");document.body.innerHTML = '';document.body.appendChild(doc);");
 
         var file = await page.PdfStreamAsync(new PdfOptions
         {

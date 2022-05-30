@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Team.Queries;
 using CVBuilder.Application.Team.Responses;
 using CVBuilder.Repository;
@@ -29,6 +30,12 @@ public class GetTeamByIdHandler: IRequestHandler<GetTeamByIdQuery, TeamResult>
             .ThenInclude(x=>x.Skill)
             .Include(x=>x.Client)
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
+        
+        if (team == null)
+        {
+            throw new NotFoundException("Team not found");
+        }
+        
         var result = _mapper.Map<TeamResult>(team);
         return result;
     }

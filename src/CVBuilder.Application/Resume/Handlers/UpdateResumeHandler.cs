@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Responses.CvResponse;
 using CVBuilder.Repository;
@@ -25,7 +26,13 @@ class UpdateResumeHandler : IRequestHandler<UpdateResumeCommand, ResumeResult>
     public async Task<ResumeResult> Handle(UpdateResumeCommand request, CancellationToken cancellationToken)
     {
         var resume = _mapper.Map<Resume>(request);
-        var resumeDto = await _cvRepository.GetByIdAsync(resume.Id,"Educations,Experiences,LevelLanguages,LevelSkills");
+        var resumeDto = await _cvRepository
+            .GetByIdAsync(resume.Id, "Educations,Experiences,LevelLanguages,LevelSkills");
+        
+        if (resumeDto == null)
+            throw new NotFoundException("Resume not found");
+
+
         MapFromRequest(resume, resumeDto);
         var result = await _cvRepository.UpdateAsync(resumeDto);
         return _mapper.Map<ResumeResult>(result);

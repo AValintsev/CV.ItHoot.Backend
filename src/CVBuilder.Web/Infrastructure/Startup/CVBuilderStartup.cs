@@ -1,4 +1,5 @@
 ﻿using CVBuilder.Application.Core.Infrastructure.Interfaces;
+using CVBuilder.Web.Infrastructure.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +21,10 @@ namespace CVBuilder.Web.Infrastructure.Startup
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddMemoryCache();
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new ExceptionFilter());
+            });
         }
 
         /// <summary>

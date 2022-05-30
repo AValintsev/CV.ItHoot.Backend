@@ -6,22 +6,25 @@ namespace CVBuilder.Application.Resume.Commands;
 
 public class BrowserExtension:IAsyncDisposable
 {
-    public Browser Browser { get; private set; }
-   
-    public async void Init()
+    private Browser _browser;
+
+    public Browser Browser => _browser ??= Init();
+
+    private static Browser Init()
     {
-        Browser = await Puppeteer.LaunchAsync(new LaunchOptions
+        var browser = Puppeteer.LaunchAsync(new LaunchOptions
         {
             Headless = true,
             Args = new[]
             {
                 "--no-sandbox"
             }
-        });
+        }).Result;
+        return browser;
     }
 
-    public async ValueTask DisposeAsync()
+    async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        await Browser.DisposeAsync();
+        await _browser.DisposeAsync();
     }
 }
