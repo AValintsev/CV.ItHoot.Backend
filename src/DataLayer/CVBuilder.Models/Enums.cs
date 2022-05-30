@@ -27,4 +27,21 @@ namespace CVBuilder.Models
         [Description("Intermediate")] Intermediate = 2,
         [Description("Advanced")] Advanced = 3
     }
+
+    public enum StatusTeam
+    {
+       [Description("Created")] Created =1,
+       [Description("InReview")] InReview,
+       [Description("Approved")] Approved,
+       [Description("Done")] Done,
+       [Description("Denied")] Denied,
+       [Description("In Working")] InWorking,
+    }
+
+    public enum StatusTeamResume
+    {
+        [Description("NotSelected")]NotSelected=1,
+        [Description("Selected")]Selected,
+        [Description("Denied")]Denied
+    }
 }

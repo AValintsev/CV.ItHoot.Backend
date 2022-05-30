@@ -2,8 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using CVBuilder.Application.CV.Responses.CvResponse;
 using CVBuilder.Application.Education.Commands;
+using CVBuilder.Application.Resume.Responses.CvResponse;
 using CVBuilder.Repository;
 using MediatR;
 

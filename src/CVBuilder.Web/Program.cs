@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using NLog.Web;
 using System.Threading.Tasks;
 using CVBuilder.Web.Infrastructure.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace CVBuilder.Web
 {
@@ -41,6 +42,7 @@ namespace CVBuilder.Web
                 {
                     logging.AddNLog("nlog.config");
                     logging.AddNLogWeb("nlog.config");
+                    logging.AddAzureWebAppDiagnostics();
                 });
 
         

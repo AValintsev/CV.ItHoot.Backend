@@ -6,7 +6,7 @@ namespace CVBuilder.Models.Entities
     public class Education : IEntity<int>
     {
         public int Id { get; set; }
-        public int CvId { get; set; }
+        public int ResumeId { get; set; }
         public string InstitutionName { get; set; }
         public string Specialization { get; set; }
         public string Degree { get; set; }

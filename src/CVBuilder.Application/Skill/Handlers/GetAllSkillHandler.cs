@@ -12,7 +12,7 @@ namespace CVBuilder.Application.Skill.Handlers
 {
     using Models.Entities;
 
-    public class GetAllSkillHandle : IRequestHandler<GetAllSkillQuery, IEnumerable<SkillDTO>>
+    public class GetAllSkillHandle : IRequestHandler<GetAllSkillQuery, IEnumerable<SkillResult>>
     {
         private readonly IRepository<Skill, int> _skillRepository;
         private readonly IMapper _mapper;
@@ -24,12 +24,12 @@ namespace CVBuilder.Application.Skill.Handlers
         }
 
 
-        public async Task<IEnumerable<SkillDTO>> Handle(GetAllSkillQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<SkillResult>> Handle(GetAllSkillQuery request, CancellationToken cancellationToken)
         {
             var skills = await _skillRepository
                 .Table.ToListAsync(cancellationToken: cancellationToken);
 
-            var result = _mapper.Map<List<SkillDTO>>(skills);
+            var result = _mapper.Map<List<SkillResult>>(skills);
 
             return result;
         }

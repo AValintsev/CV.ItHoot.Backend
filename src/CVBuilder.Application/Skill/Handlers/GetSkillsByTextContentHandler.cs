@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Skill.Handlers
 {
-    class GetSkillsByTextContentHandler : IRequestHandler<GetSkillByContainInTextQuery, IEnumerable<SkillDTO>>
+    class GetSkillsByTextContentHandler : IRequestHandler<GetSkillByContainInTextQuery, IEnumerable<SkillResult>>
     {
         private readonly IRepository<Models.Entities.Skill, int> _skillRepository;
         private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ namespace CVBuilder.Application.Skill.Handlers
         }
 
 
-        public async Task<IEnumerable<SkillDTO>> Handle(GetSkillByContainInTextQuery request,
+        public async Task<IEnumerable<SkillResult>> Handle(GetSkillByContainInTextQuery request,
             CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.Content))
@@ -39,7 +39,7 @@ namespace CVBuilder.Application.Skill.Handlers
                 .ToListAsync();
 
 
-            var result = _mapper.Map<List<SkillDTO>>(skills);
+            var result = _mapper.Map<List<SkillResult>>(skills);
 
             return result;
         }

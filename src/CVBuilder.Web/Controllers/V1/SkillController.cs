@@ -16,8 +16,8 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Create a new Skill
         /// </summary>
-        [HttpPost(ApiRoutes.SkillRoute.CreateSkill)]
-        public async Task<ActionResult<SkillDTO>> Create([FromBody] CreateSkillRequest request)
+        [HttpPost(ApiRoutes.Skill.CreateSkill)]
+        public async Task<ActionResult<SkillResult>> Create([FromBody] CreateSkillRequest request)
         {
             var command = Mapper.Map<CreateSkillCommand>(request);
             var result = await Mediator.Send(command);
@@ -29,8 +29,8 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Get list of Skills
         /// </summary>
-        [HttpGet(ApiRoutes.SkillRoute.SkillsGetAll)]
-        public async Task<ActionResult<IEnumerable<SkillDTO>>> GetAllSkills([FromQuery] GetAllSkillRequest request)
+        [HttpGet(ApiRoutes.Skill.SkillsGetAll)]
+        public async Task<ActionResult<IEnumerable<SkillResult>>> GetAllSkills([FromQuery] GetAllSkillRequest request)
         {
             var command = Mapper.Map<GetAllSkillQuery>(request);
             var result = await Mediator.Send(command);
@@ -41,8 +41,8 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Updates an existing Skill
         /// </summary>
-        [HttpPut(ApiRoutes.SkillRoute.UpdateSkill)]
-        public async Task<ActionResult<SkillDTO>> UpdateSkill(UpdateSkillRequest request)
+        [HttpPut(ApiRoutes.Skill.UpdateSkill)]
+        public async Task<ActionResult<SkillResult>> UpdateSkill(UpdateSkillRequest request)
         {
             var command = Mapper.Map<UpdateSkillCommand>(request);
             var result = await Mediator.Send(command);
@@ -52,7 +52,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Deleting an existing Skill
         /// </summary>
-        [HttpDelete(ApiRoutes.SkillRoute.DeleteSkill)]
+        [HttpDelete(ApiRoutes.Skill.DeleteSkill)]
         public async Task<ActionResult> DeleteSkill([FromRoute]int id)
         {
             var command = new DeleteSkillCommand
@@ -65,8 +65,8 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Get Skill by content Text
         /// </summary>
-        [HttpGet(ApiRoutes.SkillRoute.GetSkill)]
-        public async Task<ActionResult<IEnumerable<SkillDTO>>> GetSkill([FromQuery] GetSkillByContainText query)
+        [HttpGet(ApiRoutes.Skill.GetSkill)]
+        public async Task<ActionResult<IEnumerable<SkillResult>>> GetSkill([FromQuery] GetSkillByContainText query)
         {
             var command = Mapper.Map<GetSkillByContainInTextQuery>(query);
             var result =  await Mediator.Send(command);

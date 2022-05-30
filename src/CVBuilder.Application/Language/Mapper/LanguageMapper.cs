@@ -1,6 +1,5 @@
 ﻿using CVBuilder.Application.Language.DTOs;
 using CVBuilder.Application.Language.Responses;
-using CVBuilder.Models.Entities;
 
 namespace CVBuilder.Application.Language.Mapper
 {
@@ -8,8 +7,8 @@ namespace CVBuilder.Application.Language.Mapper
     {
         public LanguageMapper()
         {
-            CreateMap<UserLanguage, LanguageDTO>();
-            CreateMap<UserLanguage, LanguageResult>();
+            CreateMap<Models.Entities.Language, LanguageDTO>();
+            CreateMap<Models.Entities.Language, LanguageResult>();
         }
     }
 }
