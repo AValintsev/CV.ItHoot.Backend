@@ -65,6 +65,7 @@ public class GetTeamResumeHandler:IRequestHandler<GetTeamResumeQuery, TeamResume
         return new TeamResumeResult
         {
             ShowLogo = team.ShowLogo,
+            ResumeTemplateId = team.ResumeTemplateId,
             Resume = resume
         };
     }
