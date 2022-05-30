@@ -38,16 +38,16 @@ namespace CVBuilder.Application.Resume.Handlers
                 .Include(x => x.Position)
                 .Include(x => x.LevelLanguages)
                 .ThenInclude(l => l.Language);
-            if (request.UserRoles.Contains(Enums.RoleTypes.Admin.ToString()))
-            {
+            // if (request.UserRoles.Contains(Enums.RoleTypes.Admin.ToString()))
+            // {
                
                    resume = await resumeRequest.FirstOrDefaultAsync(x=>x.Id == request.Id,cancellationToken: cancellationToken);
-            }
-            else
-            {
-                resume = await resumeRequest.FirstOrDefaultAsync(x =>
-                    x.CreatedUserId == request.UserId && x.Id == request.Id, cancellationToken: cancellationToken);
-            }
+            // }
+            // else
+            // {
+                // resume = await resumeRequest.FirstOrDefaultAsync(x =>
+                //     x.CreatedUserId == request.UserId && x.Id == request.Id, cancellationToken: cancellationToken);
+            // }
            
 
             if (resume == null)
