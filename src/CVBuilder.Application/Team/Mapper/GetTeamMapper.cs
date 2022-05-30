@@ -32,7 +32,8 @@ public class GetTeamMapper : AppMapperBase
             .ForMember(x => x.FirstName, y => y.MapFrom(z => z.Resume.FirstName))
             .ForMember(x => x.LastName, y => y.MapFrom(z => z.Resume.LastName))
             .ForMember(x => x.ResumeName, y => y.MapFrom(z => z.Resume.ResumeName))
-            .ForMember(x => x.Skills, y => y.MapFrom(z => z.Resume.LevelSkills));
+            .ForMember(x => x.Skills, y => y.MapFrom(z => z.Resume.LevelSkills))
+            .ForMember(x => x.Picture, y => y.MapFrom(z => z.Resume.Image.ImagePath));
 
         CreateMap<LevelSkill, SkillResult>()
             .ForMember(x => x.Id, y => y.MapFrom(z => z.SkillId))
