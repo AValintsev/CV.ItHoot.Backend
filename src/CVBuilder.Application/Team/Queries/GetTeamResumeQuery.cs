@@ -7,6 +7,7 @@ namespace CVBuilder.Application.Team.Queries;
 public class GetTeamResumeQuery:IRequest<TeamResumeResult>
 {
     public List<string> UserRoles { get; set; }
+    public int UserId { get; set; }
     public int TeamId { get; set; }
     public int TeamResumeId { get; set; }
 }

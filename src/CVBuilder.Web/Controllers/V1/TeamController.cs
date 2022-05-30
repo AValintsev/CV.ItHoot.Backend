@@ -57,6 +57,7 @@ public class TeamController : BaseAuthApiController
         var command = new GetTeamResumeQuery()
         {
             UserRoles = LoggedUserRoles.ToList(),
+            UserId = LoggedUserId,
             TeamId = teamId,
             TeamResumeId = teamResumeId
         };

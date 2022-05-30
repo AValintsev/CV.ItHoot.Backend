@@ -51,7 +51,9 @@ public class GetTeamResumeHandler:IRequestHandler<GetTeamResumeQuery, TeamResume
         
         var resume = await _mediator.Send(new GetResumeByIdQuery()
         {
-            Id = resumeId.GetValueOrDefault()
+            Id = resumeId.GetValueOrDefault(),
+            UserRoles = request.UserRoles,
+            UserId = request.UserId
         }, cancellationToken);
         
         if (request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()) && !team.ShowContacts)
