@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CVBuilder.EFContext.Migrations
 {
     [DbContext(typeof(EFDbContext))]
-    [Migration("20220531180828_TeamBuild")]
+    [Migration("20220531223709_TeamBuild")]
     partial class TeamBuild
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -497,7 +497,7 @@ namespace CVBuilder.EFContext.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ComplexityId")
+                    b.Property<int?>("ComplexityId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -933,10 +933,9 @@ namespace CVBuilder.EFContext.Migrations
             modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuild", b =>
                 {
                     b.HasOne("CVBuilder.Models.Entities.TeamBuildComplexity", "Complexity")
-                        .WithMany()
+                        .WithMany("TeamBuilds")
                         .HasForeignKey("ComplexityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Complexity");
                 });
@@ -1056,6 +1055,11 @@ namespace CVBuilder.EFContext.Migrations
             modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuild", b =>
                 {
                     b.Navigation("Positions");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuildComplexity", b =>
+                {
+                    b.Navigation("TeamBuilds");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.User", b =>

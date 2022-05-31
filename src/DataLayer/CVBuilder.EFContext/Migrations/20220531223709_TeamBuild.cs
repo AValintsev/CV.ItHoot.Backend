@@ -31,7 +31,7 @@ namespace CVBuilder.EFContext.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectTypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ComplexityId = table.Column<int>(type: "int", nullable: false),
+                    ComplexityId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -43,7 +43,7 @@ namespace CVBuilder.EFContext.Migrations
                         column: x => x.ComplexityId,
                         principalTable: "TeamBuildComplexity",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
