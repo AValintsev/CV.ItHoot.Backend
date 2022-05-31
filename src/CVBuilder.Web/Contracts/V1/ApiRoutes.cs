@@ -73,6 +73,9 @@
         {
             private const string BaseComplexity = Base + "/complexities";
             public const string GetAllComplexities = BaseComplexity;
+            public const string CreateComplexity = BaseComplexity;
+            public const string UpdateComplexity = BaseComplexity;
+            public const string DeleteComplexity = BaseComplexity+"/{id}";
         }
 
         public static class Resume
