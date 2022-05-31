@@ -61,6 +61,20 @@
 
         }
 
+        public static class TeamBuild
+        {
+            private const string BaseTeamBuild = Base + "/teambuilds";
+            public const string CreateTeamBuild = BaseTeamBuild;
+            public const string UpdateTeamBuild = BaseTeamBuild;
+            public const string GetAllTeamBuilds = BaseTeamBuild;
+        }
+
+        public static class Complexity
+        {
+            private const string BaseComplexity = Base + "/complexities";
+            public const string GetAllComplexities = BaseComplexity;
+        }
+
         public static class Resume
         {
             private const string BaseCv = Base + "/resume";
