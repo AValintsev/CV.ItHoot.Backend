@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using CVBuilder.Application.Team.Queries;
 using CVBuilder.Application.TeamBuild.Commands;
 using CVBuilder.Application.TeamBuild.Queries;
 using CVBuilder.Application.TeamBuild.Result;

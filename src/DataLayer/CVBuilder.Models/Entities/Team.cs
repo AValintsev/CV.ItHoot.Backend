@@ -17,6 +17,9 @@ public class Team: IDeletableEntity<int>
     
     public int ResumeTemplateId { get; set; }
     public ResumeTemplate ResumeTemplate { get; set; }
+    
+    public int? TeamBuildId { get; set; }
+    public TeamBuild TeamBuild { get; set; }
     public List<TeamResume> Resumes { get; set; }
     public StatusTeam StatusTeam { get; set; }
     public DateTime CreatedAt { get; set; }

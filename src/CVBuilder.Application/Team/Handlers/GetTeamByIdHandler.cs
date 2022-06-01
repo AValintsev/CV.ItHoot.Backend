@@ -24,6 +24,7 @@ public class GetTeamByIdHandler: IRequestHandler<GetTeamByIdQuery, TeamResult>
     public async Task<TeamResult> Handle(GetTeamByIdQuery request, CancellationToken cancellationToken)
     {
         var team = await _teamRepository.Table
+            .Include(x=>x.TeamBuild)
             .Include(x => x.Resumes)
             .ThenInclude(x => x.Resume)
             .ThenInclude(x=>x.LevelSkills)

@@ -470,6 +470,9 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<int>("StatusTeam")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TeamBuildId")
+                        .HasColumnType("int");
+
                     b.Property<string>("TeamName")
                         .HasColumnType("nvarchar(max)");
 
@@ -483,6 +486,8 @@ namespace CVBuilder.EFContext.Migrations
                     b.HasIndex("CreatedUserId");
 
                     b.HasIndex("ResumeTemplateId");
+
+                    b.HasIndex("TeamBuildId");
 
                     b.ToTable("Teams", (string)null);
                 });
@@ -500,6 +505,9 @@ namespace CVBuilder.EFContext.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("EstimationName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProjectTypeName")
                         .HasColumnType("nvarchar(max)");
@@ -921,11 +929,17 @@ namespace CVBuilder.EFContext.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CVBuilder.Models.Entities.TeamBuild", "TeamBuild")
+                        .WithMany("Teams")
+                        .HasForeignKey("TeamBuildId");
+
                     b.Navigation("Client");
 
                     b.Navigation("CreatedUser");
 
                     b.Navigation("ResumeTemplate");
+
+                    b.Navigation("TeamBuild");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuild", b =>
@@ -1053,6 +1067,8 @@ namespace CVBuilder.EFContext.Migrations
             modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuild", b =>
                 {
                     b.Navigation("Positions");
+
+                    b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuildComplexity", b =>

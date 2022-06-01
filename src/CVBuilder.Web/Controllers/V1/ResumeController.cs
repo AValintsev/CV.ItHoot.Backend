@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Queries;
@@ -131,6 +132,21 @@ namespace CVBuilder.Web.Controllers.V1
         public async Task<ActionResult<List<ResumeTemplateResult>>> GetAllResumeTemplates()
         {
             var command = new GetAllResumeTemplatesQuery();
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Get list of Resume templates by positions
+        /// </summary>
+        [HttpGet(ApiRoutes.Resume.GetAllResumeByPositions)]
+        public async Task<ActionResult<List<ResumeCardResult>>> GetResumesByPositions(string positions)
+        {
+            
+            var command = new GetResumesByPositionQuery()
+            {
+                Positions = positions.Split(',').ToList()
+            };
             var result = await Mediator.Send(command);
             return Ok(result);
         }

@@ -51,6 +51,7 @@ public class UpdateTeamBuildHandler:IRequestHandler<UpdateTeamBuildCommand, Team
     private void UpdateTeamBuild(TeamBuild teamBuildDto, TeamBuild teamBuild)
     {
         teamBuildDto.UpdatedAt = DateTime.UtcNow;
+        teamBuildDto.EstimationName = teamBuild.EstimationName;
         teamBuildDto.ProjectTypeName = teamBuild.ProjectTypeName;
         teamBuildDto.ComplexityId = teamBuild.ComplexityId;
         teamBuildDto.Positions = teamBuild.Positions;

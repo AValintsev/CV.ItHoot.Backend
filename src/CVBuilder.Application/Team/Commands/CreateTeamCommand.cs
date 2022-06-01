@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using CVBuilder.Application.Team.Responses;
-using CVBuilder.Application.TeamBuild.Result;
 using MediatR;
 
 namespace CVBuilder.Application.Team.Commands;
 
-public class CreateTeamCommand: IRequest<TeamResult>, IRequest<TeamBuildResult>
+public class CreateTeamCommand: IRequest<TeamResult>
 {
     public int UserId { get; set; }
+    public int? TeamBuildId { get; set; }
     public int ClientId { get; set; }
     public bool ShowLogo { get; set; }
     public bool ShowContacts { get; set; }

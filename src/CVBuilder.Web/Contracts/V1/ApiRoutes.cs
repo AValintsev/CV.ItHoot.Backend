@@ -89,6 +89,7 @@
             public const string DeleteResume = BaseCv+"/{id}";
             public const string UploadImage = BaseCv+"/{resumeId}/image";
             public const string GetAllResumeTemplates = BaseCv + "/templates";
+            public const string GetAllResumeByPositions = BaseCv + "/position";
 
         } 
         public static class File
