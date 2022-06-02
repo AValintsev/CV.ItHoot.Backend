@@ -90,6 +90,7 @@
             public const string UploadImage = BaseCv+"/{resumeId}/image";
             public const string GetAllResumeTemplates = BaseCv + "/templates";
             public const string GetAllResumeByPositions = BaseCv + "/position";
+            public const string GetAllResumeByTeamBuild= BaseCv + "/teambuild/{id}";
 
         } 
         public static class File

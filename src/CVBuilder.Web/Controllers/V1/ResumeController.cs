@@ -150,5 +150,20 @@ namespace CVBuilder.Web.Controllers.V1
             var result = await Mediator.Send(command);
             return Ok(result);
         }
+        
+        /// <summary>
+        /// Get list of Resume templates by team build template
+        /// </summary>
+        [HttpGet(ApiRoutes.Resume.GetAllResumeByTeamBuild)]
+        public async Task<ActionResult<List<ResumeCardResult>>> GetResumesByTeamBuild(int id)
+        {
+            
+            var command = new GetResumesByTeamBuildQuery()
+            {
+                TeamBuildId = id
+            };
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

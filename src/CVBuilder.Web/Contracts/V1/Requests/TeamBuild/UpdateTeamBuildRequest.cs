@@ -6,7 +6,7 @@ public class UpdateTeamBuildRequest
 {
     public int Id { get; set; }
     public string ProjectTypeName { get; set; }
-    public string EstimationName { get; set; }
+    public int Estimation { get; set; }
     public int ComplexityId { get; set; }
     public List<UpdateTeamBuildPositionRequest> Positions { get; set; }
 }

@@ -506,8 +506,8 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EstimationName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Estimation")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProjectTypeName")
                         .HasColumnType("nvarchar(max)");

@@ -8,7 +8,7 @@ public class TeamBuild:IEntity<int>
 {
     public int Id { get; set; }
     public string ProjectTypeName { get; set; }
-    public string EstimationName { get; set; }
+    public int Estimation { get; set; }
     public int? ComplexityId { get; set; }
     public TeamBuildComplexity Complexity { get; set; }
     public List<TeamBuildPosition> Positions { get; set; }
