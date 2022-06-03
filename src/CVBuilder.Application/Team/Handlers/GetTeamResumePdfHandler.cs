@@ -42,7 +42,7 @@ public class GetTeamResumePdfHandler: IRequestHandler<GetTeamResumePdfQuery, Str
         var file = await page.PdfStreamAsync(new PdfOptions
         {
             PrintBackground = true,
-            Height = 1450
+            Height = 1250
         });
         return file;
     }
