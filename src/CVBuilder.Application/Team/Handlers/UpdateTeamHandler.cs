@@ -40,12 +40,25 @@ public class UpdateTeamHandler : IRequestHandler<UpdateTeamCommand, TeamResult>
         {
             throw new NotFoundException("Team not found");
         }
-        
+
+        MapResumes(teamDto, team);
         UpdateTeam(teamDto, team);
         RemoveDuplicate(teamDto);
         teamDto = await _teamRepository.UpdateAsync(teamDto);
         var result = await _mediator.Send(new GetTeamByIdQuery {Id = teamDto.Id}, cancellationToken);
         return result;
+    }
+
+    private void MapResumes(Team teamDto, Team team)
+    {
+        foreach (var resume in teamDto.Resumes)
+        {
+            var resumeDto = team.Resumes.FirstOrDefault(x => x.Id == resume.Id);
+            if (resumeDto != null)
+            {
+                resumeDto.StatusResume = resume.StatusResume;
+            }
+        }
     }
 
     private void RemoveDuplicate(Team teamDto)
