@@ -25,7 +25,8 @@ public class GetTeamMapper : AppMapperBase
             {
                 UserId = z.ClientId.GetValueOrDefault(),
                 FirstName = z.Client.FirstName,
-                LastName = z.Client.LastName
+                LastName = z.Client.LastName,
+                ShortAuthUrl = z.Client.ShortAuthUrl
             }));
         CreateMap<TeamResume, ResumeResult>()
             .ForMember(x => x.ResumeId, y => y.MapFrom(z => z.ResumeId))

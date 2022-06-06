@@ -52,6 +52,29 @@ namespace CVBuilder.Web.Controllers.V1
 
             return Ok(Mapper.Map<AuthSuccessResponse>(response));
         }
+        
+        /// <summary>
+        /// Login by ShortUrl
+        /// </summary>
+        [AllowAnonymous]
+        [HttpPost(ApiRoutes.Identity.LoginByUrl)]
+        [ProducesResponseType(typeof(AuthSuccessResponse),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthFailedResponse),StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> LoginByUrl(string url)
+        {
+            var command = new LoginByShortUrlCommand()
+            {
+                ShortUrl = url
+            };
+            
+            var response = await Mediator.Send(command);
+            if (!response.Success)
+            {
+                return BadRequest(Mapper.Map<AuthFailedResponse>(response));
+            }
+
+            return Ok(Mapper.Map<AuthSuccessResponse>(response));
+        }
 
         /// <summary>
         /// Return user by Token

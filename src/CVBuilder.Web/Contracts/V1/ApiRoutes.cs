@@ -11,6 +11,7 @@
             private const string BaseIdentity = Base + "/identity";
 
             public const string Login = BaseIdentity + "/login";
+            public const string LoginByUrl = BaseIdentity + "/login/{url}";
             public const string Register = BaseIdentity + "/register";
             public const string GetCurrentUserByToken = BaseIdentity + "/getcurrentuserbytoken";
 
