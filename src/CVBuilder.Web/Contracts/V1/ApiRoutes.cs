@@ -59,7 +59,8 @@
             public const string ApproveTeam = BaseTeam + "/approve";
             public const string GetTeamResume = BaseTeam + "/{teamId}/resume/{teamResumeId}";
             public const string GetPdfTeamResume = BaseTeam + "/{teamId}/resume/{teamResumeId}/pdf";
-
+            public const string GetTeamResumeByUrl = BaseTeam + "/resume/{url}";
+            public const string GetPdfResumeByUrl = BaseTeam + "/resume/{url}/pdf";
         }
 
         public static class TeamBuild

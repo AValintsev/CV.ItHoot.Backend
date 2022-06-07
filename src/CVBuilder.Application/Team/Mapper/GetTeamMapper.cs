@@ -1,5 +1,4 @@
-﻿using CVBuilder.Application.Resume.Responses.CvResponse;
-using CVBuilder.Application.Team.Responses;
+﻿using CVBuilder.Application.Team.Responses;
 using ResumeResult = CVBuilder.Application.Team.Responses.ResumeResult;
 using SkillResult = CVBuilder.Application.Skill.DTOs.SkillResult;
 
@@ -20,14 +19,11 @@ public class GetTeamMapper : AppMapperBase
             
         #region Result
 
-        CreateMap<Team, TeamResult>()
-            .ForMember(x=>x.Client,y=>y.MapFrom(z=>new TeamClientResult
-            {
-                UserId = z.ClientId.GetValueOrDefault(),
-                FirstName = z.Client.FirstName,
-                LastName = z.Client.LastName,
-                ShortAuthUrl = z.Client.ShortAuthUrl
-            }));
+        CreateMap<Team, TeamResult>();
+        CreateMap<Models.User, TeamClientResult>()
+            .ForMember(x => x.UserId, y => y.MapFrom(z => z.Id))
+            .ForMember(x => x.ShortAuthUrl, y => y.MapFrom(z => z.ShortUrl.Url));
+
         CreateMap<TeamResume, ResumeResult>()
             .ForMember(x => x.ResumeId, y => y.MapFrom(z => z.ResumeId))
             .ForMember(x => x.FirstName, y => y.MapFrom(z => z.Resume.FirstName))
@@ -36,7 +32,8 @@ public class GetTeamMapper : AppMapperBase
             .ForMember(x => x.Skills, y => y.MapFrom(z => z.Resume.LevelSkills))
             .ForMember(x => x.Picture, y => y.MapFrom(z => z.Resume.Image.ImagePath))
             .ForMember(x=>x.PositionId,y=>y.MapFrom(z=>z.Resume.PositionId))
-            .ForMember(x=>x.PositionName,y=>y.MapFrom(z=>z.Resume.Position.PositionName));
+            .ForMember(x=>x.PositionName,y=>y.MapFrom(z=>z.Resume.Position.PositionName))
+            .ForMember(x=>x.ShortUrl,y=>y.MapFrom(z=>z.ShortUrl.Url));
 
         CreateMap<LevelSkill, SkillResult>()
             .ForMember(x => x.Id, y => y.MapFrom(z => z.SkillId))

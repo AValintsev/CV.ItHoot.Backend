@@ -4,9 +4,9 @@ using MediatR;
 
 namespace CVBuilder.Application.Team.Queries;
 
-public class GetTeamResumePdfQuery:IRequest<Stream>
+public class GetTeamResumePdfByUrlQuery:IRequest<Stream>
 {
-    public int TeamId { get; set; }
-    public int TeamResumeId { get; set; }
+    public List<string> UserRoles { get; set; }
     public string JwtToken { get; set; }
+    public string ShortUrl { get; set; }
 }

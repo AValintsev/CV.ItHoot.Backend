@@ -61,7 +61,7 @@ namespace CVBuilder.Web.Controllers.V1
         public async Task<ActionResult<ResumeResult>> CreateResume(CreateResumeRequest request)
         {
             var command = Mapper.Map<CreateResumeCommand>(request);
-            command.UserId = LoggedUserId;
+            command.UserId = LoggedUserId!.Value;
             var response = await Mediator.Send(command);
             return Ok(response);
         }
@@ -74,7 +74,7 @@ namespace CVBuilder.Web.Controllers.V1
             [FromQuery] GetAllResumeCardRequest request)
         {
             var command = Mapper.Map<GetAllResumeCardQueries>(request);
-            command.UserId = LoggedUserId;
+            command.UserId = LoggedUserId!.Value;
             command.UserRoles = LoggedUserRoles;
             var response = await Mediator.Send(command);
             var result = Mapper.Map<List<ResumeCardResponse>>(response);
@@ -105,7 +105,7 @@ namespace CVBuilder.Web.Controllers.V1
         public async Task<ActionResult<ResumeResult>> UpdateResume([FromBody] UpdateResumeRequest request)
         {
             var command = Mapper.Map<UpdateResumeCommand>(request);
-            command.UserId = LoggedUserId;
+            command.UserId = LoggedUserId!.Value;
             var response = await Mediator.Send(command);
 
             return Ok(response);
