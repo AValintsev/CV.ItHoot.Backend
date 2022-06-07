@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bogus;
+using CVBuilder.Application.Identity.Services.Interfaces;
 using CVBuilder.Application.User.Manager;
 using CVBuilder.EFContext;
 using CVBuilder.Models;
@@ -12,7 +13,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions;
 
 public static class BogusInitDb
 {
-    public static async Task Init(EFDbContext context,IAppUserManager userManager)
+    public static async Task Init(EFDbContext context,IAppUserManager userManager,IShortUrlService shortUrlService)
     {
         if(await context.Users.AnyAsync())
             return;
@@ -23,9 +24,10 @@ public static class BogusInitDb
             .RuleFor(x => x.FirstName, y => y.Person.FirstName)
             .RuleFor(x => x.LastName, y => y.Person.LastName)
             .RuleFor(x => x.CreatedAt, y => DateTime.UtcNow)
-            .RuleFor(x => x.UpdatedAt, y => DateTime.UtcNow);
+            .RuleFor(x => x.UpdatedAt, y => DateTime.UtcNow)
+            .RuleFor(x=>x.ShortAuthUrl, y=> shortUrlService.GenerateShortUrl());
         var users = testUsers.Generate(80);
-
+        
         foreach (var user in users.Take(20))
         {
             var createdUser = await userManager.CreateAsync(user, "123456");
@@ -61,6 +63,6 @@ public static class BogusInitDb
                 Enums.RoleTypes.Client.ToString(),
             });
         }
-     
+
     }
 }

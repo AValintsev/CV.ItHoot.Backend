@@ -11,6 +11,7 @@
             private const string BaseIdentity = Base + "/identity";
 
             public const string Login = BaseIdentity + "/login";
+            public const string LoginByUrl = BaseIdentity + "/login/{url}";
             public const string Register = BaseIdentity + "/register";
             public const string GetCurrentUserByToken = BaseIdentity + "/getcurrentuserbytoken";
 
@@ -61,6 +62,23 @@
 
         }
 
+        public static class TeamBuild
+        {
+            private const string BaseTeamBuild = Base + "/teambuilds";
+            public const string CreateTeamBuild = BaseTeamBuild;
+            public const string UpdateTeamBuild = BaseTeamBuild;
+            public const string GetAllTeamBuilds = BaseTeamBuild;
+        }
+
+        public static class Complexity
+        {
+            private const string BaseComplexity = Base + "/complexities";
+            public const string GetAllComplexities = BaseComplexity;
+            public const string CreateComplexity = BaseComplexity;
+            public const string UpdateComplexity = BaseComplexity;
+            public const string DeleteComplexity = BaseComplexity+"/{id}";
+        }
+
         public static class Resume
         {
             private const string BaseCv = Base + "/resume";
@@ -71,6 +89,9 @@
             public const string UpdateResume = BaseCv;
             public const string DeleteResume = BaseCv+"/{id}";
             public const string UploadImage = BaseCv+"/{resumeId}/image";
+            public const string GetAllResumeTemplates = BaseCv + "/templates";
+            public const string GetAllResumeByPositions = BaseCv + "/position";
+            public const string GetAllResumeByTeamBuild= BaseCv + "/teambuild/{id}";
 
         } 
         public static class File
