@@ -24,6 +24,8 @@ public class GetTeamByIdHandler: IRequestHandler<GetTeamByIdQuery, TeamResult>
     public async Task<TeamResult> Handle(GetTeamByIdQuery request, CancellationToken cancellationToken)
     {
         var team = await _teamRepository.Table
+            .Include(x=>x.Client)
+            .ThenInclude(x=>x.ShortUrl)
             .Include(x=>x.TeamBuild)
             .Include(x => x.Resumes)
             .ThenInclude(x => x.Resume)
@@ -36,6 +38,8 @@ public class GetTeamByIdHandler: IRequestHandler<GetTeamByIdQuery, TeamResult>
             .ThenInclude(x=>x.Resume)
             .ThenInclude(x=>x.Position)
             .Include(x=>x.Client)
+            .Include(x=>x.Resumes)
+            .ThenInclude(x=>x.ShortUrl)
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
         
         if (team == null)

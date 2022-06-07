@@ -7,7 +7,7 @@ namespace CVBuilder.Application.Resume.Queries
     public class GetResumeByIdQuery : IRequest<ResumeResult>
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public IEnumerable<string> UserRoles { get; set; }
     }
 }

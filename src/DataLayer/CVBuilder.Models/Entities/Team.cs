@@ -11,10 +11,10 @@ public class Team: IDeletableEntity<int>
     public User CreatedUser { get; set; }
     public bool ShowLogo { get; set; }
     public bool ShowContacts { get; set; }
+    public bool ShowCompanyNames { get; set; }
     public int? ClientId { get; set; }
     public User Client { get; set; }
     public string TeamName { get; set; }
-    
     public int ResumeTemplateId { get; set; }
     public ResumeTemplate ResumeTemplate { get; set; }
     
