@@ -80,7 +80,7 @@ public class GetTeamResumeHandler : IRequestHandler<GetTeamResumeQuery, TeamResu
     {
         foreach (var experience in resume.Experiences)
         {
-            experience.Company = string.Empty;
+            experience.Company = "Company";
         }
     }
 
