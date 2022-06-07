@@ -63,7 +63,7 @@ public class GetTeamResumeHandler : IRequestHandler<GetTeamResumeQuery, TeamResu
         }
 
         if (request.UserRoles.IsNullOrEmpty() ||
-            (request.UserRoles.Contains(Enums.RoleTypes.User.ToString()) && !team.ShowCompanyNames))
+            (request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()) && !team.ShowCompanyNames))
         {
             HideCompanyNames(resume);
         }
