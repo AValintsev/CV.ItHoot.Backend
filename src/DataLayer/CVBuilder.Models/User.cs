@@ -20,8 +20,9 @@ namespace CVBuilder.Models
 
         [ProtectedPersonalData]
         public override string NormalizedUserName { get; set; }
-
-        public string ShortAuthUrl { get; set; }
+        
+        public int? ShortUrlId { get; set; }
+        public ShortUrl ShortUrl { get; set; }
         //[ProtectedPersonalData]
         public override string NormalizedEmail { get; set; }
         

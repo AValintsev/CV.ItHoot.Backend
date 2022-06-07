@@ -26,7 +26,9 @@ public class LoginByShortUrlHandler : IRequestHandler<LoginByShortUrlCommand, Au
 
     public async Task<AuthenticationResult> Handle(LoginByShortUrlCommand request, CancellationToken cancellationToken)
     {
-        var user = await _manager.Users.FirstOrDefaultAsync(x => x.ShortAuthUrl == request.ShortUrl,
+        var user = await _manager.Users
+            .Include(x=>x.ShortUrl)
+            .FirstOrDefaultAsync(x => x.ShortUrl.Url == request.ShortUrl,
             cancellationToken: cancellationToken);
 
         if (user == null)
@@ -34,9 +36,9 @@ public class LoginByShortUrlHandler : IRequestHandler<LoginByShortUrlCommand, Au
             throw new ForbiddenException("User does not exist");
         }
 
-        if (user.ShortAuthUrl == null)
+        if (user.ShortUrl == null)
         {
-            throw new ForbiddenException("User does not exists");
+            throw new ForbiddenException("Wrong url");
         }
 
         return await _identityService.GenerateAuthenticationResultAsync(user);

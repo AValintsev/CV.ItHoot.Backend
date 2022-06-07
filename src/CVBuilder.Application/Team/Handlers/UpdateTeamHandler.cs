@@ -34,6 +34,7 @@ public class UpdateTeamHandler : IRequestHandler<UpdateTeamCommand, TeamResult>
         var team = _mapper.Map<Team>(request);
         var teamDto = await _teamRepository.Table
             .Include(x => x.Resumes)
+            .ThenInclude(x=>x.ShortUrl)
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
         
         if (teamDto == null)
@@ -57,6 +58,7 @@ public class UpdateTeamHandler : IRequestHandler<UpdateTeamCommand, TeamResult>
             if (resumeDto != null)
             {
                 resumeDto.StatusResume = resume.StatusResume;
+                resumeDto.ShortUrl = resume.ShortUrl;
             }
         }
     }
@@ -76,6 +78,7 @@ public class UpdateTeamHandler : IRequestHandler<UpdateTeamCommand, TeamResult>
         teamDto.ResumeTemplateId = team.ResumeTemplateId == 0 ? 1 : team.ResumeTemplateId;
         teamDto.ShowLogo = team.ShowLogo;
         teamDto.ShowContacts = team.ShowContacts;
+        teamDto.ShowCompanyNames = team.ShowCompanyNames;
         teamDto.StatusTeam = team.StatusTeam;
         teamDto.TeamName = team.TeamName;
         teamDto.ClientId = team.ClientId;

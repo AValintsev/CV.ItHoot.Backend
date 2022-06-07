@@ -10,8 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using PuppeteerSharp;
 
 namespace CVBuilder.Application.Team.Handlers;
+
 using Models.Entities;
-public class GetTeamResumePdfHandler: IRequestHandler<GetTeamResumePdfQuery, Stream>
+
+public class GetTeamResumePdfHandler : IRequestHandler<GetTeamResumePdfQuery, Stream>
 {
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
@@ -19,7 +21,8 @@ public class GetTeamResumePdfHandler: IRequestHandler<GetTeamResumePdfQuery, Str
     private readonly BrowserExtension _browserExtension;
 
 
-    public GetTeamResumePdfHandler(IMapper mapper, IRepository<Team, int> teamRepository, IMediator mediator, BrowserExtension browserExtension)
+    public GetTeamResumePdfHandler(IMapper mapper, IRepository<Team, int> teamRepository, IMediator mediator,
+        BrowserExtension browserExtension)
     {
         _mapper = mapper;
         _teamRepository = teamRepository;
@@ -31,8 +34,13 @@ public class GetTeamResumePdfHandler: IRequestHandler<GetTeamResumePdfQuery, Str
     {
         var browser = _browserExtension.Browser;
         await using var page = await browser.NewPageAsync();
-        await page.EvaluateExpressionOnNewDocumentAsync($"window.localStorage.setItem('JWT_TOKEN', '{request.JwtToken}');");
-        await page.GoToAsync($"https://cvbuilder-front.vercel.app/teams/{request.TeamId}/resume/{request.ResumeId}");
+        if (!string.IsNullOrEmpty(request.JwtToken))
+        {
+            await page.EvaluateExpressionOnNewDocumentAsync(
+                $"window.localStorage.setItem('JWT_TOKEN', '{request.JwtToken}');");
+        }
+
+        await page.GoToAsync($"https://cvbuilder-front.vercel.app/teams/{request.TeamId}/resume/{request.TeamResumeId}");
         await page.WaitForSelectorAsync("#doc", new WaitForSelectorOptions()
         {
             Visible = true,

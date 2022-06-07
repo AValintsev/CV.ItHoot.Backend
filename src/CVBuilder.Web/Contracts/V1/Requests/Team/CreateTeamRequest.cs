@@ -7,6 +7,7 @@ public class CreateTeamRequest
     public string TeamName { get; set; }
     public int ClientId { get; set; }
     public bool ShowLogo { get; set; }
+    public bool ShowCompanyNames { get; set; }
     public int ResumeTemplateId { get; set; }
     public int? TeamBuildId { get; set; }
     public bool ShowContacts { get; set; }

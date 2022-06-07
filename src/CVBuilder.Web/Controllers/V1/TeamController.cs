@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CVBuilder.Application.Identity.Commands;
 using CVBuilder.Application.Team.Commands;
 using CVBuilder.Application.Team.Queries;
 using CVBuilder.Application.Team.Responses;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Team;
+using CVBuilder.Web.Contracts.V1.Responses.Identity;
 using CVBuilder.Web.Infrastructure.BaseControllers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CVBuilder.Web.Controllers.V1;
@@ -20,7 +24,7 @@ public class TeamController : BaseAuthApiController
     public async Task<ActionResult<TeamResult>> CreateTeam(CreateTeamRequest request)
     {
         var command = Mapper.Map<CreateTeamCommand>(request);
-        command.UserId = LoggedUserId;
+        command.UserId = LoggedUserId!.Value;
         var result = await Mediator.Send(command);
         return Ok(result);
     }
@@ -43,7 +47,7 @@ public class TeamController : BaseAuthApiController
     public async Task<ActionResult<TeamResult>> UpdateTeam(UpdateTeamRequest request)
     {
         var command = Mapper.Map<UpdateTeamCommand>(request);
-        command.UserId = LoggedUserId;
+        command.UserId = LoggedUserId!.Value;
         var result = await Mediator.Send(command);
         return Ok(result);
     }
@@ -51,6 +55,7 @@ public class TeamController : BaseAuthApiController
     /// <summary>
     /// Get resume from Team
     /// </summary>
+    [AllowAnonymous]
     [HttpGet(ApiRoutes.Team.GetTeamResume)]
     public async Task<ActionResult<TeamResumeResult>> GetTeamResume(int teamId, int teamResumeId)
     {
@@ -66,16 +71,15 @@ public class TeamController : BaseAuthApiController
     }
     
     /// <summary>
-    /// Get pdf resume from Team
+    /// Get resume pdf from Team
     /// </summary>
     [HttpGet(ApiRoutes.Team.GetPdfTeamResume)]
     public async Task<ActionResult<TeamResumeResult>> GetPdfTeamResume(int teamId, int teamResumeId)
     {
         var command = new GetTeamResumePdfQuery
         {
-            UserRoles = LoggedUserRoles.ToList(),
             TeamId = teamId,
-            ResumeId = teamResumeId,
+            TeamResumeId = teamResumeId,
             JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
         };
         var result = await Mediator.Send(command);
@@ -90,7 +94,7 @@ public class TeamController : BaseAuthApiController
     {
         var command = new GetAllTeamsQuery()
         {
-            UserId = LoggedUserId,
+            UserId = LoggedUserId!.Value,
             UserRoles = LoggedUserRoles.ToList()
         };
         var result = await Mediator.Send(command);
@@ -121,5 +125,39 @@ public class TeamController : BaseAuthApiController
         };
         var result = await Mediator.Send(command);
         return result;
+    }
+    
+    /// <summary>
+    /// Get resume by ShortUrl
+    /// </summary>
+    [AllowAnonymous]
+    [HttpGet(ApiRoutes.Team.GetTeamResumeByUrl)]
+    public async Task<IActionResult> GetTeamResumeByUrl(string url)
+    {
+        var command = new GetTeamResumeByUrlQuery()
+        {
+            ShortUrl = url
+        };
+            
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
+    
+    /// <summary>
+    /// Get resume pdf by ShortUrl
+    /// </summary>
+    [AllowAnonymous]
+    [HttpGet(ApiRoutes.Team.GetPdfResumeByUrl)]
+    public async Task<IActionResult> GetPdfTeamResumeByUrl(string url)
+    {
+        
+        var command = new GetTeamResumePdfByUrlQuery()
+        {
+            ShortUrl = url,
+            UserRoles = LoggedUserRoles.ToList(),
+            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
+        };
+        var result = await Mediator.Send(command);
+        return File(result, "application/octet-stream", "resume.pdf");
     }
 }

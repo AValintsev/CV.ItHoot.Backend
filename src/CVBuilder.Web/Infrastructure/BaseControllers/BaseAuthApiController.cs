@@ -10,7 +10,7 @@ namespace CVBuilder.Web.Infrastructure.BaseControllers
     {
         private int? _loggedUserId;
 
-        protected int LoggedUserId
+        protected int? LoggedUserId
         {
             get
             {
@@ -22,13 +22,17 @@ namespace CVBuilder.Web.Infrastructure.BaseControllers
                 var userId = User.Claims
                     .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
 
-                if (userId == null)
-                {
-                    throw new KeyNotFoundException("UserId not in claims");
-                }
+                // if (userId == null)
+                // {
+                //     throw new KeyNotFoundException("UserId not in claims");
+                // }
 
-                _loggedUserId = int.Parse(userId.Value);
-                return _loggedUserId.Value;
+                var isSuccess = int.TryParse(userId?.Value, out var id);
+                if (isSuccess)
+                {
+                    _loggedUserId = id;
+                }
+                return _loggedUserId;
             }
         }
 
