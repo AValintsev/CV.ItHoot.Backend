@@ -461,6 +461,9 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<int>("ResumeTemplateId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("ShowCompanyNames")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("ShowContacts")
                         .HasColumnType("bit");
 
@@ -593,6 +596,9 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<int>("ResumeId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ShortUrlId")
+                        .HasColumnType("int");
+
                     b.Property<int>("StatusResume")
                         .HasColumnType("int");
 
@@ -606,9 +612,33 @@ namespace CVBuilder.EFContext.Migrations
 
                     b.HasIndex("ResumeId");
 
+                    b.HasIndex("ShortUrlId");
+
                     b.HasIndex("TeamId");
 
-                    b.ToTable("TeamResume");
+                    b.ToTable("TeamResumes");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.ShortUrl", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShortUrl");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.User", b =>
@@ -668,8 +698,8 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ShortAuthUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ShortUrlId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -690,6 +720,8 @@ namespace CVBuilder.EFContext.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("ShortUrlId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -982,6 +1014,10 @@ namespace CVBuilder.EFContext.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CVBuilder.Models.ShortUrl", "ShortUrl")
+                        .WithMany("TeamResumes")
+                        .HasForeignKey("ShortUrlId");
+
                     b.HasOne("CVBuilder.Models.Entities.Team", "Team")
                         .WithMany("Resumes")
                         .HasForeignKey("TeamId")
@@ -990,7 +1026,18 @@ namespace CVBuilder.EFContext.Migrations
 
                     b.Navigation("Resume");
 
+                    b.Navigation("ShortUrl");
+
                     b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.User", b =>
+                {
+                    b.HasOne("CVBuilder.Models.ShortUrl", "ShortUrl")
+                        .WithMany("Users")
+                        .HasForeignKey("ShortUrlId");
+
+                    b.Navigation("ShortUrl");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -1077,6 +1124,13 @@ namespace CVBuilder.EFContext.Migrations
             modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuildComplexity", b =>
                 {
                     b.Navigation("TeamBuilds");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.ShortUrl", b =>
+                {
+                    b.Navigation("TeamResumes");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.User", b =>

@@ -15,5 +15,6 @@ public class ResumeResult
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Picture { get; set; }
+    public string ShortUrl { get; set; }
     public List<SkillResult> Skills { get; set; }
 }

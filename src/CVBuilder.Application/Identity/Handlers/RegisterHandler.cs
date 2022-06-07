@@ -65,8 +65,12 @@ namespace CVBuilder.Application.Identity.Handlers
                 var message = string.Join(Environment.NewLine, addRole.Errors.Select(x => x.Description));
                 throw new Exception(message);
             }
+
+            user.ShortUrl = new ShortUrl()
+            {
+                Url = _shortUrlService.GenerateShortUrl()
+            };
             
-            user.ShortAuthUrl = _shortUrlService.GenerateShortUrl();
             return await _identityService.GenerateAuthenticationResultAsync(user);
         }
     }

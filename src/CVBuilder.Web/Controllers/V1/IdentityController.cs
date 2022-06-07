@@ -85,7 +85,7 @@ namespace CVBuilder.Web.Controllers.V1
         public async Task<IActionResult> GetCurrentUserByToken()
         {
             var command = Mapper.Map<GetCurrentUserByTokenCommand>(new GetCurrentUserByTokenRequest());
-            command.UserId = LoggedUserId;
+            command.UserId = LoggedUserId!.Value;
 
             var response = await Mediator.Send(command);
             if (!response.Success)
@@ -122,7 +122,7 @@ namespace CVBuilder.Web.Controllers.V1
         public async Task<IActionResult> Logout([FromBody] LogoutRequest request)
         {
             var command = Mapper.Map<LogoutCommand>(request);
-            command.UserId = LoggedUserId;
+            command.UserId = LoggedUserId!.Value;
             var response = await Mediator.Send(command);
             if (!response)
             {
@@ -141,7 +141,7 @@ namespace CVBuilder.Web.Controllers.V1
         {
             var command = new CreateUserAccessTokenCommand()
             {
-                UserId = LoggedUserId
+                UserId = LoggedUserId!.Value
             };
 
             var response = await Mediator.Send(command);
