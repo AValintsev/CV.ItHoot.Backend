@@ -66,6 +66,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions
 
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<IShortUrlService, ShortUrlService>();
 
             //create engine and configure service provider
             var engine = EngineContext.Create();

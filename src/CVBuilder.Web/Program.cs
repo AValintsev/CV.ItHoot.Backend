@@ -13,7 +13,7 @@ namespace CVBuilder.Web
         public static async Task Main(string[] args)
         {
             var host = await CreateHostBuilder(args)
-                .UseNLog()
+                // .UseNLog()
                 .Build()
                 .EnsureDbExistsAsync();
 
@@ -34,17 +34,13 @@ namespace CVBuilder.Web
                     options.ValidateOnBuild = true;
                 })
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
-                    .ConfigureAppConfiguration(config =>
-                    {
-                        config.AddEnvironmentVariables();
-                    })
-                    .UseStartup<Startup>()).ConfigureLogging((_, logging) =>
+                    .ConfigureAppConfiguration(config => { config.AddEnvironmentVariables(); })
+                    .UseStartup<Startup>())
+                .ConfigureLogging((_, logging) =>
                 {
-                    logging.AddNLog("nlog.config");
-                    logging.AddNLogWeb("nlog.config");
-                    logging.AddAzureWebAppDiagnostics();
+                    // logging.AddNLog("nlog.config");
+                    // logging.AddNLogWeb("nlog.config");
+                    // logging.AddAzureWebAppDiagnostics();
                 });
-
-        
     }
 }

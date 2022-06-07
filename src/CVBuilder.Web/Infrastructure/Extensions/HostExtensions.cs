@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CVBuilder.Application.Identity.Services.Interfaces;
 using CVBuilder.Application.User.Manager;
 using CVBuilder.EFContext;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,8 +19,9 @@ namespace CVBuilder.Web.Infrastructure.Extensions
             {
                 var context = services.GetRequiredService<EFDbContext>();
                 var userManager = services.GetRequiredService<IAppUserManager>();
+                var shortUrlService = services.GetRequiredService<IShortUrlService>();
                 await DbInitializer.Initialize(context);
-                await BogusInitDb.Init(context,userManager);
+                await BogusInitDb.Init(context,userManager,shortUrlService);
             }
             catch (Exception)
             {
