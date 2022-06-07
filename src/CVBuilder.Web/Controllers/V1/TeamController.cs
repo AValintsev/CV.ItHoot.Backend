@@ -136,7 +136,9 @@ public class TeamController : BaseAuthApiController
     {
         var command = new GetTeamResumeByUrlQuery()
         {
-            ShortUrl = url
+            ShortUrl = url,
+            UserRoles = LoggedUserRoles.ToList(),
+            UserId = LoggedUserId
         };
             
         var result = await Mediator.Send(command);
