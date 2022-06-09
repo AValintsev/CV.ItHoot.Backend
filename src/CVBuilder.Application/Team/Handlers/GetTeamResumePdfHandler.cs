@@ -40,14 +40,15 @@ public class GetTeamResumePdfHandler : IRequestHandler<GetTeamResumePdfQuery, St
             await page.EvaluateExpressionOnNewDocumentAsync(
                 $"window.localStorage.setItem('JWT_TOKEN', '{request.JwtToken}');");
         }
-
-        await page.GoToAsync($"http://localhost:4200/teams/{request.TeamId}/resume/{request.TeamResumeId}");
+        await page.GoToAsync($"https://cvbuilder-front.vercel.app/teams/{request.TeamId}/resume/{request.TeamResumeId}");
+        await page.EmulateMediaTypeAsync(MediaType.Print);
         await page.WaitForSelectorAsync("#doc", new WaitForSelectorOptions()
         {
             Visible = true,
             Timeout = 5000
         });
 
+        
         var file = await page.PdfStreamAsync(new PdfOptions
         {
             PrintBackground = true,
