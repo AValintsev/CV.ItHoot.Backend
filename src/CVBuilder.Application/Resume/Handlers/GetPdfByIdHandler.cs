@@ -14,10 +14,10 @@ using Models.Entities;
 
 public class GetPdfByIdHandler : IRequestHandler<GetPdfByIdQueries, Stream>
 {
-    private readonly IRepository<Resume, int> _cvRepository;
+    private readonly IDeletableRepository<Resume, int> _cvRepository;
     private readonly BrowserExtension _browserExtension;
 
-    public GetPdfByIdHandler(IRepository<Resume, int> cvRepository, BrowserExtension browserExtension)
+    public GetPdfByIdHandler(IDeletableRepository<Resume, int> cvRepository, BrowserExtension browserExtension)
     {
         _cvRepository = cvRepository;
         _browserExtension = browserExtension;

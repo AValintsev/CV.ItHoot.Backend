@@ -17,11 +17,11 @@ using Models.Entities;
 
 public class GetResumesByTeaBuildHandler : IRequestHandler<GetResumesByTeamBuildQuery, List<ResumeCardResult>>
 {
-    private readonly IRepository<Resume, int> _resumeRepository;
+    private readonly IDeletableRepository<Resume, int> _resumeRepository;
     private readonly IRepository<TeamBuild, int> _teamBuildRepository;
     private readonly IMapper _mapper;
 
-    public GetResumesByTeaBuildHandler(IRepository<Resume, int> resumeRepository, IMapper mapper, IRepository<TeamBuild, int> teamBuildRepository)
+    public GetResumesByTeaBuildHandler(IDeletableRepository<Resume, int> resumeRepository, IMapper mapper, IRepository<TeamBuild, int> teamBuildRepository)
     {
         _resumeRepository = resumeRepository;
         _mapper = mapper;

@@ -14,10 +14,10 @@ using Models.Entities;
 
 public class GetResumesGetByPositionsHandler: IRequestHandler<GetResumesByPositionQuery, List<ResumeCardResult>>
 {
-    private readonly IRepository<Resume, int> _repository;
+    private readonly IDeletableRepository<Resume, int> _repository;
     private readonly IMapper _mapper;
 
-    public GetResumesGetByPositionsHandler(IRepository<Resume, int> repository, IMapper mapper)
+    public GetResumesGetByPositionsHandler(IDeletableRepository<Resume, int> repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
