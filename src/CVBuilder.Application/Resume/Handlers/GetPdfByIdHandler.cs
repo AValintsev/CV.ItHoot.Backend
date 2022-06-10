@@ -7,6 +7,7 @@ using CVBuilder.Application.Resume.Queries;
 using CVBuilder.Repository;
 using MediatR;
 using PuppeteerSharp;
+using PuppeteerSharp.Media;
 
 namespace CVBuilder.Application.Resume.Handlers;
 
@@ -42,11 +43,11 @@ public class GetPdfByIdHandler : IRequestHandler<GetPdfByIdQueries, Stream>
         
         await page.EvaluateExpressionAsync(
         @"var doc = document.getElementById(""doc"");document.body.innerHTML = '';document.body.appendChild(doc);");
-
+        await page.EmulateMediaTypeAsync(MediaType.Print);
         var file = await page.PdfStreamAsync(new PdfOptions
         {
             PrintBackground = true,
-            Height = 1450
+            Format = PaperFormat.A4,
         });
         return file;
     }

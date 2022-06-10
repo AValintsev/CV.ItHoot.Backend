@@ -8,6 +8,7 @@ using CVBuilder.Repository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PuppeteerSharp;
+using PuppeteerSharp.Media;
 
 namespace CVBuilder.Application.Team.Handlers;
 
@@ -39,18 +40,19 @@ public class GetTeamResumePdfHandler : IRequestHandler<GetTeamResumePdfQuery, St
             await page.EvaluateExpressionOnNewDocumentAsync(
                 $"window.localStorage.setItem('JWT_TOKEN', '{request.JwtToken}');");
         }
-
         await page.GoToAsync($"https://cvbuilder-front.vercel.app/teams/{request.TeamId}/resume/{request.TeamResumeId}");
+        await page.EmulateMediaTypeAsync(MediaType.Print);
         await page.WaitForSelectorAsync("#doc", new WaitForSelectorOptions()
         {
             Visible = true,
             Timeout = 5000
         });
 
+        
         var file = await page.PdfStreamAsync(new PdfOptions
         {
             PrintBackground = true,
-            Height = 1250
+            Format = PaperFormat.A4,
         });
         return file;
     }
