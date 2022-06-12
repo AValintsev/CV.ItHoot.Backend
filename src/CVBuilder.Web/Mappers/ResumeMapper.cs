@@ -2,8 +2,8 @@
 using CVBuilder.Application.Resume.Commands.SharedCommands;
 using CVBuilder.Application.Resume.Queries;
 using CVBuilder.Application.Resume.Responses;
-using CVBuilder.Web.Contracts.V1.Requests.CV;
-using CVBuilder.Web.Contracts.V1.Requests.CV.SharedCvRequest;
+using CVBuilder.Web.Contracts.V1.Requests.Resume;
+using CVBuilder.Web.Contracts.V1.Requests.Resume.SharedResumeRequest;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
 
 namespace CVBuilder.Web.Mappers

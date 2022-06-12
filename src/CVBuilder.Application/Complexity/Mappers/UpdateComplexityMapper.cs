@@ -8,7 +8,7 @@ public class UpdateComplexityMapper:AppMapperBase
 {
     public UpdateComplexityMapper()
     {
-        CreateMap<UpdateComplexityCommand, TeamBuildComplexity>()
+        CreateMap<UpdateComplexityCommand, ProposalBuildComplexity>()
             .ForMember(x=>x.UpdatedAt,y=>y.MapFrom(z=>DateTime.UtcNow));
     }
 }

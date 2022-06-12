@@ -13,10 +13,10 @@ using Models.Entities;
 
 public class CreateComplexityHandler : IRequestHandler<CreateComplexityCommand, ComplexityResult>
 {
-    private readonly IRepository<TeamBuildComplexity, int> _complexityRepository;
+    private readonly IRepository<ProposalBuildComplexity, int> _complexityRepository;
     private readonly IMapper _mapper;
 
-    public CreateComplexityHandler(IRepository<TeamBuildComplexity, int> complexityRepository, IMapper mapper)
+    public CreateComplexityHandler(IRepository<ProposalBuildComplexity, int> complexityRepository, IMapper mapper)
     {
         _complexityRepository = complexityRepository;
         _mapper = mapper;
@@ -24,7 +24,7 @@ public class CreateComplexityHandler : IRequestHandler<CreateComplexityCommand, 
 
     public async Task<ComplexityResult> Handle(CreateComplexityCommand request, CancellationToken cancellationToken)
     {
-        var complexity = _mapper.Map<TeamBuildComplexity>(request);
+        var complexity = _mapper.Map<ProposalBuildComplexity>(request);
         complexity = await _complexityRepository.CreateAsync(complexity);
 
         var result = _mapper.Map<ComplexityResult>(complexity);

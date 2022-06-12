@@ -10,10 +10,10 @@ namespace CVBuilder.Application.Complexity.Handlers;
 
 public class DeleteComplexityHandler: IRequestHandler<DeleteComplexityCommand, bool>
 {
-    private readonly IRepository<TeamBuildComplexity, int> _complexityRepository;
+    private readonly IRepository<ProposalBuildComplexity, int> _complexityRepository;
     private readonly IMapper _mapper;
 
-    public DeleteComplexityHandler(IRepository<TeamBuildComplexity, int> complexityRepository, IMapper mapper)
+    public DeleteComplexityHandler(IRepository<ProposalBuildComplexity, int> complexityRepository, IMapper mapper)
     {
         _complexityRepository = complexityRepository;
         _mapper = mapper;
