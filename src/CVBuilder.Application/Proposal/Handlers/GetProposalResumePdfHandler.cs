@@ -30,7 +30,7 @@ public class GetProposalResumePdfHandler : IRequestHandler<GetProposalResumePdfQ
             await page.EvaluateExpressionOnNewDocumentAsync(
                 $"window.localStorage.setItem('JWT_TOKEN', '{request.JwtToken}');");
         }
-        await page.GoToAsync($"http://localhost:4200/proposals/{request.ProposalId}/resume/{request.ProposalResumeId}");
+        await page.GoToAsync($"https://cvbuilder-front.vercel.app/proposals/{request.ProposalId}/resume/{request.ProposalResumeId}");
         await page.EmulateMediaTypeAsync(MediaType.Print);
         await page.WaitForSelectorAsync("#doc", new WaitForSelectorOptions()
         {
