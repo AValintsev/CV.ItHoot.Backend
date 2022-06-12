@@ -27,7 +27,7 @@ namespace CVBuilder.Models
         public override string NormalizedEmail { get; set; }
         
         private List<Resume> CreatedResumes { get; set; }
-        private List<Team> CreatedTeams { get; set; }
-        private List<Team> ClientTeams { get; set; }
+        private List<Proposal> CreatedProposals { get; set; }
+        private List<Proposal> ClientProposals { get; set; }
     }
 }

@@ -48,27 +48,27 @@
             public const string LevelSkill = BaseDataType + "/levelSkills";
         }
 
-        public static class Team
+        public static class Proposal
         {
-            private const string BaseTeam = Base + "/teams";
-            public const string CreateTeam = BaseTeam;
-            public const string GetTeamById = BaseTeam + "/{id}";
-            public const string UpdateTeam = BaseTeam;
-            public const string GetAllTeams = BaseTeam;
-            public const string GetAllArchiveTeams = BaseTeam+"/archive";
-            public const string ApproveTeam = BaseTeam + "/approve";
-            public const string GetTeamResume = BaseTeam + "/{teamId}/resume/{teamResumeId}";
-            public const string GetPdfTeamResume = BaseTeam + "/{teamId}/resume/{teamResumeId}/pdf";
-            public const string GetTeamResumeByUrl = BaseTeam + "/resume/{url}";
-            public const string GetPdfResumeByUrl = BaseTeam + "/resume/{url}/pdf";
+            private const string BaseProposal = Base + "/proposals";
+            public const string CreateProposal = BaseProposal;
+            public const string GetProposalById = BaseProposal + "/{id}";
+            public const string UpdateProposal = BaseProposal;
+            public const string GetAllProposals = BaseProposal;
+            public const string GetAllArchiveProposals = BaseProposal+"/archive";
+            public const string ApproveProposal = BaseProposal + "/approve";
+            public const string GetProposalResume = BaseProposal + "/{proposalId}/resume/{proposalResumeId}";
+            public const string GetPdfProposalResume = BaseProposal + "/{proposalId}/resume/{proposalResumeId}/pdf";
+            public const string GetProposalResumeByUrl = BaseProposal + "/resume/{url}";
+            public const string GetPdfProposalResumeByUrl = BaseProposal + "/resume/{url}/pdf";
         }
 
-        public static class TeamBuild
+        public static class ProposalBuild
         {
-            private const string BaseTeamBuild = Base + "/teambuilds";
-            public const string CreateTeamBuild = BaseTeamBuild;
-            public const string UpdateTeamBuild = BaseTeamBuild;
-            public const string GetAllTeamBuilds = BaseTeamBuild;
+            private const string BaseProposalBuild = Base + "/proposalBuilds";
+            public const string CreateProposalBuild = BaseProposalBuild;
+            public const string UpdateProposalBuild = BaseProposalBuild;
+            public const string GetAllProposalBuilds = BaseProposalBuild;
         }
 
         public static class Complexity
@@ -92,7 +92,7 @@
             public const string UploadImage = BaseCv+"/{resumeId}/image";
             public const string GetAllResumeTemplates = BaseCv + "/templates";
             public const string GetAllResumeByPositions = BaseCv + "/position";
-            public const string GetAllResumeByTeamBuild= BaseCv + "/teambuild/{id}";
+            public const string GetAllResumeByProposalBuild= BaseCv + "/proposalBuild/{id}";
 
         } 
         public static class File
