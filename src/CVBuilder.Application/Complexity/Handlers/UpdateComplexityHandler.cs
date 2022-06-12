@@ -11,10 +11,10 @@ using Models.Entities;
 
 public class UpdateComplexityHandler: IRequestHandler<UpdateComplexityCommand, ComplexityResult>
 {
-    private readonly IRepository<TeamBuildComplexity, int> _complexityRepository;
+    private readonly IRepository<ProposalBuildComplexity, int> _complexityRepository;
     private readonly IMapper _mapper;
 
-    public UpdateComplexityHandler(IRepository<TeamBuildComplexity, int> complexityRepository, IMapper mapper)
+    public UpdateComplexityHandler(IRepository<ProposalBuildComplexity, int> complexityRepository, IMapper mapper)
     {
         _complexityRepository = complexityRepository;
         _mapper = mapper;
@@ -22,7 +22,7 @@ public class UpdateComplexityHandler: IRequestHandler<UpdateComplexityCommand, C
 
     public async Task<ComplexityResult> Handle(UpdateComplexityCommand request, CancellationToken cancellationToken)
     {
-        var complexity = _mapper.Map<TeamBuildComplexity>(request);
+        var complexity = _mapper.Map<ProposalBuildComplexity>(request);
         complexity = await _complexityRepository.UpdateAsync(complexity);
         var result = _mapper.Map<ComplexityResult>(complexity);
         return result;

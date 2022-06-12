@@ -276,6 +276,187 @@ namespace CVBuilder.EFContext.Migrations
                     b.ToTable("Positions");
                 });
 
+            modelBuilder.Entity("CVBuilder.Models.Entities.Proposal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ProposalBuildId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProposalName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ResumeTemplateId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ShowCompanyNames")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ShowContacts")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ShowLogo")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StatusProposal")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("ProposalBuildId");
+
+                    b.HasIndex("ResumeTemplateId");
+
+                    b.ToTable("Proposal", (string)null);
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.ProposalBuild", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("ComplexityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Estimation")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProjectTypeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ComplexityId");
+
+                    b.ToTable("ProposalBuilds");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.ProposalBuildComplexity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ComplexityName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProposalBuildComplexity");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.ProposalBuildPosition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CountMembers")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProposalBuildId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PositionId");
+
+                    b.HasIndex("ProposalBuildId");
+
+                    b.ToTable("ProposalBuildPosition");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.ProposalResume", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProposalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResumeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ShortUrlId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusResume")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProposalId");
+
+                    b.HasIndex("ResumeId");
+
+                    b.HasIndex("ShortUrlId");
+
+                    b.ToTable("ProposalResumes");
+                });
+
             modelBuilder.Entity("CVBuilder.Models.Entities.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -436,187 +617,6 @@ namespace CVBuilder.EFContext.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Skills");
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.Team", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CreatedUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ResumeTemplateId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("ShowCompanyNames")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("ShowContacts")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("ShowLogo")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("StatusTeam")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TeamBuildId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TeamName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("CreatedUserId");
-
-                    b.HasIndex("ResumeTemplateId");
-
-                    b.HasIndex("TeamBuildId");
-
-                    b.ToTable("Teams", (string)null);
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuild", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("ComplexityId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Estimation")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProjectTypeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ComplexityId");
-
-                    b.ToTable("TeamBuilds");
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuildComplexity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ComplexityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TeamBuildComplexity");
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuildPosition", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CountMembers")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PositionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamBuildId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PositionId");
-
-                    b.HasIndex("TeamBuildId");
-
-                    b.ToTable("TeamBuildPosition");
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.TeamResume", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ResumeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ShortUrlId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StatusResume")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResumeId");
-
-                    b.HasIndex("ShortUrlId");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("TeamResumes");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.ShortUrl", b =>
@@ -915,6 +915,89 @@ namespace CVBuilder.EFContext.Migrations
                     b.Navigation("Skill");
                 });
 
+            modelBuilder.Entity("CVBuilder.Models.Entities.Proposal", b =>
+                {
+                    b.HasOne("CVBuilder.Models.User", "Client")
+                        .WithMany("ClientProposals")
+                        .HasForeignKey("ClientId");
+
+                    b.HasOne("CVBuilder.Models.User", "CreatedUser")
+                        .WithMany("CreatedProposals")
+                        .HasForeignKey("CreatedUserId");
+
+                    b.HasOne("CVBuilder.Models.Entities.ProposalBuild", "ProposalBuild")
+                        .WithMany("Proposals")
+                        .HasForeignKey("ProposalBuildId");
+
+                    b.HasOne("CVBuilder.Models.Entities.ResumeTemplate", "ResumeTemplate")
+                        .WithMany()
+                        .HasForeignKey("ResumeTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("ProposalBuild");
+
+                    b.Navigation("ResumeTemplate");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.ProposalBuild", b =>
+                {
+                    b.HasOne("CVBuilder.Models.Entities.ProposalBuildComplexity", "Complexity")
+                        .WithMany("ProposalBuilds")
+                        .HasForeignKey("ComplexityId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Complexity");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.ProposalBuildPosition", b =>
+                {
+                    b.HasOne("CVBuilder.Models.Entities.Position", "Position")
+                        .WithMany("ProposalBuildPositions")
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CVBuilder.Models.Entities.ProposalBuild", "ProposalBuild")
+                        .WithMany("Positions")
+                        .HasForeignKey("ProposalBuildId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Position");
+
+                    b.Navigation("ProposalBuild");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.ProposalResume", b =>
+                {
+                    b.HasOne("CVBuilder.Models.Entities.Proposal", "Proposal")
+                        .WithMany("Resumes")
+                        .HasForeignKey("ProposalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CVBuilder.Models.Entities.Resume", "Resume")
+                        .WithMany()
+                        .HasForeignKey("ResumeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CVBuilder.Models.ShortUrl", "ShortUrl")
+                        .WithMany("ProposalResumes")
+                        .HasForeignKey("ShortUrlId");
+
+                    b.Navigation("Proposal");
+
+                    b.Navigation("Resume");
+
+                    b.Navigation("ShortUrl");
+                });
+
             modelBuilder.Entity("CVBuilder.Models.Entities.RefreshToken", b =>
                 {
                     b.HasOne("CVBuilder.Models.User", "User")
@@ -946,89 +1029,6 @@ namespace CVBuilder.EFContext.Migrations
                     b.Navigation("Image");
 
                     b.Navigation("Position");
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.Team", b =>
-                {
-                    b.HasOne("CVBuilder.Models.User", "Client")
-                        .WithMany("ClientTeams")
-                        .HasForeignKey("ClientId");
-
-                    b.HasOne("CVBuilder.Models.User", "CreatedUser")
-                        .WithMany("CreatedTeams")
-                        .HasForeignKey("CreatedUserId");
-
-                    b.HasOne("CVBuilder.Models.Entities.ResumeTemplate", "ResumeTemplate")
-                        .WithMany()
-                        .HasForeignKey("ResumeTemplateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CVBuilder.Models.Entities.TeamBuild", "TeamBuild")
-                        .WithMany("Teams")
-                        .HasForeignKey("TeamBuildId");
-
-                    b.Navigation("Client");
-
-                    b.Navigation("CreatedUser");
-
-                    b.Navigation("ResumeTemplate");
-
-                    b.Navigation("TeamBuild");
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuild", b =>
-                {
-                    b.HasOne("CVBuilder.Models.Entities.TeamBuildComplexity", "Complexity")
-                        .WithMany("TeamBuilds")
-                        .HasForeignKey("ComplexityId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Complexity");
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuildPosition", b =>
-                {
-                    b.HasOne("CVBuilder.Models.Entities.Position", "Position")
-                        .WithMany("TeamBuildPositions")
-                        .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CVBuilder.Models.Entities.TeamBuild", "TeamBuild")
-                        .WithMany("Positions")
-                        .HasForeignKey("TeamBuildId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Position");
-
-                    b.Navigation("TeamBuild");
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.TeamResume", b =>
-                {
-                    b.HasOne("CVBuilder.Models.Entities.Resume", "Resume")
-                        .WithMany()
-                        .HasForeignKey("ResumeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CVBuilder.Models.ShortUrl", "ShortUrl")
-                        .WithMany("TeamResumes")
-                        .HasForeignKey("ShortUrlId");
-
-                    b.HasOne("CVBuilder.Models.Entities.Team", "Team")
-                        .WithMany("Resumes")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Resume");
-
-                    b.Navigation("ShortUrl");
-
-                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.User", b =>
@@ -1093,9 +1093,26 @@ namespace CVBuilder.EFContext.Migrations
 
             modelBuilder.Entity("CVBuilder.Models.Entities.Position", b =>
                 {
-                    b.Navigation("Resumes");
+                    b.Navigation("ProposalBuildPositions");
 
-                    b.Navigation("TeamBuildPositions");
+                    b.Navigation("Resumes");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.Proposal", b =>
+                {
+                    b.Navigation("Resumes");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.ProposalBuild", b =>
+                {
+                    b.Navigation("Positions");
+
+                    b.Navigation("Proposals");
+                });
+
+            modelBuilder.Entity("CVBuilder.Models.Entities.ProposalBuildComplexity", b =>
+                {
+                    b.Navigation("ProposalBuilds");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.Entities.Resume", b =>
@@ -1109,37 +1126,20 @@ namespace CVBuilder.EFContext.Migrations
                     b.Navigation("LevelSkills");
                 });
 
-            modelBuilder.Entity("CVBuilder.Models.Entities.Team", b =>
-                {
-                    b.Navigation("Resumes");
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuild", b =>
-                {
-                    b.Navigation("Positions");
-
-                    b.Navigation("Teams");
-                });
-
-            modelBuilder.Entity("CVBuilder.Models.Entities.TeamBuildComplexity", b =>
-                {
-                    b.Navigation("TeamBuilds");
-                });
-
             modelBuilder.Entity("CVBuilder.Models.ShortUrl", b =>
                 {
-                    b.Navigation("TeamResumes");
+                    b.Navigation("ProposalResumes");
 
                     b.Navigation("Users");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.User", b =>
                 {
-                    b.Navigation("ClientTeams");
+                    b.Navigation("ClientProposals");
+
+                    b.Navigation("CreatedProposals");
 
                     b.Navigation("CreatedResumes");
-
-                    b.Navigation("CreatedTeams");
                 });
 #pragma warning restore 612, 618
         }

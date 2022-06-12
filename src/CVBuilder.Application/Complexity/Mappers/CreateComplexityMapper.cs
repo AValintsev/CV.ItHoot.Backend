@@ -7,6 +7,6 @@ public class CreateComplexityMapper:AppMapperBase
 {
     public CreateComplexityMapper()
     {
-        CreateMap<CreateComplexityCommand, TeamBuildComplexity>();
+        CreateMap<CreateComplexityCommand, ProposalBuildComplexity>();
     }
 }

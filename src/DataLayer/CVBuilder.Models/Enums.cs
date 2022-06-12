@@ -28,7 +28,7 @@ namespace CVBuilder.Models
         [Description("Advanced")] Advanced = 3
     }
 
-    public enum StatusTeam
+    public enum StatusProposal
     {
        [Description("Created")] Created =1,
        [Description("InReview")] InReview,
@@ -38,7 +38,7 @@ namespace CVBuilder.Models
        [Description("In Working")] InWorking,
     }
 
-    public enum StatusTeamResume
+    public enum StatusProposalResume
     {
         [Description("NotSelected")]NotSelected=1,
         [Description("Selected")]Selected,
