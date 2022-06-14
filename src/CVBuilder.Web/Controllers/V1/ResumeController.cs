@@ -7,7 +7,7 @@ using CVBuilder.Application.Resume.Queries;
 using CVBuilder.Application.Resume.Responses;
 using CVBuilder.Application.Resume.Responses.CvResponse;
 using CVBuilder.Web.Contracts.V1;
-using CVBuilder.Web.Contracts.V1.Requests.CV;
+using CVBuilder.Web.Contracts.V1.Requests.Resume;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
 using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Http;
@@ -152,15 +152,15 @@ namespace CVBuilder.Web.Controllers.V1
         }
         
         /// <summary>
-        /// Get list of Resume templates by team build template
+        /// Get list of Resume templates by proposal build template
         /// </summary>
-        [HttpGet(ApiRoutes.Resume.GetAllResumeByTeamBuild)]
-        public async Task<ActionResult<List<ResumeCardResult>>> GetResumesByTeamBuild(int id)
+        [HttpGet(ApiRoutes.Resume.GetAllResumeByProposalBuild)]
+        public async Task<ActionResult<List<ResumeCardResult>>> GetResumesByProposalBuild(int id)
         {
             
-            var command = new GetResumesByTeamBuildQuery()
+            var command = new GetResumesByProposalBuildQuery()
             {
-                TeamBuildId = id
+                ProposalBuildId = id
             };
             var result = await Mediator.Send(command);
             return Ok(result);

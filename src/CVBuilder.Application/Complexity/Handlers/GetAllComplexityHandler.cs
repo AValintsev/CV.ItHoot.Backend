@@ -13,10 +13,10 @@ using Models.Entities;
 
 public class GetAllComplexityHandler:IRequestHandler<GetAllComplexitiesQuery,List<ComplexityResult>>
 {
-    private readonly IRepository<TeamBuildComplexity, int> _complexityRepository;
+    private readonly IRepository<ProposalBuildComplexity, int> _complexityRepository;
     private readonly IMapper _mapper;
 
-    public GetAllComplexityHandler(IRepository<TeamBuildComplexity, int> complexityRepository, IMapper mapper)
+    public GetAllComplexityHandler(IRepository<ProposalBuildComplexity, int> complexityRepository, IMapper mapper)
     {
         _complexityRepository = complexityRepository;
         _mapper = mapper;

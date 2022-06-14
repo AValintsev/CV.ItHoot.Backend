@@ -7,7 +7,7 @@ public class GetComplexityMapper : AppMapperBase
 {
     public GetComplexityMapper()
     {
-        CreateMap<TeamBuildComplexity, ComplexityResult>()
+        CreateMap<ProposalBuildComplexity, ComplexityResult>()
             .ForMember(x => x.Id, y => y.MapFrom(z => z.Id));
 
     }

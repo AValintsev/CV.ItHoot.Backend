@@ -39,7 +39,7 @@ public class ComplexityController:BaseAuthApiController
     /// Get list of Complexities
     /// </summary>
     [HttpGet(ApiRoutes.Complexity.GetAllComplexities)]
-    public async Task<ActionResult<List<ComplexityResult>>> GetAllTeams()
+    public async Task<ActionResult<List<ComplexityResult>>> GetAllProposals()
     {
         var command = new GetAllComplexitiesQuery();
         var result = await Mediator.Send(command);

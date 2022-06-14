@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CVBuilder.EFContext.Configurations;
 
-public class ComplexityConfiguration:IEntityTypeConfiguration<TeamBuild>
+public class ComplexityConfiguration:IEntityTypeConfiguration<ProposalBuild>
 {
-    public void Configure(EntityTypeBuilder<TeamBuild> builder)
+    public void Configure(EntityTypeBuilder<ProposalBuild> builder)
     {
-        builder.HasOne(x => x.Complexity).WithMany(x => x.TeamBuilds).OnDelete(DeleteBehavior.SetNull);
+        builder.HasOne(x => x.Complexity).WithMany(x => x.ProposalBuilds).OnDelete(DeleteBehavior.SetNull);
     }
 }

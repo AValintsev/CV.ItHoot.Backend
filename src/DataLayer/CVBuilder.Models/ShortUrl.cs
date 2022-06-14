@@ -11,7 +11,7 @@ public class ShortUrl: IEntity<int>
     public string Url { get; set; }
     
     public List<User> Users { get; set; }
-    public List<TeamResume> TeamResumes { get; set; }
+    public List<ProposalResume> ProposalResumes { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }
