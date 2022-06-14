@@ -15,9 +15,11 @@ namespace CVBuilder.Repository
 
         Task<TEntity> GetByIdAsync(TKey id, string includeProperties = null);
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> filter = null);
+        Task<TEntity> CreateAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity entity);
         Task DeleteAsync(TKey id);
         Task DeleteAsync(TEntity entity);
+        Task<TEntity> RecoverAsync(TKey id);
         
         ITransactionWrapper BeginTransaction();
         Task SaveChangesAsync();

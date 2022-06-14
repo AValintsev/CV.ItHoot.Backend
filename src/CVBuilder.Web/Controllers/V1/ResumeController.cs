@@ -165,5 +165,21 @@ namespace CVBuilder.Web.Controllers.V1
             var result = await Mediator.Send(command);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Recovering deleted Resume
+        /// </summary>
+        [HttpPut(ApiRoutes.Resume.RecoverResume)]
+        public async Task<ActionResult<ResumeCardResponse>> RecoverResume(int id)
+        {
+            var command = new RecoverResumeCommand
+            {
+                Id = id
+            };
+            var response = await Mediator.Send(command);
+
+            var result = Mapper.Map<ResumeCardResponse>(response);
+            return Ok(result);
+        }
     }
 }

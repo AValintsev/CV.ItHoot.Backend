@@ -14,10 +14,10 @@ namespace CVBuilder.Application.Resume.Handlers
     using Models.Entities;
     public class GetAllCvCardHandler : IRequestHandler<GetAllResumeCardQueries, List<ResumeCardResult>>
     {
-        private readonly IRepository<Resume, int> _cvRepository;
+        private readonly IDeletableRepository<Resume, int> _cvRepository;
         private readonly IMapper _mapper;
 
-        public GetAllCvCardHandler(IRepository<Resume, int> cvRepository, IMapper mapper)
+        public GetAllCvCardHandler(IDeletableRepository<Resume, int> cvRepository, IMapper mapper)
         {
             _cvRepository = cvRepository;
             _mapper = mapper;
@@ -38,7 +38,7 @@ namespace CVBuilder.Application.Resume.Handlers
             }
             else if (request.UserRoles.Contains("Admin"))
             {
-                result = await _cvRepository.Table
+                result = await _cvRepository.TableWithDeleted
                     .Include(x=>x.Position)
                     .Include(x => x.LevelSkills)
                     .ThenInclude(x => x.Skill)

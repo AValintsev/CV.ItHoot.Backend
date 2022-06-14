@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CVBuilder.Web.Contracts.V1.Responses.Skill;
 
 namespace CVBuilder.Web.Contracts.V1.Responses.CV
@@ -11,6 +12,7 @@ namespace CVBuilder.Web.Contracts.V1.Responses.CV
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PositionName { get; set; }
+        public DateTime? DeletedAt { get; set; }
         public List<SkillResponse> Skills { get; set; } 
     }
 }
