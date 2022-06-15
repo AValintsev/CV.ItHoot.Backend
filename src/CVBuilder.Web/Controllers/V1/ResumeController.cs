@@ -9,7 +9,9 @@ using CVBuilder.Application.Resume.Responses.CvResponse;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Resume;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
+using CVBuilder.Web.Contracts.V1.Responses.Pagination;
 using CVBuilder.Web.Infrastructure.BaseControllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,14 +72,19 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get list of Resume
         /// </summary>
         [HttpGet(ApiRoutes.Resume.GetAllResume)]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ResumeCardResponse>>> GetAllResumeCard(
             [FromQuery] GetAllResumeCardRequest request)
         {
+            var validFilter = new GetAllResumeCardRequest(request.Term, request.Page, request.PageSize);
+
             var command = Mapper.Map<GetAllResumeCardQueries>(request);
             command.UserId = LoggedUserId!.Value;
             command.UserRoles = LoggedUserRoles;
             var response = await Mediator.Send(command);
-            var result = Mapper.Map<List<ResumeCardResponse>>(response);
+            var list = Mapper.Map<List<ResumeCardResponse>>(response.Item2);
+
+            var result = new PagedResponse<List<ResumeCardResponse>>(list, validFilter.Page, validFilter.PageSize, response.Item1);
             return Ok(result);
         }
 
