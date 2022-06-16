@@ -76,7 +76,7 @@ namespace CVBuilder.Web.Controllers.V1
         public async Task<ActionResult<IEnumerable<ResumeCardResponse>>> GetAllResumeCard(
             [FromQuery] GetAllResumeCardRequest request)
         {
-            var validFilter = new GetAllResumeCardRequest(request.Term, request.Page, request.PageSize);
+            var validFilter = new GetAllResumeCardRequest(request.Page, request.PageSize, request.Term, request.Positions, request.Skills);
 
             var command = Mapper.Map<GetAllResumeCardQueries>(request);
             command.UserId = LoggedUserId!.Value;

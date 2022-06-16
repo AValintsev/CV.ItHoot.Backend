@@ -62,9 +62,20 @@ namespace CVBuilder.Application.Resume.Handlers
                                                || r.Site.ToLower().Contains(term)
                                                || r.Phone.ToLower().Contains(term)
                                                || r.Street.ToLower().Contains(term)
-                                               || r.RequiredPosition.ToLower().Contains(term)
-                                               || r.Position.PositionName.ToLower().Contains(term)
-                                               || r.LevelSkills.Any(ls => ls.Skill.Name.ToLower().Contains(term)));
+                                               || r.RequiredPosition.ToLower().Contains(term));
+            }
+
+            if (request.Positions != null && request.Positions.Count > 0)
+            {
+                query = query.Where(r => r.PositionId.HasValue && request.Positions.Contains(r.PositionId.Value));
+            }
+
+            if (request.Skills != null && request.Skills.Count > 0)
+            {
+                foreach (var skillId in request.Skills)
+                {
+                    query = query.Where(r => r.LevelSkills.Any(ls => ls.SkillId == skillId));
+                }
             }
 
             totalCount = await query.CountAsync(cancellationToken: cancellationToken);
