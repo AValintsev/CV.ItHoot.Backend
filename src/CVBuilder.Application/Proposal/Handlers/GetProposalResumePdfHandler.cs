@@ -25,27 +25,11 @@ public class GetProposalResumePdfHandler : IRequestHandler<GetProposalResumePdfQ
     {
         var browser = _browserExtension.Browser;
         await using var page = await browser.NewPageAsync();
-        if (!string.IsNullOrEmpty(request.JwtToken))
-        {
-            await page.EvaluateExpressionOnNewDocumentAsync(
-                $"window.localStorage.setItem('JWT_TOKEN', '{request.JwtToken}');");
-        }
+        var pdfGenerator = new BrowserPdfGenerator(page);
+        await pdfGenerator.SetJwtTokenAsync(request.JwtToken);
+        await pdfGenerator.LoadPageAsync($"https://cvbuilder-front.vercel.app/proposals/{request.ProposalId}/resume/{request.ProposalResumeId}", "#resume-loaded");
+        var stream = await pdfGenerator.GetStreamPdfAsync();
 
-        await page.GoToAsync(
-            $"https://cvbuilder-front.vercel.app/proposals/{request.ProposalId}/resume/{request.ProposalResumeId}");
-        await page.EmulateMediaTypeAsync(MediaType.Print);
-        await page.WaitForSelectorAsync("#resume-loaded", new WaitForSelectorOptions()
-        {
-            Visible = true,
-            Timeout = 5000
-        });
-
-
-        var file = await page.PdfStreamAsync(new PdfOptions
-        {
-            PrintBackground = true,
-            Format = PaperFormat.A4,
-        });
-        return file;
+        return stream;
     }
 }
