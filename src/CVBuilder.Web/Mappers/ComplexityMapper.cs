@@ -3,7 +3,7 @@ using CVBuilder.Web.Contracts.V1.Requests.Complexity;
 
 namespace CVBuilder.Web.Mappers;
 
-public class ComplexityMapper:MapperBase
+public class ComplexityMapper : MapperBase
 {
     public ComplexityMapper()
     {

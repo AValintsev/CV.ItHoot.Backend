@@ -21,10 +21,7 @@ namespace CVBuilder.Web.Infrastructure.Startup
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddMemoryCache();
-            services.AddControllers(options =>
-            {
-                options.Filters.Add(new ExceptionFilter());
-            });
+            services.AddControllers(options => { options.Filters.Add(new ExceptionFilter()); });
         }
 
         /// <summary>

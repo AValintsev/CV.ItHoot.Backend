@@ -2,6 +2,7 @@
 using CVBuilder.Models.Entities;
 
 namespace CVBuilder.Application.ProposalBuild.Mappers;
+
 using Models.Entities;
 
 public class ProposalBuildResultMapper : AppMapperBase

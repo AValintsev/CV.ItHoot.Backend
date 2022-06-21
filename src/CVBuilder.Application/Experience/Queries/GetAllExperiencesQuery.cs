@@ -6,6 +6,5 @@ namespace CVBuilder.Application.Experience.Queries
 {
     public class GetAllExperiencesQuery : IRequest<List<ExperienceResult>>
     {
-
     }
 }

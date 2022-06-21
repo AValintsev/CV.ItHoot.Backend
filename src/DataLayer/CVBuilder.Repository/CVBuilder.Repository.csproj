@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-	  <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CVBuilder.EFContext\CVBuilder.EFContext.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\CVBuilder.EFContext\CVBuilder.EFContext.csproj"/>
+    </ItemGroup>
 
 </Project>

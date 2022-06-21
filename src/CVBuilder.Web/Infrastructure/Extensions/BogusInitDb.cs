@@ -15,19 +15,19 @@ public static class BogusInitDb
 {
     public static async Task Init(EFDbContext context, IAppUserManager userManager, IShortUrlService shortUrlService)
     {
-        if(await context.Users.AnyAsync())
+        if (await context.Users.AnyAsync())
             return;
-        
+
         var testUsers = new Faker<User>("en")
-            .RuleFor(x=>x.Email,y=>y.Person.Email)
-            .RuleFor(x=>x.UserName,y=>y.Person.Email)
+            .RuleFor(x => x.Email, y => y.Person.Email)
+            .RuleFor(x => x.UserName, y => y.Person.Email)
             .RuleFor(x => x.FirstName, y => y.Person.FirstName)
             .RuleFor(x => x.LastName, y => y.Person.LastName)
             .RuleFor(x => x.CreatedAt, y => DateTime.UtcNow)
             .RuleFor(x => x.UpdatedAt, y => DateTime.UtcNow)
-            .RuleFor(x=>x.ShortUrl, y=> new ShortUrl(){Url = shortUrlService.GenerateShortUrl()});
+            .RuleFor(x => x.ShortUrl, y => new ShortUrl() {Url = shortUrlService.GenerateShortUrl()});
         var users = testUsers.Generate(80);
-        
+
         foreach (var user in users.Take(20))
         {
             var createdUser = await userManager.CreateAsync(user, "123456");
@@ -36,7 +36,7 @@ public static class BogusInitDb
                 Enums.RoleTypes.User.ToString(),
             });
         }
-        
+
         foreach (var user in users.Skip(20).Take(20))
         {
             var createdUser = await userManager.CreateAsync(user, "123456");
@@ -45,7 +45,7 @@ public static class BogusInitDb
                 Enums.RoleTypes.Admin.ToString(),
             });
         }
-        
+
         foreach (var user in users.Skip(40).Take(20))
         {
             var createdUser = await userManager.CreateAsync(user, "123456");
@@ -54,7 +54,7 @@ public static class BogusInitDb
                 Enums.RoleTypes.HR.ToString(),
             });
         }
-        
+
         foreach (var user in users.Skip(60).Take(20))
         {
             var createdUser = await userManager.CreateAsync(user, "123456");

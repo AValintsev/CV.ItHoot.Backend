@@ -16,9 +16,9 @@ namespace CVBuilder.Web.Infrastructure.Extensions
         public static void UseSVBuilderSwagger(this IApplicationBuilder application)
         {
             var swaggerSettings = application.ApplicationServices.GetService<IOptions<SwaggerSettings>>().Value;
-            
+
             application.UseSwagger(options => options.RouteTemplate = swaggerSettings.JsonRoute);
-            
+
             application.UseSwaggerUI(options =>
                 options.SwaggerEndpoint(swaggerSettings.UIEndpoint, swaggerSettings.Description));
         }

@@ -32,17 +32,14 @@ public class GetPdfByIdHandler : IRequestHandler<GetPdfByIdQueries, Stream>
 
         var browser = _browserExtension.Browser;
         await using var page = await browser.NewPageAsync();
-        await page.EvaluateExpressionOnNewDocumentAsync(
-            $"window.localStorage.setItem('JWT_TOKEN', '{request.JwtToken}');");
-        await page.GoToAsync($"https://cvbuilder-front.vercel.app/home/cv/{request.ResumeId}");
-        await page.WaitForSelectorAsync("#doc", new WaitForSelectorOptions()
+        await page.EvaluateExpressionOnNewDocumentAsync($"window.localStorage.setItem('JWT_TOKEN', '{request.JwtToken}');");
+        await page.GoToAsync($"https://cvbuilder-front.vercel.app/resume/{request.ResumeId}");
+        await page.WaitForSelectorAsync("#resume-loaded", new WaitForSelectorOptions()
         {
             Visible = true,
             Timeout = 5000
         });
         
-        await page.EvaluateExpressionAsync(
-        @"var doc = document.getElementById(""doc"");document.body.innerHTML = '';document.body.appendChild(doc);");
         await page.EmulateMediaTypeAsync(MediaType.Print);
         var file = await page.PdfStreamAsync(new PdfOptions
         {

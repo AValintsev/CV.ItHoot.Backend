@@ -8,9 +8,10 @@ using CVBuilder.Repository;
 using MediatR;
 
 namespace CVBuilder.Application.Position.Handlers;
+
 using Models.Entities;
 
-public class CreatePositionHandler: IRequestHandler<CreatePositionCommand, PositionResult>
+public class CreatePositionHandler : IRequestHandler<CreatePositionCommand, PositionResult>
 {
     private readonly IRepository<Position, int> _positionRepository;
     private readonly IMapper _mapper;

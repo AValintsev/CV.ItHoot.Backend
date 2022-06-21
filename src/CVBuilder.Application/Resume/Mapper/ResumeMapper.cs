@@ -18,7 +18,7 @@ class ResumeMapper : AppMapperBase
 
         CreateMap<CreateResumeCommand, Resume>()
             .ForMember(x => x.LevelSkills, y => y.MapFrom(z => z.Skills))
-            .ForMember(x=>x.CreatedUserId,y=>y.MapFrom(z=>z.UserId))
+            .ForMember(x => x.CreatedUserId, y => y.MapFrom(z => z.UserId))
             .ForMember(x => x.LevelLanguages, y => y.MapFrom(z => z.UserLanguages))
             .ForMember(x => x.Educations, y => y.MapFrom(x => x.Educations))
             .ForMember(x => x.Experiences, y => y.MapFrom(x => x.Experiences));
@@ -50,13 +50,12 @@ class ResumeMapper : AppMapperBase
         #endregion
 
         CreateMap<UploadResumeImageCommand, Image>();
-          
 
 
         #region Result
 
         CreateMap<Resume, ResumeResult>()
-            .ForMember(q => q.Picture, w => w.MapFrom(f=>f.Image.ImagePath))
+            .ForMember(q => q.Picture, w => w.MapFrom(f => f.Image.ImagePath))
             .ForMember(d => d.Skills, b => b.MapFrom(s => MapToSkillResult(s.LevelSkills)))
             .ForMember(d => d.Languages, b => b.MapFrom(s => MapToUserLanguageResult(s.LevelLanguages)));
 
@@ -108,7 +107,6 @@ class ResumeMapper : AppMapperBase
             };
         }
     }
- 
 
     #endregion
 }

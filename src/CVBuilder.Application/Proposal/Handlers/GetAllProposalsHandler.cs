@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Proposal.Handlers;
 using Models.Entities;
+
 public class GetAllProposalsHandler : IRequestHandler<GetAllProposalsQuery, (int, List<SmallProposalResult>)>
 {
     private readonly IMapper _mapper;

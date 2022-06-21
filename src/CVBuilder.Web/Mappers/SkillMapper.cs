@@ -8,7 +8,7 @@ using UpdateSkillRequest = CVBuilder.Web.Contracts.V1.Requests.Skill.UpdateSkill
 
 namespace CVBuilder.Web.Mappers
 {
-    public class SkillMapper: MapperBase
+    public class SkillMapper : MapperBase
     {
         public SkillMapper()
         {
@@ -17,7 +17,7 @@ namespace CVBuilder.Web.Mappers
             CreateMap<UpdateSkillRequest, UpdateSkillCommand>();
             CreateMap<GetAllSkillRequest, GetAllSkillQuery>();
             CreateMap<SkillResult, SkillResponse>()
-                .ForMember(x=>x.Name,y=>y.MapFrom(z=>z.SkillName));
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.SkillName));
         }
     }
 }

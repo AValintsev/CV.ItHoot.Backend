@@ -33,7 +33,8 @@ namespace CVBuilder.Repository
 
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> filter = null);
 
-        Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null, string includeProperties = null);
+        Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null,
+            string includeProperties = null);
 
         Task<TEntity> GetByFilter(Expression<Func<TEntity, bool>> filter, string includeProperties = null);
 
@@ -46,6 +47,7 @@ namespace CVBuilder.Repository
             string includeProperties = null,
             bool asNoTracking = true,
             bool calculateCount = false);
+
         Task<(int count, List<TDto> data)> GetListDtoExtendedAsync<TDto>(
             Expression<Func<TEntity, TDto>> select,
             Expression<Func<TEntity, bool>> filter = null,

@@ -12,7 +12,6 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class SkillController : BaseApiController
     {
-        
         /// <summary>
         /// Create a new Skill
         /// </summary>
@@ -24,8 +23,8 @@ namespace CVBuilder.Web.Controllers.V1
 
             return Ok(result);
         }
-        
-        
+
+
         /// <summary>
         /// Get list of Skills
         /// </summary>
@@ -37,7 +36,7 @@ namespace CVBuilder.Web.Controllers.V1
             return Ok(result);
         }
 
-        
+
         /// <summary>
         /// Updates an existing Skill
         /// </summary>
@@ -53,7 +52,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Deleting an existing Skill
         /// </summary>
         [HttpDelete(ApiRoutes.Skill.DeleteSkill)]
-        public async Task<ActionResult> DeleteSkill([FromRoute]int id)
+        public async Task<ActionResult> DeleteSkill([FromRoute] int id)
         {
             var command = new DeleteSkillCommand
             {
@@ -62,6 +61,7 @@ namespace CVBuilder.Web.Controllers.V1
             var result = await Mediator.Send(command);
             return Ok();
         }
+
         /// <summary>
         /// Get Skill by content Text
         /// </summary>
@@ -69,7 +69,7 @@ namespace CVBuilder.Web.Controllers.V1
         public async Task<ActionResult<IEnumerable<SkillResult>>> GetSkill([FromQuery] GetSkillByContainText query)
         {
             var command = Mapper.Map<GetSkillByContainInTextQuery>(query);
-            var result =  await Mediator.Send(command);
+            var result = await Mediator.Send(command);
 
             return Ok(result);
         }

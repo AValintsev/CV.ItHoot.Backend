@@ -18,7 +18,8 @@ namespace CVBuilder.Application.User.Handlers
             _accessTokenRepository = accessTokenRepository;
         }
 
-        public async Task<UserAccessTokenResult> Handle(CreateUserAccessTokenCommand request, CancellationToken cancellationToken)
+        public async Task<UserAccessTokenResult> Handle(CreateUserAccessTokenCommand request,
+            CancellationToken cancellationToken)
         {
             var accessToken = new AccessToken
             {
@@ -35,7 +36,7 @@ namespace CVBuilder.Application.User.Handlers
 
             var result = await _accessTokenRepository.CreateAsync(accessToken);
 
-            return new UserAccessTokenResult { Token = result.Token };
+            return new UserAccessTokenResult {Token = result.Token};
         }
     }
 }

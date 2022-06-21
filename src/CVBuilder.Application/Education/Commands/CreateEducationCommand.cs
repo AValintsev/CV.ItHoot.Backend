@@ -17,4 +17,3 @@ namespace CVBuilder.Application.Education.Commands
         public DateTime? UpdatedAt { get; set; }
     }
 }
-

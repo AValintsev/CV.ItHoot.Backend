@@ -6,6 +6,5 @@ namespace CVBuilder.Application.Education.Commands
 {
     public class GetAllEducationsCommand : IRequest<List<EducationResult>>
     {
-
     }
 }

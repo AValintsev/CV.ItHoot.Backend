@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using CVBuilder.Models.Entities.Interfaces;
 
 namespace CVBuilder.Models.Entities;
+
 using Models.Entities;
-public class ProposalBuildPosition:IEntity<int>
+
+public class ProposalBuildPosition : IEntity<int>
 {
     public int Id { get; set; }
     public int PositionId { get; set; }

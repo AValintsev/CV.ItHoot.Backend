@@ -3,7 +3,7 @@ using CVBuilder.Models.Entities.Interfaces;
 
 namespace CVBuilder.Models.Entities
 {
-    public class LevelSkill: IDeletableEntity<int>, IOrderlyEntity
+    public class LevelSkill : IDeletableEntity<int>, IOrderlyEntity
     {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }

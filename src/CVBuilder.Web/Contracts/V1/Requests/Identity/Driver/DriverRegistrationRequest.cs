@@ -4,16 +4,13 @@ namespace CVBuilder.Web.Contracts.V1.Requests.Identity.Driver
 {
     public class DriverRegistrationRequest
     {
-        [MaxLength(50)]
-        public string FirstName { get; set; }
+        [MaxLength(50)] public string FirstName { get; set; }
 
-        [MaxLength(50)]
-        public string LastName { get; set; }
+        [MaxLength(50)] public string LastName { get; set; }
 
         public int PersonalCode { get; set; }
 
-        [MaxLength(20)]
-        public string VATCode { get; set; }
+        [MaxLength(20)] public string VATCode { get; set; }
 
         public AddressRequest RegistrationAddress { get; set; }
 
@@ -30,7 +27,6 @@ namespace CVBuilder.Web.Contracts.V1.Requests.Identity.Driver
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        [DataType(DataType.Password)] public string Password { get; set; }
     }
 }

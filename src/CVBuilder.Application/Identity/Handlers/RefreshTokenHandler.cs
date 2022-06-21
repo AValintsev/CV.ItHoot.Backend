@@ -56,7 +56,6 @@ namespace CVBuilder.Application.Identity.Handlers
 
             if (storedRefreshToken.IsRevoked)
             {
-
                 throw new ForbiddenException("This refresh token has been revoked");
             }
 

@@ -20,7 +20,8 @@ namespace CVBuilder.Application.User.Manager
             IdentityErrorDescriber errors,
             IServiceProvider services,
             ILogger<UserManager<Models.User>> logger)
-            : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
+            : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors,
+                services, logger)
         {
         }
 

@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CVBuilder.Web.Controllers.V1;
 
-public class UserController:BaseAuthApiController
+public class UserController : BaseAuthApiController
 {
     [HttpGet(ApiRoutes.User.ByRole)]
-
-    public async Task<ActionResult> GetUserByRole([FromQuery]string roleName)
+    public async Task<ActionResult> GetUserByRole([FromQuery] string roleName)
     {
         var command = new GetUsersByRoleQuery
         {

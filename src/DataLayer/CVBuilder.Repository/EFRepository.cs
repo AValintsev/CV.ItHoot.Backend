@@ -64,7 +64,8 @@ namespace CVBuilder.Repository
                 .FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
-        public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null, string includeProperties = null)
+        public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null,
+            string includeProperties = null)
         {
             var query = Entity.IncludeProperties(includeProperties);
 
@@ -88,7 +89,8 @@ namespace CVBuilder.Repository
             return await query.AnyAsync();
         }
 
-        public virtual async Task<TEntity> GetByFilter(Expression<Func<TEntity, bool>> filter, string includeProperties = null)
+        public virtual async Task<TEntity> GetByFilter(Expression<Func<TEntity, bool>> filter,
+            string includeProperties = null)
         {
             return await Entity.IncludeProperties(includeProperties)
                 .Where(filter)
@@ -158,7 +160,7 @@ namespace CVBuilder.Repository
         {
             var count = 0;
             var query = Entity.IncludeProperties(includeProperties);
-            
+
             if (select != null)
             {
                 query = query.Select(select);

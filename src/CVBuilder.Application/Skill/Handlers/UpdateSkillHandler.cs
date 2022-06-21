@@ -10,15 +10,18 @@ using MediatR;
 namespace CVBuilder.Application.Skill.Handlers
 {
     using Models.Entities;
+
     public class UpdateSkillHandler : IRequestHandler<UpdateSkillCommand, SkillResult>
     {
         private readonly IRepository<Skill, int> _skillRepository;
         private readonly IMapper _mapper;
+
         public UpdateSkillHandler(IRepository<Skill, int> cvRepository, IMapper mapper)
         {
             _skillRepository = cvRepository;
             _mapper = mapper;
         }
+
         public async Task<SkillResult> Handle(UpdateSkillCommand request, CancellationToken cancellationToken)
         {
             var model = new Skill

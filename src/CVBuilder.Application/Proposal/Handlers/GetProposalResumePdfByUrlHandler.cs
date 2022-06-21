@@ -18,7 +18,8 @@ public class GetProposalResumePdfByUrlHandler : IRequestHandler<GetProposalResum
     private readonly IRepository<ProposalResume, int> _proposalResumeRepository;
 
 
-    public GetProposalResumePdfByUrlHandler(IMapper mapper, IRepository<ProposalResume, int> proposalResumeRepository, IMediator mediator)
+    public GetProposalResumePdfByUrlHandler(IMapper mapper, IRepository<ProposalResume, int> proposalResumeRepository,
+        IMediator mediator)
     {
         _mapper = mapper;
         _proposalResumeRepository = proposalResumeRepository;
@@ -28,7 +29,7 @@ public class GetProposalResumePdfByUrlHandler : IRequestHandler<GetProposalResum
     public async Task<Stream> Handle(GetProposalResumePdfByUrlQuery request, CancellationToken cancellationToken)
     {
         var resume = await _proposalResumeRepository.Table
-            .Include(x=>x.ShortUrl)
+            .Include(x => x.ShortUrl)
             .FirstOrDefaultAsync(x => x.ShortUrl.Url == request.ShortUrl, cancellationToken: cancellationToken);
 
         if (resume == null)
@@ -44,6 +45,6 @@ public class GetProposalResumePdfByUrlHandler : IRequestHandler<GetProposalResum
         };
 
         var result = await _mediator.Send(command, cancellationToken);
-        return result;        
+        return result;
     }
 }
