@@ -4,9 +4,10 @@ using CVBuilder.Application.Identity.Services.Interfaces;
 
 namespace CVBuilder.Application.Identity.Services;
 
-public class ShortUrlService:IShortUrlService
+public class ShortUrlService : IShortUrlService
 {
     private static readonly Random Random = new();
+
     public string GenerateShortUrl(int count = 10)
     {
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

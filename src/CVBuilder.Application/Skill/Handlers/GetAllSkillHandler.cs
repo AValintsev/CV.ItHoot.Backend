@@ -24,7 +24,8 @@ namespace CVBuilder.Application.Skill.Handlers
         }
 
 
-        public async Task<IEnumerable<SkillResult>> Handle(GetAllSkillQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<SkillResult>> Handle(GetAllSkillQuery request,
+            CancellationToken cancellationToken)
         {
             var skills = await _skillRepository
                 .Table.ToListAsync(cancellationToken: cancellationToken);

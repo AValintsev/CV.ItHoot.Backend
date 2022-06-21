@@ -3,7 +3,7 @@ using CVBuilder.Models.Entities.Interfaces;
 
 namespace CVBuilder.Models.Entities;
 
-public class ProposalResume:IDeletableEntity<int>
+public class ProposalResume : IDeletableEntity<int>
 {
     public int Id { get; set; }
     public int ResumeId { get; set; }

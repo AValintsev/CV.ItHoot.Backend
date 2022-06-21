@@ -9,8 +9,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Resume.Handlers;
+
 using Models.Entities;
-public class GetAllResumeTemplatesHandler: IRequestHandler<GetAllResumeTemplatesQuery, List<ResumeTemplateResult>>
+
+public class GetAllResumeTemplatesHandler : IRequestHandler<GetAllResumeTemplatesQuery, List<ResumeTemplateResult>>
 {
     private readonly IRepository<ResumeTemplate, int> _repository;
     private readonly IMapper _mapper;
@@ -21,7 +23,8 @@ public class GetAllResumeTemplatesHandler: IRequestHandler<GetAllResumeTemplates
         _mapper = mapper;
     }
 
-    public async Task<List<ResumeTemplateResult>> Handle(GetAllResumeTemplatesQuery request, CancellationToken cancellationToken)
+    public async Task<List<ResumeTemplateResult>> Handle(GetAllResumeTemplatesQuery request,
+        CancellationToken cancellationToken)
     {
         var templates = await _repository.Table.ToListAsync(cancellationToken: cancellationToken);
         var result = _mapper.Map<List<ResumeTemplateResult>>(templates);

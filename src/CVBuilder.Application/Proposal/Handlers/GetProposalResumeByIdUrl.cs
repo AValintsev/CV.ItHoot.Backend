@@ -11,23 +11,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Proposal.Handlers;
 
-public class GetProposalResumeByIdUrl:IRequestHandler<GetProposalResumeByUrlQuery, ProposalResumeResult>
+public class GetProposalResumeByIdUrl : IRequestHandler<GetProposalResumeByUrlQuery, string>
 {
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
     private readonly IRepository<ProposalResume, int> _proposalResumeRepository;
 
-    public GetProposalResumeByIdUrl(IMapper mapper, IRepository<ProposalResume, int> proposalResumeRepository, IMediator mediator)
+    public GetProposalResumeByIdUrl(IMapper mapper, IRepository<ProposalResume, int> proposalResumeRepository,
+        IMediator mediator)
     {
         _mapper = mapper;
         _proposalResumeRepository = proposalResumeRepository;
         _mediator = mediator;
     }
 
-    public async Task<ProposalResumeResult> Handle(GetProposalResumeByUrlQuery request, CancellationToken cancellationToken)
+    public async Task<string> Handle(GetProposalResumeByUrlQuery request,
+        CancellationToken cancellationToken)
     {
         var resume = await _proposalResumeRepository.Table
-            .Include(x=>x.ShortUrl)
+            .Include(x => x.ShortUrl)
             .FirstOrDefaultAsync(x => x.ShortUrl.Url == request.ShortUrl, cancellationToken: cancellationToken);
 
         if (resume == null)
@@ -35,7 +37,7 @@ public class GetProposalResumeByIdUrl:IRequestHandler<GetProposalResumeByUrlQuer
             throw new NotFoundException("Resume not found");
         }
 
-        var command = new GetProposalResumeQuery()
+        var command = new GetProposalResumeHtmlQuery()
         {
             UserRoles = request.UserRoles,
             UserId = request.UserId,
@@ -46,5 +48,4 @@ public class GetProposalResumeByIdUrl:IRequestHandler<GetProposalResumeByUrlQuer
         var result = await _mediator.Send(command, cancellationToken);
         return result;
     }
-   
 }

@@ -11,7 +11,7 @@ namespace CVBuilder.Application.Position.Handlers;
 
 using Models.Entities;
 
-public class UpdatePositionHandler: IRequestHandler<UpdatePositionCommand, PositionResult>
+public class UpdatePositionHandler : IRequestHandler<UpdatePositionCommand, PositionResult>
 {
     private readonly IRepository<Position, int> _positionRepository;
     private readonly IMapper _mapper;

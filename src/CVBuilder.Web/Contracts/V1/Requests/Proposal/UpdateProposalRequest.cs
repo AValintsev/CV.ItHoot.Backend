@@ -11,7 +11,7 @@ public class UpdateProposalRequest
     public bool ShowContacts { get; set; }
     public bool ShowCompanyNames { get; set; }
     public int ResumeTemplateId { get; set; }
-    public StatusProposal StatusProposal { get; set; } 
+    public StatusProposal StatusProposal { get; set; }
     public string ProposalName { get; set; }
     public List<UpdateResumeRequest> Resumes { get; set; }
 }

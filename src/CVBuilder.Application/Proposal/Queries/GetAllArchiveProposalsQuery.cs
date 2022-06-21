@@ -4,7 +4,6 @@ using MediatR;
 
 namespace CVBuilder.Application.Proposal.Queries;
 
-public class GetAllArchiveProposalsQuery:IRequest<List<SmallProposalResult>>
+public class GetAllArchiveProposalsQuery : IRequest<List<SmallProposalResult>>
 {
-    
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CVBuilder.Application.Position.Responses;
 
 namespace CVBuilder.Application.Resume.Responses.CvResponse
@@ -19,7 +20,8 @@ namespace CVBuilder.Application.Resume.Responses.CvResponse
         public string City { get; set; }
         public string Street { get; set; }
         public string RequiredPosition { get; set; }
-        public string Birthdate { get; set; }
+        public int ResumeTemplateId { get; set; }
+        public DateTime Birthdate { get; set; }
         public string Picture { get; set; }
         public string AboutMe { get; set; }
         public List<EducationResult> Educations { get; set; }

@@ -2,7 +2,7 @@
 
 namespace CVBuilder.Application.Resume.Commands.SharedCommands
 {
-     public class UpdateExperienceCommand
+    public class UpdateExperienceCommand
     {
         public int? Id { get; set; }
         public string Company { get; set; }

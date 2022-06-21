@@ -8,12 +8,12 @@ using MediatR;
 
 namespace CVBuilder.Application.Resume.Handlers
 {
-    public class DeleteCvHandler:IRequestHandler<DeleteResumeCommand, bool>
+    public class DeleteResumeHandler : IRequestHandler<DeleteResumeCommand, bool>
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Models.Entities.Resume, int> _resumeRepository;
 
-        public DeleteCvHandler(
+        public DeleteResumeHandler(
             IMapper mapper,
             IRepository<Models.Entities.Resume, int> resumeRepository)
         {
@@ -28,6 +28,5 @@ namespace CVBuilder.Application.Resume.Handlers
             await _resumeRepository.DeleteAsync(resume);
             return true;
         }
-
     }
 }

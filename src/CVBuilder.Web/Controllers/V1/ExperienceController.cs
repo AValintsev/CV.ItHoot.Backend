@@ -13,7 +13,6 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class ExperienceController : BaseApiController
     {
-        
         /// <summary>
         /// Create a new Experience
         /// </summary>
@@ -23,23 +22,24 @@ namespace CVBuilder.Web.Controllers.V1
         {
             var command = Mapper.Map<CreateExperienceCommand>(query);
             var response = await Mediator.Send(command);
-            
+
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Get list of Experiences
         /// </summary>
         [AllowAnonymous]
         [HttpGet(ApiRoutes.Experience.GetAllExperience)]
-        public async Task<ActionResult<IEnumerable<CreateExperienceResult>>> GetAllExperiences([FromQuery]GetAllExperiances query)
+        public async Task<ActionResult<IEnumerable<CreateExperienceResult>>> GetAllExperiences(
+            [FromQuery] GetAllExperiances query)
         {
             var command = Mapper.Map<GetAllExperiencesQuery>(query);
             var response = await Mediator.Send(command);
 
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Get Experience by ID
         /// </summary>

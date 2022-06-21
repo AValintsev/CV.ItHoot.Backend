@@ -39,7 +39,7 @@ public class GyazoImageService : IImageService
 
         if (!response.IsSuccessStatusCode)
             throw new Exception("Something went wrong");
-        
+
         var model = await response.Content.ReadFromJsonAsync<GyazoResponse>();
         return model!.Url;
     }

@@ -10,9 +10,10 @@ using MediatR;
 
 namespace CVBuilder.Application.Data.Handlers
 {
-    public class GetDataHandler: IRequestHandler<GetDataTypesQuery, IEnumerable<DataTypeResult>>
+    public class GetDataHandler : IRequestHandler<GetDataTypesQuery, IEnumerable<DataTypeResult>>
     {
-        public async Task<IEnumerable<DataTypeResult>> Handle(GetDataTypesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<DataTypeResult>> Handle(GetDataTypesQuery request,
+            CancellationToken cancellationToken)
         {
             return await Task.FromResult(
                 from Enum item in Enum.GetValues(request.EnumType)

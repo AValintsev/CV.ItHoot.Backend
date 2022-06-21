@@ -4,7 +4,6 @@ using MediatR;
 
 namespace CVBuilder.Application.Resume.Queries;
 
-public class GetAllResumeTemplatesQuery:IRequest<List<ResumeTemplateResult>>
+public class GetAllResumeTemplatesQuery : IRequest<List<ResumeTemplateResult>>
 {
-    
 }

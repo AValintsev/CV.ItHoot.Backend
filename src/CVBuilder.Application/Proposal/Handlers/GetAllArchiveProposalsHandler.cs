@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Proposal.Handlers;
 
-public class GetAllArchiveProposalsHandler: IRequestHandler<GetAllArchiveProposalsQuery, List<SmallProposalResult>>
+public class GetAllArchiveProposalsHandler : IRequestHandler<GetAllArchiveProposalsQuery, List<SmallProposalResult>>
 {
     private readonly IMapper _mapper;
     private readonly IRepository<Models.Entities.Proposal, int> _proposalRepository;
@@ -23,16 +23,16 @@ public class GetAllArchiveProposalsHandler: IRequestHandler<GetAllArchiveProposa
         _proposalRepository = proposalRepository;
     }
 
-    public async Task<List<SmallProposalResult>> Handle(GetAllArchiveProposalsQuery request, CancellationToken cancellationToken)
+    public async Task<List<SmallProposalResult>> Handle(GetAllArchiveProposalsQuery request,
+        CancellationToken cancellationToken)
     {
         var proposals = await _proposalRepository.Table
-            .Where(x=>x.StatusProposal == StatusProposal.Done)
+            .Where(x => x.StatusProposal == StatusProposal.Done)
             .Include(x => x.Resumes)
-            .Include(x=>x.CreatedUser)
-            .Include(x=>x.Client)
+            .Include(x => x.CreatedUser)
+            .Include(x => x.Client)
             .ToListAsync(cancellationToken: cancellationToken);
         var smallProposals = _mapper.Map<List<SmallProposalResult>>(proposals);
         return smallProposals;
     }
-   
 }

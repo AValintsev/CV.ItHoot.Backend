@@ -41,7 +41,7 @@ namespace CVBuilder.EFContext.Extensions
             foreach (int val in enumValArray)
             {
                 var item = Enum.Parse(enumType, val.ToString());
-                enumValList.Add(new KeyValuePair<T, string>((T)item, ((Enum)item).ToDescription()));
+                enumValList.Add(new KeyValuePair<T, string>((T) item, ((Enum) item).ToDescription()));
             }
 
             return enumValList;

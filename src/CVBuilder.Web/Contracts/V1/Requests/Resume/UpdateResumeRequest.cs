@@ -20,13 +20,14 @@ namespace CVBuilder.Web.Contracts.V1.Requests.Resume
         public string City { get; set; }
         public string Street { get; set; }
         public string RequiredPosition { get; set; }
+        public int ResumeTemplateId { get; set; }
         public string Birthdate { get; set; }
+
         //public IFormFile Picture { get; set; }
         public string AboutMe { get; set; }
         public List<UpdateEducationRequest> Educations { get; set; }
         public List<UpdateExperienceRequest> Experiences { get; set; }
         public List<UpdateSkillRequest> Skills { get; set; }
         public List<UpdateLanguageRequest> Languages { get; set; }
-
     }
 }

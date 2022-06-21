@@ -5,6 +5,6 @@ namespace CVBuilder.Application.Experience.Queries
 {
     public class GetExperienceByIdQuery : IRequest<GetExperienceByIdResult>
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
     }
 }

@@ -9,15 +9,17 @@ using MediatR;
 
 namespace CVBuilder.Application.Language.Handlers
 {
-    public class UpdateLanguageHandler: IRequestHandler<UpdateLanguageCommand, LanguageDTO>
+    public class UpdateLanguageHandler : IRequestHandler<UpdateLanguageCommand, LanguageDTO>
     {
         private readonly IRepository<Models.Entities.Language, int> _languageRepository;
         private readonly IMapper _mapper;
+
         public UpdateLanguageHandler(IRepository<Models.Entities.Language, int> languageRepository, IMapper mapper)
         {
             _languageRepository = languageRepository;
             _mapper = mapper;
         }
+
         public async Task<LanguageDTO> Handle(UpdateLanguageCommand request, CancellationToken cancellationToken)
         {
             var model = new Models.Entities.Language

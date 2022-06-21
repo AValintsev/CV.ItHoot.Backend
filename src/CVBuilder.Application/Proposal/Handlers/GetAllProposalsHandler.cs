@@ -11,7 +11,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Proposal.Handlers;
+
 using Models.Entities;
+
 public class GetAllProposalsHandler : IRequestHandler<GetAllProposalsQuery, List<SmallProposalResult>>
 {
     private readonly IMapper _mapper;
@@ -23,7 +25,8 @@ public class GetAllProposalsHandler : IRequestHandler<GetAllProposalsQuery, List
         _proposalRepository = proposalRepository;
     }
 
-    public async Task<List<SmallProposalResult>> Handle(GetAllProposalsQuery request, CancellationToken cancellationToken)
+    public async Task<List<SmallProposalResult>> Handle(GetAllProposalsQuery request,
+        CancellationToken cancellationToken)
     {
         List<Proposal> proposals;
         if (request.UserRoles.Contains(Enums.RoleTypes.Admin.ToString()))

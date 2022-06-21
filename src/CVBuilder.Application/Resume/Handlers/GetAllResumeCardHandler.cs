@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CVBuilder.Application.Resume.Handlers
 {
     using Models.Entities;
+
     public class GetAllCvCardHandler : IRequestHandler<GetAllResumeCardQueries, List<ResumeCardResult>>
     {
         private readonly IRepository<Resume, int> _cvRepository;
@@ -30,7 +31,7 @@ namespace CVBuilder.Application.Resume.Handlers
             if (request.UserRoles.Contains("HR"))
             {
                 result = await _cvRepository.Table
-                    .Include(x=>x.Position)
+                    .Include(x => x.Position)
                     .Include(x => x.LevelSkills)
                     .ThenInclude(x => x.Skill)
                     .Where(x => x.IsDraft == false)
@@ -39,7 +40,7 @@ namespace CVBuilder.Application.Resume.Handlers
             else if (request.UserRoles.Contains("Admin"))
             {
                 result = await _cvRepository.Table
-                    .Include(x=>x.Position)
+                    .Include(x => x.Position)
                     .Include(x => x.LevelSkills)
                     .ThenInclude(x => x.Skill)
                     .ToListAsync(cancellationToken: cancellationToken);
@@ -47,7 +48,7 @@ namespace CVBuilder.Application.Resume.Handlers
             else if (request.UserRoles.Contains("User"))
             {
                 result = await _cvRepository.Table
-                    .Include(x=>x.Position)
+                    .Include(x => x.Position)
                     .Include(x => x.LevelSkills)
                     .ThenInclude(x => x.Skill)
                     .Where(x => x.CreatedUserId == request.UserId)

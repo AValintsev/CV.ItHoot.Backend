@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using CVBuilder.Application.Identity.Commands;
 using CVBuilder.Application.Proposal.Commands;
@@ -28,7 +29,7 @@ public class ProposalController : BaseAuthApiController
         var result = await Mediator.Send(command);
         return Ok(result);
     }
-    
+
     /// <summary>
     /// Approve Proposal
     /// </summary>
@@ -69,7 +70,26 @@ public class ProposalController : BaseAuthApiController
         var result = await Mediator.Send(command);
         return Ok(result);
     }
-    
+
+    /// <summary>
+    /// Get resume html from Proposal
+    /// </summary>
+    [AllowAnonymous]
+    [HttpGet(ApiRoutes.Proposal.GetProposalResumeHtml)]
+    public async Task<ActionResult<ProposalResumeResult>> GetProposalResumeHtml(int proposalId, int proposalResumeId)
+    {
+        var command = new GetProposalResumeHtmlQuery
+        {
+            UserRoles = LoggedUserRoles.ToList(),
+            UserId = LoggedUserId,
+            ProposalId = proposalId,
+            ProposalResumeId = proposalResumeId
+        };
+        var result = await Mediator.Send(command);
+
+        return Ok(new {Html = result});
+    }
+
     /// <summary>
     /// Get resume pdf from Proposal
     /// </summary>
@@ -80,12 +100,12 @@ public class ProposalController : BaseAuthApiController
         {
             ProposalId = proposalId,
             ProposalResumeId = proposalResumeId,
-            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
+            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
         };
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");
     }
-    
+
     /// <summary>
     /// Get list of Proposal
     /// </summary>
@@ -100,7 +120,7 @@ public class ProposalController : BaseAuthApiController
         var result = await Mediator.Send(command);
         return result;
     }
-    
+
     /// <summary>
     /// Get list of archive Proposals
     /// </summary>
@@ -112,12 +132,12 @@ public class ProposalController : BaseAuthApiController
         return result;
     }
 
-    
+
     /// <summary>
     /// Get Proposal by ID
     /// </summary>
     [HttpGet(ApiRoutes.Proposal.GetProposalById)]
-    public async Task<ActionResult<ProposalResult>> GetProposalById([FromRoute]int id)
+    public async Task<ActionResult<ProposalResult>> GetProposalById([FromRoute] int id)
     {
         var command = new GetProposalByIdQuery()
         {
@@ -126,7 +146,7 @@ public class ProposalController : BaseAuthApiController
         var result = await Mediator.Send(command);
         return result;
     }
-    
+
     /// <summary>
     /// Get resume by ShortUrl
     /// </summary>
@@ -140,11 +160,11 @@ public class ProposalController : BaseAuthApiController
             UserRoles = LoggedUserRoles.ToList(),
             UserId = LoggedUserId
         };
-            
+
         var result = await Mediator.Send(command);
-        return Ok(result);
+        return Ok(new {Html = result});
     }
-    
+
     /// <summary>
     /// Get resume pdf by ShortUrl
     /// </summary>
@@ -152,12 +172,11 @@ public class ProposalController : BaseAuthApiController
     [HttpGet(ApiRoutes.Proposal.GetPdfProposalResumeByUrl)]
     public async Task<IActionResult> GetPdfProposalResumeByUrl(string url)
     {
-        
         var command = new GetProposalResumePdfByUrlQuery()
         {
             ShortUrl = url,
             UserRoles = LoggedUserRoles.ToList(),
-            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
+            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
         };
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");

@@ -5,6 +5,6 @@ namespace CVBuilder.Application.Education.Commands
 {
     public class GetEducationByIdCommand : IRequest<EducationByIdResult>
     {
-        public int  Id { get; set; }
+        public int Id { get; set; }
     }
 }

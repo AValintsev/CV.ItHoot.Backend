@@ -10,20 +10,21 @@ using MediatR;
 namespace CVBuilder.Application.Resume.Handlers
 {
     using Models.Entities;
+
     internal class CreateResumeHandler : IRequestHandler<CreateResumeCommand, ResumeResult>
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<Resume, int> _cvRepository;
+        private readonly IRepository<Resume, int> _resumeRepository;
         private readonly IRepository<Skill, int> _skillRepository;
         private readonly IRepository<Language, int> _languageRepository;
 
         public CreateResumeHandler(
             IMapper mapper,
-            IRepository<Resume, int> cvRepository,
-            IRepository<Skill, int> skillRepository, 
+            IRepository<Resume, int> resumeRepository,
+            IRepository<Skill, int> skillRepository,
             IRepository<Language, int> languageRepository)
         {
-            _cvRepository = cvRepository;
+            _resumeRepository = resumeRepository;
             _skillRepository = skillRepository;
             _languageRepository = languageRepository;
             _mapper = mapper;
@@ -34,7 +35,7 @@ namespace CVBuilder.Application.Resume.Handlers
             var cv = _mapper.Map<Resume>(command);
             await CheckSkillsDuplicate(cv);
             await CheckLanguageDuplicate(cv);
-            cv = await _cvRepository.CreateAsync(cv);
+            cv = await _resumeRepository.CreateAsync(cv);
             return _mapper.Map<ResumeResult>(cv);
         }
 

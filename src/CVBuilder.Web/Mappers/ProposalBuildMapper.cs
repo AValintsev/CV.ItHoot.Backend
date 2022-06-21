@@ -3,7 +3,7 @@ using CVBuilder.Web.Contracts.V1.Requests.ProposalBuild;
 
 namespace CVBuilder.Web.Mappers;
 
-public class ProposalBuildMapper:MapperBase
+public class ProposalBuildMapper : MapperBase
 {
     public ProposalBuildMapper()
     {

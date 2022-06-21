@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CVBuilder.EFContext.Configurations;
 
-public class ResumeConfiguration:IEntityTypeConfiguration<Resume>
+public class ResumeConfiguration : IEntityTypeConfiguration<Resume>
 {
     public void Configure(EntityTypeBuilder<Resume> builder)
     {

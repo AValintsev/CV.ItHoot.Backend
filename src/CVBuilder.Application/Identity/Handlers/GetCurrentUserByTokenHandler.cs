@@ -14,14 +14,15 @@ namespace CVBuilder.Application.Identity.Handlers
         private readonly IIdentityService _identityService;
 
         public GetCurrentUserByTokenHandler(
-            IIdentityService identityService, 
+            IIdentityService identityService,
             IAppUserManager userManager)
         {
             _identityService = identityService;
             _userManager = userManager;
         }
 
-        public async Task<AuthenticationResult> Handle(GetCurrentUserByTokenCommand command, CancellationToken cancellationToken)
+        public async Task<AuthenticationResult> Handle(GetCurrentUserByTokenCommand command,
+            CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByIdAsync(command.UserId);
             return await _identityService.GenerateAuthenticationResultAsync(user);
