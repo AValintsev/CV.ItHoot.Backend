@@ -4,6 +4,7 @@ using ResumeResult = CVBuilder.Application.Proposal.Responses.ResumeResult;
 using SkillResult = CVBuilder.Application.Skill.DTOs.SkillResult;
 
 namespace CVBuilder.Application.Proposal.Mapper;
+
 using Models.Entities;
 
 public class GetProposalMapper : AppMapperBase
@@ -16,7 +17,7 @@ public class GetProposalMapper : AppMapperBase
             .ForMember(x => x.LastUpdated, y => y.MapFrom(z => z.UpdatedAt.ToString("MM/dd/yyyy HH:mm:ss UTC")))
             .ForMember(x => x.CreatedUserName, y => y.MapFrom(z => z.CreatedUser.FullName))
             .ForMember(x => x.ClientUserName, y => y.MapFrom(z => z.Client.FullName));
-            
+
         #region Result
 
         CreateMap<Proposal, ProposalResult>();
@@ -31,9 +32,9 @@ public class GetProposalMapper : AppMapperBase
             .ForMember(x => x.ResumeName, y => y.MapFrom(z => z.Resume.ResumeName))
             .ForMember(x => x.Skills, y => y.MapFrom(z => z.Resume.LevelSkills))
             .ForMember(x => x.Picture, y => y.MapFrom(z => z.Resume.Image.ImagePath))
-            .ForMember(x=>x.PositionId,y=>y.MapFrom(z=>z.Resume.PositionId))
-            .ForMember(x=>x.PositionName,y=>y.MapFrom(z=>z.Resume.Position.PositionName))
-            .ForMember(x=>x.ShortUrl,y=>y.MapFrom(z=>z.ShortUrl.Url));
+            .ForMember(x => x.PositionId, y => y.MapFrom(z => z.Resume.PositionId))
+            .ForMember(x => x.PositionName, y => y.MapFrom(z => z.Resume.Position.PositionName))
+            .ForMember(x => x.ShortUrl, y => y.MapFrom(z => z.ShortUrl.Url));
 
         CreateMap<LevelSkill, SkillResult>()
             .ForMember(x => x.Id, y => y.MapFrom(z => z.SkillId))

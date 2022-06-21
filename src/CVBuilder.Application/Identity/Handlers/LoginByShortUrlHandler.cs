@@ -27,9 +27,9 @@ public class LoginByShortUrlHandler : IRequestHandler<LoginByShortUrlCommand, Au
     public async Task<AuthenticationResult> Handle(LoginByShortUrlCommand request, CancellationToken cancellationToken)
     {
         var user = await _manager.Users
-            .Include(x=>x.ShortUrl)
+            .Include(x => x.ShortUrl)
             .FirstOrDefaultAsync(x => x.ShortUrl.Url == request.ShortUrl,
-            cancellationToken: cancellationToken);
+                cancellationToken: cancellationToken);
 
         if (user == null)
         {

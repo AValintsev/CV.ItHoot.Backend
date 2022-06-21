@@ -23,6 +23,8 @@ namespace CVBuilder.Application.Resume.Commands
         public string RequiredPosition { get; set; }
         public string Birthdate { get; set; }
         public string AboutMe { get; set; }
+        public int ResumeTemplateId { get; set; }
+
         public List<CreateEducationCommand> Educations { get; set; }
         public List<CreateExperienceCommand> Experiences { get; set; }
         public List<CreateSkillCommand> Skills { get; set; }

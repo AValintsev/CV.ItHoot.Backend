@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Proposal.Commands;
 
-public class CreateProposalCommand: IRequest<ProposalResult>
+public class CreateProposalCommand : IRequest<ProposalResult>
 {
     public int UserId { get; set; }
     public int? ProposalBuildId { get; set; }

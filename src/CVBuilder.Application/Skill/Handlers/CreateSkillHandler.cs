@@ -13,11 +13,13 @@ namespace CVBuilder.Application.Skill.Handlers
     {
         private readonly IRepository<Models.Entities.Skill, int> _skillRepository;
         private readonly IMapper _mapper;
+
         public CreateSkillHandler(IRepository<Models.Entities.Skill, int> cvRepository, IMapper mapper)
         {
             _skillRepository = cvRepository;
             _mapper = mapper;
         }
+
         public async Task<SkillResult> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.Name))

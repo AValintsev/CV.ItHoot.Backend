@@ -46,7 +46,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions
 
             //add accessor to HttpContext
             services.AddHttpContextAccessor();
-            
+
             services.AddTransient<IAppUserManager, AppUserManager>();
 
             var appSection = configuration.GetSection("AppSettings");
@@ -109,7 +109,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions
             services.AddSwaggerGen(options =>
             {
                 options.CustomSchemaIds(type => type.ToString());
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "CVBuilder API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "CVBuilder API", Version = "v1"});
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the bearer scheme",
@@ -138,7 +138,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions
                 //options.DocumentFilter<SignalRSwaggerGen.SignalRSwaggerGen>(new List<Assembly> { typeof(DriverHub).Assembly });
             });
         }
-        
+
         public static void ConfigureIdentity(this IServiceCollection services)
         {
             services.AddIdentity<User, IdentityRole<int>>(options =>

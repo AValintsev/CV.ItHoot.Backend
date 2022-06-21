@@ -8,8 +8,10 @@ namespace CVBuilder.Web.Infrastructure.Middlewares;
 public class ExceptionMiddleware
 {
     #region
+
     private readonly RequestDelegate _next;
     private readonly ILogger<ExceptionMiddleware> _logger;
+
     #endregion
 
     public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
@@ -26,7 +28,7 @@ public class ExceptionMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError("Something went wrong: {Ex}",ex);
+            _logger.LogError("Something went wrong: {Ex}", ex);
             await HandleExceptionAsync(context, ex);
         }
     }
@@ -34,7 +36,7 @@ public class ExceptionMiddleware
     private Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
         var response = context.Response;
-        
+
         response.ContentType = "application/json";
         response.StatusCode = exception switch
         {

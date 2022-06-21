@@ -13,7 +13,7 @@ namespace CVBuilder.Application.Position.Handlers;
 
 using Models.Entities;
 
-public class GetAllPositionHandler: IRequestHandler<GetAllPositionQuery, List<PositionResult>>
+public class GetAllPositionHandler : IRequestHandler<GetAllPositionQuery, List<PositionResult>>
 {
     private readonly IRepository<Position, int> _positionRepository;
     private readonly IMapper _mapper;

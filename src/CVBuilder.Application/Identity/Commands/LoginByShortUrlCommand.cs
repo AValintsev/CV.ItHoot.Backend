@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Identity.Commands;
 
-public class LoginByShortUrlCommand:IRequest<AuthenticationResult>
+public class LoginByShortUrlCommand : IRequest<AuthenticationResult>
 {
     public string ShortUrl { get; set; }
 }

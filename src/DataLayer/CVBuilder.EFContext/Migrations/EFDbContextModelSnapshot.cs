@@ -555,6 +555,9 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<string>("ResumeName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ResumeTemplateId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Site")
                         .HasColumnType("nvarchar(max)");
 
@@ -572,6 +575,8 @@ namespace CVBuilder.EFContext.Migrations
 
                     b.HasIndex("PositionId");
 
+                    b.HasIndex("ResumeTemplateId");
+
                     b.ToTable("Resumes", (string)null);
                 });
 
@@ -585,6 +590,9 @@ namespace CVBuilder.EFContext.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Html")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TemplateName")
                         .HasColumnType("nvarchar(max)");
@@ -1024,11 +1032,17 @@ namespace CVBuilder.EFContext.Migrations
                         .HasForeignKey("PositionId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("CVBuilder.Models.Entities.ResumeTemplate", "ResumeTemplate")
+                        .WithMany()
+                        .HasForeignKey("ResumeTemplateId");
+
                     b.Navigation("CreatedUser");
 
                     b.Navigation("Image");
 
                     b.Navigation("Position");
+
+                    b.Navigation("ResumeTemplate");
                 });
 
             modelBuilder.Entity("CVBuilder.Models.User", b =>

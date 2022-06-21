@@ -32,6 +32,7 @@ namespace CVBuilder.Web.Infrastructure.BaseControllers
                 {
                     _loggedUserId = id;
                 }
+
                 return _loggedUserId;
             }
         }

@@ -8,19 +8,22 @@ using MediatR;
 namespace CVBuilder.Application.Skill.Handlers
 {
     using Models.Entities;
+
     public class DeleteSkillHandler : IRequestHandler<DeleteSkillCommand, bool>
     {
         private readonly IRepository<Skill, int> _skillRepository;
         private readonly IMapper _mapper;
+
         public DeleteSkillHandler(IRepository<Skill, int> cvRepository, IMapper mapper)
         {
             _skillRepository = cvRepository;
             _mapper = mapper;
         }
+
         public async Task<bool> Handle(DeleteSkillCommand request, CancellationToken cancellationToken)
         {
-             await _skillRepository.DeleteAsync(request.Id);
-             return true;
+            await _skillRepository.DeleteAsync(request.Id);
+            return true;
         }
     }
 }

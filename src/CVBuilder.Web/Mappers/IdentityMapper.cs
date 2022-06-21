@@ -12,14 +12,14 @@ namespace CVBuilder.Web.Mappers
             CreateMap<AuthenticationResult, AuthFailedResponse>();
             CreateMap<AuthenticationResult, AuthSuccessResponse>();
 
-           
+
             //CreateMap<DriverRegistrationRequest, DriverRegistrationCommand>();
 
             CreateMap<WebLoginRequest, WebLoginCommand>();
             CreateMap<RegisterRequest, RegisterCommand>();
             //CreateMap<CompanyRegistrationRequest, CompanyRegistrationCommand>();
-            
-           // CreateMap<CustomerRegistrationRequest, CustomerRegistrationCommand>();
+
+            // CreateMap<CustomerRegistrationRequest, CustomerRegistrationCommand>();
 
             CreateMap<RefreshTokenRequest, RefreshTokenCommand>();
             CreateMap<LogoutRequest, LogoutCommand>();

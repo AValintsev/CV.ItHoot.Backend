@@ -9,9 +9,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Complexity.Handlers;
+
 using Models.Entities;
 
-public class GetAllComplexityHandler:IRequestHandler<GetAllComplexitiesQuery,List<ComplexityResult>>
+public class GetAllComplexityHandler : IRequestHandler<GetAllComplexitiesQuery, List<ComplexityResult>>
 {
     private readonly IRepository<ProposalBuildComplexity, int> _complexityRepository;
     private readonly IMapper _mapper;
@@ -22,7 +23,8 @@ public class GetAllComplexityHandler:IRequestHandler<GetAllComplexitiesQuery,Lis
         _mapper = mapper;
     }
 
-    public async Task<List<ComplexityResult>> Handle(GetAllComplexitiesQuery request, CancellationToken cancellationToken)
+    public async Task<List<ComplexityResult>> Handle(GetAllComplexitiesQuery request,
+        CancellationToken cancellationToken)
     {
         var complexities = await _complexityRepository.Table
             .ToListAsync(cancellationToken: cancellationToken);

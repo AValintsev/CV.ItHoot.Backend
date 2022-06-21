@@ -13,6 +13,7 @@ namespace CVBuilder.EFContext
             : base(options)
         {
         }
+
         public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
         public virtual DbSet<Resume> Resumes { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
@@ -26,12 +27,11 @@ namespace CVBuilder.EFContext
         public virtual DbSet<Proposal> Proposals { get; set; }
         public virtual DbSet<ProposalResume> ProposalResumes { get; set; }
         public virtual DbSet<LevelSkill> LevelSkills { get; set; }
-        public virtual  DbSet<LevelLanguage> LevelLanguages { get; set; }
+        public virtual DbSet<LevelLanguage> LevelLanguages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder);
 
             //modelBuilder.Entity<LevelLanguage>()

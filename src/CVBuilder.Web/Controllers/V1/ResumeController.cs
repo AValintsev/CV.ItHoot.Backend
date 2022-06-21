@@ -19,7 +19,6 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class ResumeController : BaseAuthApiController
     {
-
         /// <summary>
         /// Upload a resume photo
         /// </summary>
@@ -38,6 +37,76 @@ namespace CVBuilder.Web.Controllers.V1
             var result = await Mediator.Send(command);
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Create resume template
+        /// </summary>        
+        [HttpPost(ApiRoutes.Resume.CreateTemplate)]
+        public async Task<IActionResult> CreateTemplate()
+        {
+            var command = new CreateTemplateCommand
+            {
+                HtmlStream = Request.Body
+            };
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Update resume template
+        /// </summary>        
+        [HttpPut(ApiRoutes.Resume.UpdateTemplate)]
+        public async Task<IActionResult> UpdateTemplate(int id, string name)
+        {
+            var command = new UpdateTemplateCommand()
+            {
+                Id = id,
+                TemplateName = name,
+                HtmlStream = Request.Body
+            };
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+
+        /// <summary>
+        /// Get resume template by ID
+        /// </summary>        
+        [HttpGet(ApiRoutes.Resume.GetTemplateById)]
+        public async Task<IActionResult> GetTemplateById(int id)
+        {
+            var command = new GetTemplateByIdQuery()
+            {
+                Id = id
+            };
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Delete resume template by ID
+        /// </summary>        
+        [HttpDelete(ApiRoutes.Resume.DeleteTemplateById)]
+        public async Task<IActionResult> DeleteTemplateById(int id)
+        {
+            var command = new DeleteResumeTemplateCommand()
+            {
+                Id = id
+            };
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Get list of Resume templates
+        /// </summary>
+        [HttpGet(ApiRoutes.Resume.GetAllTemplates)]
+        public async Task<ActionResult<List<ResumeTemplateResult>>> GetAllResumeTemplates()
+        {
+            var command = new GetAllResumeTemplatesQuery();
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
 
         /// <summary>
@@ -110,6 +179,23 @@ namespace CVBuilder.Web.Controllers.V1
         }
 
         /// <summary>
+        /// Get Resume by ID
+        /// </summary>
+        [HttpGet(ApiRoutes.Resume.GetResumeHtmlById)]
+        public async Task<ActionResult<ResumeResult>> GetResumeHtmlById(int id)
+        {
+            var command = new GetResumeHtmlByIdQuery()
+            {
+                Id = id,
+                UserId = LoggedUserId,
+                UserRoles = LoggedUserRoles
+            };
+            var response = await Mediator.Send(command);
+
+            return Ok(new {Html = response});
+        }
+
+        /// <summary>
         /// Updates an existing Resume
         /// </summary>
         [HttpPut(ApiRoutes.Resume.UpdateResume)]
@@ -136,16 +222,6 @@ namespace CVBuilder.Web.Controllers.V1
             return Ok();
         }
 
-        /// <summary>
-        /// Get list of Resume templates
-        /// </summary>
-        [HttpGet(ApiRoutes.Resume.GetAllResumeTemplates)]
-        public async Task<ActionResult<List<ResumeTemplateResult>>> GetAllResumeTemplates()
-        {
-            var command = new GetAllResumeTemplatesQuery();
-            var result = await Mediator.Send(command);
-            return Ok(result);
-        }
 
         /// <summary>
         /// Get list of Resume templates by positions

@@ -80,6 +80,7 @@ namespace CVBuilder.Application.Identity.Services
                     claims.Add(roleClaim);
                 }
             }
+
             return claims;
         }
     }

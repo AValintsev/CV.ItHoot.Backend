@@ -11,6 +11,7 @@ namespace CVBuilder.Web.Infrastructure.BaseControllers
     public class BaseApiController : ControllerBase
     {
         protected IMapper Mapper => HttpContext.RequestServices.GetRequiredService<IMapper>();
+
         protected IMediator Mediator => HttpContext.RequestServices.GetRequiredService<IMediator>();
         //protected ILogger Logger => HttpContext.RequestServices.GetRequiredService<ILogger>();
 

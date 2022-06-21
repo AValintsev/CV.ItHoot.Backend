@@ -25,7 +25,7 @@ namespace CVBuilder.Application.Language.Handlers
         {
             var educations = await _repository.GetListAsync();
             var result = _mapper.Map<List<LanguageResult>>(educations);
-            
+
             return result;
         }
     }

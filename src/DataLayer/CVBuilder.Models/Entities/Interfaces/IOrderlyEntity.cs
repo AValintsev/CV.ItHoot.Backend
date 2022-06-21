@@ -1,5 +1,4 @@
-﻿
-namespace CVBuilder.Models.Entities.Interfaces
+﻿namespace CVBuilder.Models.Entities.Interfaces
 {
     public interface IOrderlyEntity
     {

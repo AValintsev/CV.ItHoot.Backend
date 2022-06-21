@@ -9,6 +9,5 @@ public class GetComplexityMapper : AppMapperBase
     {
         CreateMap<ProposalBuildComplexity, ComplexityResult>()
             .ForMember(x => x.Id, y => y.MapFrom(z => z.Id));
-
     }
 }

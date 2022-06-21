@@ -4,7 +4,7 @@ using CVBuilder.Models.Entities.Interfaces;
 
 namespace CVBuilder.Models.Entities;
 
-public class ProposalBuild:IEntity<int>
+public class ProposalBuild : IEntity<int>
 {
     public int Id { get; set; }
     public string ProjectTypeName { get; set; }
@@ -14,6 +14,6 @@ public class ProposalBuild:IEntity<int>
     public List<ProposalBuildPosition> Positions { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    
+
     public List<Proposal> Proposals { get; set; }
 }

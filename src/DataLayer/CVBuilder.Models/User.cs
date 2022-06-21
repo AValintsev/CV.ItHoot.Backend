@@ -18,14 +18,15 @@ namespace CVBuilder.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        [ProtectedPersonalData]
-        public override string NormalizedUserName { get; set; }
-        
+        [ProtectedPersonalData] public override string NormalizedUserName { get; set; }
+
         public int? ShortUrlId { get; set; }
+
         public ShortUrl ShortUrl { get; set; }
+
         //[ProtectedPersonalData]
         public override string NormalizedEmail { get; set; }
-        
+
         private List<Resume> CreatedResumes { get; set; }
         private List<Proposal> CreatedProposals { get; set; }
         private List<Proposal> ClientProposals { get; set; }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CVBuilder.EFContext.Configurations;
 
-public class ProposalConfiguration: IEntityTypeConfiguration<Proposal>
+public class ProposalConfiguration : IEntityTypeConfiguration<Proposal>
 {
     public void Configure(EntityTypeBuilder<Proposal> builder)
     {

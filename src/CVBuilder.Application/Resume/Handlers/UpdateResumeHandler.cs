@@ -27,8 +27,8 @@ class UpdateResumeHandler : IRequestHandler<UpdateResumeCommand, ResumeResult>
     {
         var resume = _mapper.Map<Resume>(request);
         var resumeDto = await _cvRepository
-            .GetByIdAsync(resume.Id, "Educations,Experiences,LevelLanguages,LevelSkills");
-        
+            .GetByIdAsync(resume.Id,  "Educations,Experiences,LevelLanguages,LevelSkills");
+
         if (resumeDto == null)
             throw new NotFoundException("Resume not found");
 
@@ -42,6 +42,7 @@ class UpdateResumeHandler : IRequestHandler<UpdateResumeCommand, ResumeResult>
     {
         dtoResume.UpdatedAt = DateTime.UtcNow;
         dtoResume.AboutMe = requestResume.AboutMe;
+        dtoResume.ResumeTemplateId = requestResume.ResumeTemplateId == 0 ? 3 : requestResume.ResumeTemplateId;
         dtoResume.ResumeName = requestResume.ResumeName;
         dtoResume.FirstName = requestResume.FirstName;
         dtoResume.LastName = requestResume.LastName;

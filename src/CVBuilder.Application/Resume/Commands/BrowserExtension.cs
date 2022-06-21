@@ -4,7 +4,7 @@ using PuppeteerSharp;
 
 namespace CVBuilder.Application.Resume.Commands;
 
-public class BrowserExtension:IAsyncDisposable
+public class BrowserExtension : IAsyncDisposable
 {
     private Browser _browser;
 

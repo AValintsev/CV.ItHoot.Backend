@@ -15,9 +15,6 @@ namespace CVBuilder.Application.Experience.Mapper
             CreateMap<Models.Entities.Experience, GetExperienceByIdResult>().ReverseMap();
 
             CreateMap<Exception, CreateExperienceResult>();
-
         }
-
-        
     }
 }

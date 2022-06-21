@@ -4,7 +4,7 @@ using CreateLanguageCommand = CVBuilder.Application.Language.Commands.CreateLang
 
 namespace CVBuilder.Web.Mappers
 {
-    public class LanguageMapper: MapperBase
+    public class LanguageMapper : MapperBase
     {
         public LanguageMapper()
         {
