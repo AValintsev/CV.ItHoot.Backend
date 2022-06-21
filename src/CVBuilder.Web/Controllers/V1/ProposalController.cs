@@ -8,6 +8,7 @@ using CVBuilder.Application.Proposal.Responses;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Proposal;
 using CVBuilder.Web.Contracts.V1.Responses.Identity;
+using CVBuilder.Web.Contracts.V1.Responses.Pagination;
 using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +29,7 @@ public class ProposalController : BaseAuthApiController
         var result = await Mediator.Send(command);
         return Ok(result);
     }
-    
+
     /// <summary>
     /// Approve Proposal
     /// </summary>
@@ -69,7 +70,7 @@ public class ProposalController : BaseAuthApiController
         var result = await Mediator.Send(command);
         return Ok(result);
     }
-    
+
     /// <summary>
     /// Get resume pdf from Proposal
     /// </summary>
@@ -80,44 +81,63 @@ public class ProposalController : BaseAuthApiController
         {
             ProposalId = proposalId,
             ProposalResumeId = proposalResumeId,
-            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
+            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
         };
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");
     }
-    
+
     /// <summary>
     /// Get list of Proposal
     /// </summary>
     [HttpGet(ApiRoutes.Proposal.GetAllProposals)]
-    public async Task<ActionResult<List<SmallProposalResult>>> GetAllProposals()
+    public async Task<ActionResult<PagedResponse<List<SmallProposalResult>>>> GetAllProposals([FromQuery] GetAllProposalsRequest request)
     {
-        var command = new GetAllProposalsQuery()
+        var validFilter = new GetAllProposalsRequest(request.Page, request.PageSize, request.Term, request.Clients,
+            request.Statuses)
         {
-            UserId = LoggedUserId!.Value,
-            UserRoles = LoggedUserRoles.ToList()
+            Sort = request.Sort,
+            Order = request.Order,
         };
-        var result = await Mediator.Send(command);
+
+        var command = Mapper.Map<GetAllProposalsQuery>(validFilter);
+
+        command.UserId = LoggedUserId!.Value;
+        command.UserRoles = LoggedUserRoles.ToList();
+
+        var response = await Mediator.Send(command);
+
+        var result = new PagedResponse<List<SmallProposalResult>>(response.Item2, validFilter.Page, validFilter.PageSize, response.Item1);
         return result;
     }
-    
+
     /// <summary>
     /// Get list of archive Proposals
     /// </summary>
     [HttpGet(ApiRoutes.Proposal.GetAllArchiveProposals)]
-    public async Task<ActionResult<List<SmallProposalResult>>> GetAllArchiveProposals()
+    public async Task<ActionResult<PagedResponse<List<SmallProposalResult>>>> GetAllArchiveProposals([FromQuery] GetAllProposalsRequest request)
     {
-        var command = new GetAllArchiveProposalsQuery();
-        var result = await Mediator.Send(command);
+        var validFilter = new GetAllProposalsRequest(request.Page, request.PageSize, request.Term, request.Clients,
+            request.Statuses)
+        {
+            Sort = request.Sort,
+            Order = request.Order,
+        };
+
+        var command = Mapper.Map<GetAllArchiveProposalsQuery>(validFilter);
+
+        var response = await Mediator.Send(command);
+
+        var result = new PagedResponse<List<SmallProposalResult>>(response.Item2, validFilter.Page, validFilter.PageSize, response.Item1);
         return result;
     }
 
-    
+
     /// <summary>
     /// Get Proposal by ID
     /// </summary>
     [HttpGet(ApiRoutes.Proposal.GetProposalById)]
-    public async Task<ActionResult<ProposalResult>> GetProposalById([FromRoute]int id)
+    public async Task<ActionResult<ProposalResult>> GetProposalById([FromRoute] int id)
     {
         var command = new GetProposalByIdQuery()
         {
@@ -126,7 +146,7 @@ public class ProposalController : BaseAuthApiController
         var result = await Mediator.Send(command);
         return result;
     }
-    
+
     /// <summary>
     /// Get resume by ShortUrl
     /// </summary>
@@ -140,11 +160,11 @@ public class ProposalController : BaseAuthApiController
             UserRoles = LoggedUserRoles.ToList(),
             UserId = LoggedUserId
         };
-            
+
         var result = await Mediator.Send(command);
         return Ok(result);
     }
-    
+
     /// <summary>
     /// Get resume pdf by ShortUrl
     /// </summary>
@@ -152,12 +172,12 @@ public class ProposalController : BaseAuthApiController
     [HttpGet(ApiRoutes.Proposal.GetPdfProposalResumeByUrl)]
     public async Task<IActionResult> GetPdfProposalResumeByUrl(string url)
     {
-        
+
         var command = new GetProposalResumePdfByUrlQuery()
         {
             ShortUrl = url,
             UserRoles = LoggedUserRoles.ToList(),
-            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
+            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
         };
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");

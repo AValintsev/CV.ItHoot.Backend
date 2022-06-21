@@ -36,7 +36,7 @@ namespace CVBuilder.Web.Controllers.V1
                 FileType = image.ContentType
             };
             var result = await Mediator.Send(command);
-            
+
             return Ok();
         }
 
@@ -49,7 +49,7 @@ namespace CVBuilder.Web.Controllers.V1
             var command = new GetPdfByIdQueries
             {
                 ResumeId = id,
-                JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
+                JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
             };
 
             var result = await Mediator.Send(command);
@@ -76,9 +76,13 @@ namespace CVBuilder.Web.Controllers.V1
         public async Task<ActionResult<IEnumerable<ResumeCardResponse>>> GetAllResumeCard(
             [FromQuery] GetAllResumeCardRequest request)
         {
-            var validFilter = new GetAllResumeCardRequest(request.Page, request.PageSize, request.Term, request.Positions, request.Skills);
+            var validFilter = new GetAllResumeCardRequest(request.Page, request.PageSize, request.Term, request.Positions, request.Skills)
+            {
+                Sort = request.Sort,
+                Order = request.Order,
+            };
 
-            var command = Mapper.Map<GetAllResumeCardQueries>(request);
+            var command = Mapper.Map<GetAllResumeCardQueries>(validFilter);
             command.UserId = LoggedUserId!.Value;
             command.UserRoles = LoggedUserRoles;
             var response = await Mediator.Send(command);
@@ -149,7 +153,7 @@ namespace CVBuilder.Web.Controllers.V1
         [HttpGet(ApiRoutes.Resume.GetAllResumeByPositions)]
         public async Task<ActionResult<List<ResumeCardResult>>> GetResumesByPositions(string positions)
         {
-            
+
             var command = new GetResumesByPositionQuery()
             {
                 Positions = positions.Split(',').ToList()
@@ -157,14 +161,14 @@ namespace CVBuilder.Web.Controllers.V1
             var result = await Mediator.Send(command);
             return Ok(result);
         }
-        
+
         /// <summary>
         /// Get list of Resume templates by proposal build template
         /// </summary>
         [HttpGet(ApiRoutes.Resume.GetAllResumeByProposalBuild)]
         public async Task<ActionResult<List<ResumeCardResult>>> GetResumesByProposalBuild(int id)
         {
-            
+
             var command = new GetResumesByProposalBuildQuery()
             {
                 ProposalBuildId = id
