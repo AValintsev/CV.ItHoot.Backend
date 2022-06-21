@@ -4,7 +4,7 @@ using CVBuilder.Models.Entities.Interfaces;
 
 namespace CVBuilder.Models.Entities;
 
-public class Position:IDeletableEntity<int>
+public class Position : IDeletableEntity<int>
 {
     public int Id { get; set; }
     public string PositionName { get; set; }

@@ -10,7 +10,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.ProposalBuild.Handlers;
+
 using Models.Entities;
+
 public class GetAllProposalBuildsHandler : IRequestHandler<GetAllProposalBuildsQuery, List<ProposalBuildResult>>
 {
     private readonly IRepository<ProposalBuild, int> _proposalBuildRepository;
@@ -22,7 +24,8 @@ public class GetAllProposalBuildsHandler : IRequestHandler<GetAllProposalBuildsQ
         _mapper = mapper;
     }
 
-    public async Task<List<ProposalBuildResult>> Handle(GetAllProposalBuildsQuery request, CancellationToken cancellationToken)
+    public async Task<List<ProposalBuildResult>> Handle(GetAllProposalBuildsQuery request,
+        CancellationToken cancellationToken)
     {
         var proposalBuilds = await _proposalBuildRepository.Table
             .Include(x => x.Complexity)

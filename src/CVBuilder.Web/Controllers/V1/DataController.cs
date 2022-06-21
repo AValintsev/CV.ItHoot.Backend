@@ -10,10 +10,8 @@ using CVBuilder.Web.Infrastructure.BaseControllers;
 
 namespace CVBuilder.Web.Controllers.V1
 {
-   
     public class DataController : BaseApiController
     {
-        
         /// <summary>
         /// Get list of LevelLanguage
         /// </summary>
@@ -22,6 +20,7 @@ namespace CVBuilder.Web.Controllers.V1
         {
             return Ok(await GetDataTypes<LanguageLevel>());
         }
+
         /// <summary>
         /// Get list of LevelSkills
         /// </summary>
@@ -30,12 +29,12 @@ namespace CVBuilder.Web.Controllers.V1
         {
             return Ok(await GetDataTypes<SkillLevel>());
         }
-        
-       
+
+
         private async Task<IEnumerable<DataTypeResult>> GetDataTypes<TEnum>()
             where TEnum : struct, Enum
         {
-            var query = new GetDataTypesQuery { EnumType = typeof(TEnum) };
+            var query = new GetDataTypesQuery {EnumType = typeof(TEnum)};
 
             var response = await Mediator.Send(query);
 

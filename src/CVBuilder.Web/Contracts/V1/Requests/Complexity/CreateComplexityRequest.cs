@@ -3,5 +3,4 @@
 public class CreateComplexityRequest
 {
     public string ComplexityName { get; set; }
-
 }

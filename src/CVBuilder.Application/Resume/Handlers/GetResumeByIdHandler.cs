@@ -14,10 +14,12 @@ using Microsoft.EntityFrameworkCore;
 namespace CVBuilder.Application.Resume.Handlers
 {
     using Models.Entities;
+
     public class GetResumeByIdHandler : IRequestHandler<GetResumeByIdQuery, ResumeResult>
     {
         private readonly IDeletableRepository<Resume, int> _cvRepository;
         private readonly IMapper _mapper;
+
         public GetResumeByIdHandler(
             IDeletableRepository<Resume, int> cvRepository,
             IMapper mapper)
@@ -29,7 +31,8 @@ namespace CVBuilder.Application.Resume.Handlers
         public async Task<ResumeResult> Handle(GetResumeByIdQuery request, CancellationToken cancellationToken)
         {
             Resume resume;
-            var resumeRequest =  _cvRepository.Table
+            var resumeRequest = _cvRepository.Table
+                .Include(x => x.ResumeTemplate)
                 .Include(x => x.Image)
                 .Include(x => x.Educations)
                 .Include(x => x.Experiences)
@@ -40,21 +43,22 @@ namespace CVBuilder.Application.Resume.Handlers
                 .ThenInclude(l => l.Language);
             // if (request.UserRoles.Contains(Enums.RoleTypes.Admin.ToString()))
             // {
-               
-                   resume = await resumeRequest.FirstOrDefaultAsync(x=>x.Id == request.Id,cancellationToken: cancellationToken);
+
+            resume = await resumeRequest.FirstOrDefaultAsync(x => x.Id == request.Id,
+                cancellationToken: cancellationToken);
             // }
             // else
             // {
-                // resume = await resumeRequest.FirstOrDefaultAsync(x =>
-                //     x.CreatedUserId == request.UserId && x.Id == request.Id, cancellationToken: cancellationToken);
+            // resume = await resumeRequest.FirstOrDefaultAsync(x =>
+            //     x.CreatedUserId == request.UserId && x.Id == request.Id, cancellationToken: cancellationToken);
             // }
-           
+
 
             if (resume == null)
             {
                 throw new NotFoundException("Resume not found");
             }
-            
+
 
             var cvResult = _mapper.Map<ResumeResult>(resume);
             return cvResult;

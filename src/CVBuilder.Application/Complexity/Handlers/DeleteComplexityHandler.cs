@@ -8,7 +8,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Complexity.Handlers;
 
-public class DeleteComplexityHandler: IRequestHandler<DeleteComplexityCommand, bool>
+public class DeleteComplexityHandler : IRequestHandler<DeleteComplexityCommand, bool>
 {
     private readonly IRepository<ProposalBuildComplexity, int> _complexityRepository;
     private readonly IMapper _mapper;

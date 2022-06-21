@@ -6,7 +6,6 @@ namespace CVBuilder.Application.Experience.Commands
 {
     public class CreateExperienceCommand : IRequest<CreateExperienceResult>
     {
-
         public int CvId { get; set; }
         public string Company { get; set; }
         public string Position { get; set; }

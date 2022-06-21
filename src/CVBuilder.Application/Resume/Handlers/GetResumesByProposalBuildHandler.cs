@@ -33,20 +33,20 @@ public class GetResumesByProposalBuildHandler : IRequestHandler<GetResumesByProp
     {
         var proposalBuild = await _proposalBuildRepository.Table
             .Include(x => x.Positions)
-            .FirstOrDefaultAsync(x=>x.Id ==request.ProposalBuildId, cancellationToken: cancellationToken);
-        
+            .FirstOrDefaultAsync(x => x.Id == request.ProposalBuildId, cancellationToken: cancellationToken);
+
         if (proposalBuild == null)
         {
             throw new NotFoundException("Proposal Build not found");
         }
 
-        var positions = proposalBuild.Positions.Select(x=>x.PositionId).ToList();
-        
+        var positions = proposalBuild.Positions.Select(x => x.PositionId).ToList();
+
         var templates = await _resumeRepository.Table
             .Include(x => x.LevelSkills)
             .ThenInclude(x => x.Skill)
             .Include(x => x.Position)
-            .Where(x=> positions.Contains(x.PositionId.GetValueOrDefault()))
+            .Where(x => positions.Contains(x.PositionId.GetValueOrDefault()))
             .ToListAsync(cancellationToken: cancellationToken);
         var result = _mapper.Map<List<ResumeCardResult>>(templates);
         return result;

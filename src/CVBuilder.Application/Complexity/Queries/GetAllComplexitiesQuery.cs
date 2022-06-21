@@ -4,7 +4,6 @@ using MediatR;
 
 namespace CVBuilder.Application.Complexity.Queries;
 
-public class GetAllComplexitiesQuery:IRequest<List<ComplexityResult>>
+public class GetAllComplexitiesQuery : IRequest<List<ComplexityResult>>
 {
-    
 }

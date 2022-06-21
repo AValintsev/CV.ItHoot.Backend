@@ -8,22 +8,25 @@ using CVBuilder.Repository;
 using MediatR;
 
 namespace CVBuilder.Application.ProposalBuild.Handlers;
+
 using Models.Entities;
 
-public class CreateProposalBuildHandler:IRequestHandler<CreateProposalBuildCommand, ProposalBuildResult>
+public class CreateProposalBuildHandler : IRequestHandler<CreateProposalBuildCommand, ProposalBuildResult>
 {
     private readonly IRepository<ProposalBuild, int> _proposalBuildRepository;
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
-    
-    public CreateProposalBuildHandler(IRepository<ProposalBuild, int> proposalBuildRepository, IMapper mapper, IMediator mediator)
+
+    public CreateProposalBuildHandler(IRepository<ProposalBuild, int> proposalBuildRepository, IMapper mapper,
+        IMediator mediator)
     {
         _proposalBuildRepository = proposalBuildRepository;
         _mapper = mapper;
         _mediator = mediator;
     }
 
-    public async Task<ProposalBuildResult> Handle(CreateProposalBuildCommand request, CancellationToken cancellationToken)
+    public async Task<ProposalBuildResult> Handle(CreateProposalBuildCommand request,
+        CancellationToken cancellationToken)
     {
         var model = _mapper.Map<ProposalBuild>(request);
         model = await _proposalBuildRepository.CreateAsync(model);
@@ -32,7 +35,7 @@ public class CreateProposalBuildHandler:IRequestHandler<CreateProposalBuildComma
         {
             ProposalBuildId = model.Id
         };
-        
+
         var result = await _mediator.Send(command, cancellationToken);
         return result;
     }

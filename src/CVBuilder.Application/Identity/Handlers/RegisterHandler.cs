@@ -14,6 +14,7 @@ using MediatR;
 namespace CVBuilder.Application.Identity.Handlers
 {
     using Models;
+
     public class RegisterHandler : IRequestHandler<RegisterCommand, AuthenticationResult>
     {
         private readonly IAppUserManager _userManager;
@@ -70,7 +71,7 @@ namespace CVBuilder.Application.Identity.Handlers
             {
                 Url = _shortUrlService.GenerateShortUrl()
             };
-            
+
             return await _identityService.GenerateAuthenticationResultAsync(user);
         }
     }

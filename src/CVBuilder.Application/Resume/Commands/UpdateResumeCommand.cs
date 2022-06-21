@@ -22,7 +22,9 @@ namespace CVBuilder.Application.Resume.Commands
         public string City { get; set; }
         public string Street { get; set; }
         public string RequiredPosition { get; set; }
+        public int ResumeTemplateId { get; set; }
         public string Birthdate { get; set; }
+
         // public IFormFile Picture { get; set; }
         public string AboutMe { get; set; }
         public List<UpdateEducationCommand> Educations { get; set; }

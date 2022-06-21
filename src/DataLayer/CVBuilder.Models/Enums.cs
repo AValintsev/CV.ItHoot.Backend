@@ -30,18 +30,18 @@ namespace CVBuilder.Models
 
     public enum StatusProposal
     {
-       [Description("Created")] Created =1,
-       [Description("InReview")] InReview,
-       [Description("Approved")] Approved,
-       [Description("Done")] Done,
-       [Description("Denied")] Denied,
-       [Description("In Working")] InWorking,
+        [Description("Created")] Created = 1,
+        [Description("InReview")] InReview,
+        [Description("Approved")] Approved,
+        [Description("Done")] Done,
+        [Description("Denied")] Denied,
+        [Description("In Working")] InWorking,
     }
 
     public enum StatusProposalResume
     {
-        [Description("NotSelected")]NotSelected=1,
-        [Description("Selected")]Selected,
-        [Description("Denied")]Denied
+        [Description("NotSelected")] NotSelected = 1,
+        [Description("Selected")] Selected,
+        [Description("Denied")] Denied
     }
 }

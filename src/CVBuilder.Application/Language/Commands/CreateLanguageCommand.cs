@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Language.Commands
 {
-    public class CreateLanguageCommand: IRequest<LanguageDTO>
+    public class CreateLanguageCommand : IRequest<LanguageDTO>
     {
         public string Name { get; set; }
     }

@@ -4,8 +4,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Skill.Queries
 {
-    public class GetAllSkillQuery: IRequest<IEnumerable<SkillResult>>
+    public class GetAllSkillQuery : IRequest<IEnumerable<SkillResult>>
     {
-        
     }
 }

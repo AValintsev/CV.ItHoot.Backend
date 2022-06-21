@@ -2,7 +2,7 @@
 
 namespace CVBuilder.Application.Complexity.Commands;
 
-public class DeleteComplexityCommand:IRequest<bool>
+public class DeleteComplexityCommand : IRequest<bool>
 {
     public int Id { get; set; }
 }

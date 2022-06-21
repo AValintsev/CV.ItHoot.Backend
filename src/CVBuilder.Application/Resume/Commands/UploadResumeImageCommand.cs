@@ -2,7 +2,7 @@
 
 namespace CVBuilder.Application.Resume.Commands;
 
-public class UploadResumeImageCommand:IRequest<bool>
+public class UploadResumeImageCommand : IRequest<bool>
 {
     public int ResumeId { get; set; }
     public byte[] Data { get; set; }

@@ -39,7 +39,7 @@ namespace CVBuilder.Web.Infrastructure.Middlewares
             }
 
             if (!authHeaderValue
-                .StartsWith(AccessTokenDefaults.AuthenticationScheme, StringComparison.InvariantCultureIgnoreCase))
+                    .StartsWith(AccessTokenDefaults.AuthenticationScheme, StringComparison.InvariantCultureIgnoreCase))
             {
                 return AuthenticateResult.Fail("Unauthorized");
             }
@@ -60,8 +60,9 @@ namespace CVBuilder.Web.Infrastructure.Middlewares
 
                 var identity = new ClaimsIdentity(result.Claims, AccessTokenDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
-                var ticket = new AuthenticationTicket(principal, new AuthenticationProperties(), AccessTokenDefaults.AuthenticationScheme);
-                
+                var ticket = new AuthenticationTicket(principal, new AuthenticationProperties(),
+                    AccessTokenDefaults.AuthenticationScheme);
+
                 return AuthenticateResult.Success(ticket);
             }
             catch (Exception ex)

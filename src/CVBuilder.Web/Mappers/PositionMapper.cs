@@ -3,7 +3,7 @@ using CVBuilder.Web.Contracts.V1.Requests.Position;
 
 namespace CVBuilder.Web.Mappers;
 
-public class PositionMapper:MapperBase
+public class PositionMapper : MapperBase
 {
     public PositionMapper()
     {

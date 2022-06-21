@@ -75,7 +75,7 @@ namespace CVBuilder.Application.Identity.Services
                     return principal;
                 }
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 // ignored
             }

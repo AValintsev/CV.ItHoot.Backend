@@ -16,7 +16,8 @@ namespace CVBuilder.EFContext.Extensions
             //new DefaultTranslationsCreator(modelBuilder).Create();
         }
 
-        public static void UseDataProtection(this ModelBuilder modelBuilder, ILookupProtectorKeyRing keyRing, ILookupProtector protector)
+        public static void UseDataProtection(this ModelBuilder modelBuilder, ILookupProtectorKeyRing keyRing,
+            ILookupProtector protector)
         {
             var converter = new ValueConverter<string, string>(
                 s => protector.Protect(keyRing.CurrentKeyId, s),

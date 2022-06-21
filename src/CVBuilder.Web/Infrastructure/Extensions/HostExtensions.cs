@@ -21,7 +21,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions
                 var userManager = services.GetRequiredService<IAppUserManager>();
                 var shortUrlService = services.GetRequiredService<IShortUrlService>();
                 await DbInitializer.Initialize(context);
-                await BogusInitDb.Init(context,userManager,shortUrlService);
+                await BogusInitDb.Init(context, userManager, shortUrlService);
             }
             catch (Exception)
             {

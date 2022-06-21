@@ -53,9 +53,9 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
             // And encrypt
             using (var ms = new MemoryStream())
             using (var cs = new CryptoStream(
-                ms,
-                encryptingAlgorithm.CreateEncryptor(),
-                CryptoStreamMode.Write))
+                       ms,
+                       encryptingAlgorithm.CreateEncryptor(),
+                       CryptoStreamMode.Write))
             {
                 cs.Write(plainText);
                 cs.FlushFinalBlock();
@@ -76,7 +76,7 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
             var signedData = CombineByteArrays(signature, cipherTextAndIV);
 
             // Add our algorithm identifier to the combined signature and cipher text.
-            var algorithmIdentifier = BitConverter.GetBytes((int)_defaultAlgorithm);
+            var algorithmIdentifier = BitConverter.GetBytes((int) _defaultAlgorithm);
             var output = CombineByteArrays(algorithmIdentifier, signedData);
 
             // Clean everything up.
@@ -102,7 +102,7 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
             // Read the saved algorithm details and create instances of those algorithms.
             var algorithmIdentifierAsBytes = new byte[4];
             Buffer.BlockCopy(payload, 0, algorithmIdentifierAsBytes, 0, 4);
-            var algorithmIdentifier = (ProtectorAlgorithm)(BitConverter.ToInt32(algorithmIdentifierAsBytes, 0));
+            var algorithmIdentifier = (ProtectorAlgorithm) (BitConverter.ToInt32(algorithmIdentifierAsBytes, 0));
             ProtectorAlgorithmHelper.GetAlgorithms(
                 _defaultAlgorithm,
                 out var encryptingAlgorithm,
@@ -130,6 +130,7 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
             {
                 throw new CryptographicException(@"Invalid Signature.");
             }
+
             signingAlgorithm.Clear();
             signingAlgorithm.Dispose();
 
@@ -156,6 +157,7 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
                 cs.FlushFinalBlock();
                 plainText = ms.ToArray();
             }
+
             encryptingAlgorithm.Clear();
             encryptingAlgorithm.Dispose();
 
@@ -168,7 +170,8 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
             return Convert.FromBase64String(_keyRing[keyId]);
         }
 
-        private static byte[] SignData(byte[] cipherText, byte[] masterKey, SymmetricAlgorithm symmetricAlgorithm, KeyedHashAlgorithm hashAlgorithm, int keyDerivationIterationCount)
+        private static byte[] SignData(byte[] cipherText, byte[] masterKey, SymmetricAlgorithm symmetricAlgorithm,
+            KeyedHashAlgorithm hashAlgorithm, int keyDerivationIterationCount)
         {
             hashAlgorithm.Key = DerivedSigningKey(masterKey, symmetricAlgorithm, keyDerivationIterationCount);
             var signature = hashAlgorithm.ComputeHash(cipherText);
@@ -176,7 +179,8 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
             return signature;
         }
 
-        private static byte[] DerivedSigningKey(byte[] key, SymmetricAlgorithm algorithm, int keyDerivationIterationCount)
+        private static byte[] DerivedSigningKey(byte[] key, SymmetricAlgorithm algorithm,
+            int keyDerivationIterationCount)
         {
             return KeyDerivation.Pbkdf2(
                 @"IdentityLookupDataSigning",
@@ -186,7 +190,8 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
                 algorithm.KeySize / 8);
         }
 
-        private static byte[] DerivedEncryptionKey(byte[] key, SymmetricAlgorithm algorithm, int keyDerivationIterationCount)
+        private static byte[] DerivedEncryptionKey(byte[] key, SymmetricAlgorithm algorithm,
+            int keyDerivationIterationCount)
         {
             return KeyDerivation.Pbkdf2(
                 @"IdentityLookupEncryption",
@@ -196,7 +201,8 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
                 algorithm.KeySize / 8);
         }
 
-        private static byte[] DerivedInitializationVector(byte[] key, string plainText, SymmetricAlgorithm algorithm, int keyDerivationIterationCount)
+        private static byte[] DerivedInitializationVector(byte[] key, string plainText, SymmetricAlgorithm algorithm,
+            int keyDerivationIterationCount)
         {
             return KeyDerivation.Pbkdf2(
                 plainText,
@@ -233,8 +239,8 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
             {
                 areSame &= (a[i] == b[i]);
             }
+
             return areSame;
         }
-
     }
 }

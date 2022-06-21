@@ -13,11 +13,14 @@ public class Resume : IDeletableEntity<int>
     public DateTime UpdatedAt { get; set; }
     public DateTime? DeletedAt { get; set; }
     public bool IsDraft { get; set; }
-    
+
     public int? ImageId { get; set; }
     public Image Image { get; set; }
-    
+
     public int? PositionId { get; set; }
+
+    public int? ResumeTemplateId { get; set; }
+    public ResumeTemplate ResumeTemplate { get; set; }
     public Position Position { get; set; }
     public string ResumeName { get; set; }
     public string FirstName { get; set; }

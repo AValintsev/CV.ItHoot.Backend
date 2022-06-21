@@ -4,6 +4,6 @@ using MediatR;
 
 namespace CVBuilder.Application.Position.Queries;
 
-public class GetAllPositionQuery:IRequest<List<PositionResult>>
+public class GetAllPositionQuery : IRequest<List<PositionResult>>
 {
 }

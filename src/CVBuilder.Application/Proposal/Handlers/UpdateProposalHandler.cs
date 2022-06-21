@@ -14,8 +14,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Proposal.Handlers;
-using Models.Entities;
 
+using Models.Entities;
 
 public class UpdateProposalHandler : IRequestHandler<UpdateProposalCommand, ProposalResult>
 {
@@ -24,7 +24,8 @@ public class UpdateProposalHandler : IRequestHandler<UpdateProposalCommand, Prop
     private readonly IRepository<Proposal, int> _proposalRepository;
     private readonly IShortUrlService _shortUrlService;
 
-    public UpdateProposalHandler(IMapper mapper, IRepository<Proposal, int> proposalRepository, IMediator mediator, IShortUrlService shortUrlService)
+    public UpdateProposalHandler(IMapper mapper, IRepository<Proposal, int> proposalRepository, IMediator mediator,
+        IShortUrlService shortUrlService)
     {
         _mapper = mapper;
         _proposalRepository = proposalRepository;
@@ -37,9 +38,9 @@ public class UpdateProposalHandler : IRequestHandler<UpdateProposalCommand, Prop
         var proposal = _mapper.Map<Proposal>(request);
         var proposalDb = await _proposalRepository.Table
             .Include(x => x.Resumes)
-            .ThenInclude(x=>x.ShortUrl)
+            .ThenInclude(x => x.ShortUrl)
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
-        
+
         if (proposalDb == null)
         {
             throw new NotFoundException("Proposal not found");

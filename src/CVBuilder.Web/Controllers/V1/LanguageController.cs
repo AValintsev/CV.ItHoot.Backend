@@ -13,7 +13,6 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class LanguageController : BaseApiController
     {
-        
         /// <summary>
         /// Create a new Language
         /// </summary>
@@ -24,8 +23,8 @@ namespace CVBuilder.Web.Controllers.V1
             var result = await Mediator.Send(command);
             return Ok(result);
         }
-        
-        
+
+
         /// <summary>
         /// Get list of Languages
         /// </summary>
@@ -49,13 +48,13 @@ namespace CVBuilder.Web.Controllers.V1
             var result = await Mediator.Send(command);
             return Ok(result);
         }
-        
-        
+
+
         /// <summary>
         /// Deleting an existing Language
         /// </summary>
         [HttpDelete(ApiRoutes.Language.DeleteLanguage)]
-        public async Task<ActionResult> DeleteSkill([FromRoute]int id)
+        public async Task<ActionResult> DeleteSkill([FromRoute] int id)
         {
             var command = new DeleteLanguageCommand
             {
@@ -64,17 +63,17 @@ namespace CVBuilder.Web.Controllers.V1
             var result = await Mediator.Send(command);
             return Ok();
         }
-        
+
         /// <summary>
         /// Get Language by content Text
         /// </summary>
         [HttpGet(ApiRoutes.Language.GetLanguage)]
-        public async Task<ActionResult<IEnumerable<LanguageDTO>>> GetLanguage([FromQuery] GetLanguagesByContentText query)
+        public async Task<ActionResult<IEnumerable<LanguageDTO>>> GetLanguage(
+            [FromQuery] GetLanguagesByContentText query)
         {
             var command = Mapper.Map<GetLanguageByContainInTextQuery>(query);
             var result = await Mediator.Send(command);
             return Ok(result);
         }
     }
-    
 }

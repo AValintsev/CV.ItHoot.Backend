@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CVBuilder.Application.ProposalBuild.Commands;
 
-public class UpdateProposalBuildCommand:IRequest<ProposalBuildResult>
+public class UpdateProposalBuildCommand : IRequest<ProposalBuildResult>
 {
     public int Id { get; set; }
     public string ProjectTypeName { get; set; }

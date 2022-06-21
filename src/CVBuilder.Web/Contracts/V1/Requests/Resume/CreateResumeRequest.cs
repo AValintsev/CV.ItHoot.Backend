@@ -21,6 +21,7 @@ public class CreateResumeRequest
     public string RequiredPosition { get; set; }
     public string Birthdate { get; set; }
     public string AboutMe { get; set; }
+    public int ResumeTemplateId { get; set; }
 
     public List<CreateEducationRequest> Educations { get; set; }
     public List<CreateExperienceRequest> Experiences { get; set; }

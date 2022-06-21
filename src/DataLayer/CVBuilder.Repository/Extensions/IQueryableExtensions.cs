@@ -7,7 +7,8 @@ namespace CVBuilder.Repository.Extensions
 {
     public static class IQueryableExtensions
     {
-        public static IQueryable<TEntity> IncludeProperties<TEntity>(this IQueryable<TEntity> query, string includeProperties)
+        public static IQueryable<TEntity> IncludeProperties<TEntity>(this IQueryable<TEntity> query,
+            string includeProperties)
             where TEntity : class
         {
             if (!string.IsNullOrEmpty(includeProperties))
@@ -24,7 +25,7 @@ namespace CVBuilder.Repository.Extensions
         private static IEnumerable<string> SplitProperties(string includeProperties)
         {
             return includeProperties
-                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

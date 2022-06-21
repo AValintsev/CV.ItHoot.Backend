@@ -3,7 +3,7 @@ using CVBuilder.Models.Entities;
 
 namespace CVBuilder.Application.Complexity.Mappers;
 
-public class CreateComplexityMapper:AppMapperBase
+public class CreateComplexityMapper : AppMapperBase
 {
     public CreateComplexityMapper()
     {
