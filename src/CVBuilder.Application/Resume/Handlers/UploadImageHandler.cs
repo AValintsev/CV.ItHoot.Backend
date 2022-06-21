@@ -16,10 +16,10 @@ using Models.Entities;
 public class UploadImageHandler : IRequestHandler<UploadResumeImageCommand, bool>
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<Resume, int> _cvRepository;
+    private readonly IDeletableRepository<Resume, int> _cvRepository;
     private readonly IImageService _imageService;
 
-    public UploadImageHandler(IMapper mapper, IRepository<Resume, int> cvRepository, IImageService imageService)
+    public UploadImageHandler(IMapper mapper, IDeletableRepository<Resume, int> cvRepository, IImageService imageService)
     {
         _mapper = mapper;
         _cvRepository = cvRepository;

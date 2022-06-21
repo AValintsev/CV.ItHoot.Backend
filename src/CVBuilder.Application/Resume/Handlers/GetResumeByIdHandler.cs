@@ -16,10 +16,10 @@ namespace CVBuilder.Application.Resume.Handlers
     using Models.Entities;
     public class GetResumeByIdHandler : IRequestHandler<GetResumeByIdQuery, ResumeResult>
     {
-        private readonly IRepository<Resume, int> _cvRepository;
+        private readonly IDeletableRepository<Resume, int> _cvRepository;
         private readonly IMapper _mapper;
         public GetResumeByIdHandler(
-            IRepository<Resume, int> cvRepository,
+            IDeletableRepository<Resume, int> cvRepository,
             IMapper mapper)
         {
             _cvRepository = cvRepository;

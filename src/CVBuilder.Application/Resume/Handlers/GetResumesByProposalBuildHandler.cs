@@ -17,11 +17,11 @@ using Models.Entities;
 
 public class GetResumesByProposalBuildHandler : IRequestHandler<GetResumesByProposalBuildQuery, List<ResumeCardResult>>
 {
-    private readonly IRepository<Resume, int> _resumeRepository;
+    private readonly IDeletableRepository<Resume, int> _resumeRepository;
     private readonly IRepository<ProposalBuild, int> _proposalBuildRepository;
     private readonly IMapper _mapper;
 
-    public GetResumesByProposalBuildHandler(IRepository<Resume, int> resumeRepository, IMapper mapper, IRepository<ProposalBuild, int> proposalBuildRepository)
+    public GetResumesByProposalBuildHandler(IDeletableRepository<Resume, int> resumeRepository, IMapper mapper, IRepository<ProposalBuild, int> proposalBuildRepository)
     {
         _resumeRepository = resumeRepository;
         _mapper = mapper;

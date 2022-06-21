@@ -15,9 +15,9 @@ using Models.Entities;
 class UpdateResumeHandler : IRequestHandler<UpdateResumeCommand, ResumeResult>
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<Resume, int> _cvRepository;
+    private readonly IDeletableRepository<Resume, int> _cvRepository;
 
-    public UpdateResumeHandler(IMapper mapper, IRepository<Resume, int> cvRepository)
+    public UpdateResumeHandler(IMapper mapper, IDeletableRepository<Resume, int> cvRepository)
     {
         _cvRepository = cvRepository;
         _mapper = mapper;

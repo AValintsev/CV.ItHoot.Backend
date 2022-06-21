@@ -13,13 +13,13 @@ namespace CVBuilder.Application.Resume.Handlers
     internal class CreateResumeHandler : IRequestHandler<CreateResumeCommand, ResumeResult>
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<Resume, int> _cvRepository;
+        private readonly IDeletableRepository<Resume, int> _cvRepository;
         private readonly IRepository<Skill, int> _skillRepository;
         private readonly IRepository<Language, int> _languageRepository;
 
         public CreateResumeHandler(
             IMapper mapper,
-            IRepository<Resume, int> cvRepository,
+            IDeletableRepository<Resume, int> cvRepository,
             IRepository<Skill, int> skillRepository, 
             IRepository<Language, int> languageRepository)
         {

@@ -54,5 +54,15 @@ namespace CVBuilder.Repository
 
             return await _entityNotDeleted.AnyAsync();
         }
+
+        public async Task<TEntity> RecoverAsync(TKey id)
+        {
+            var entity = await TableWithDeleted.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            entity.DeletedAt = null;
+
+            await DbContext.SaveChangesAsync();
+
+            return entity;
+        }
     }
 }

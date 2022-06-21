@@ -9,7 +9,9 @@ using CVBuilder.Application.Resume.Responses.CvResponse;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Resume;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
+using CVBuilder.Web.Contracts.V1.Responses.Pagination;
 using CVBuilder.Web.Infrastructure.BaseControllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +36,7 @@ namespace CVBuilder.Web.Controllers.V1
                 FileType = image.ContentType
             };
             var result = await Mediator.Send(command);
-            
+
             return Ok();
         }
 
@@ -47,7 +49,7 @@ namespace CVBuilder.Web.Controllers.V1
             var command = new GetPdfByIdQueries
             {
                 ResumeId = id,
-                JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
+                JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
             };
 
             var result = await Mediator.Send(command);
@@ -70,14 +72,23 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get list of Resume
         /// </summary>
         [HttpGet(ApiRoutes.Resume.GetAllResume)]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ResumeCardResponse>>> GetAllResumeCard(
             [FromQuery] GetAllResumeCardRequest request)
         {
-            var command = Mapper.Map<GetAllResumeCardQueries>(request);
+            var validFilter = new GetAllResumeCardRequest(request.Page, request.PageSize, request.Term, request.Positions, request.Skills)
+            {
+                Sort = request.Sort,
+                Order = request.Order,
+            };
+
+            var command = Mapper.Map<GetAllResumeCardQueries>(validFilter);
             command.UserId = LoggedUserId!.Value;
             command.UserRoles = LoggedUserRoles;
             var response = await Mediator.Send(command);
-            var result = Mapper.Map<List<ResumeCardResponse>>(response);
+            var list = Mapper.Map<List<ResumeCardResponse>>(response.Item2);
+
+            var result = new PagedResponse<List<ResumeCardResponse>>(list, validFilter.Page, validFilter.PageSize, response.Item1);
             return Ok(result);
         }
 
@@ -142,7 +153,7 @@ namespace CVBuilder.Web.Controllers.V1
         [HttpGet(ApiRoutes.Resume.GetAllResumeByPositions)]
         public async Task<ActionResult<List<ResumeCardResult>>> GetResumesByPositions(string positions)
         {
-            
+
             var command = new GetResumesByPositionQuery()
             {
                 Positions = positions.Split(',').ToList()
@@ -150,19 +161,35 @@ namespace CVBuilder.Web.Controllers.V1
             var result = await Mediator.Send(command);
             return Ok(result);
         }
-        
+
         /// <summary>
         /// Get list of Resume templates by proposal build template
         /// </summary>
         [HttpGet(ApiRoutes.Resume.GetAllResumeByProposalBuild)]
         public async Task<ActionResult<List<ResumeCardResult>>> GetResumesByProposalBuild(int id)
         {
-            
+
             var command = new GetResumesByProposalBuildQuery()
             {
                 ProposalBuildId = id
             };
             var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Recovering deleted Resume
+        /// </summary>
+        [HttpPut(ApiRoutes.Resume.RecoverResume)]
+        public async Task<ActionResult<ResumeCardResponse>> RecoverResume(int id)
+        {
+            var command = new RecoverResumeCommand
+            {
+                Id = id
+            };
+            var response = await Mediator.Send(command);
+
+            var result = Mapper.Map<ResumeCardResponse>(response);
             return Ok(result);
         }
     }
