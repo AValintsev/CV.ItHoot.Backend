@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CVBuilder.Web.Controllers.V1;
 
-public class ProposalBuildController:BaseAuthApiController
+public class ProposalBuildController : BaseAuthApiController
 {
     /// <summary>
     /// Create a new ProposalBuild
@@ -22,7 +22,7 @@ public class ProposalBuildController:BaseAuthApiController
         var result = await Mediator.Send(command);
         return Ok(result);
     }
-    
+
     /// <summary>
     /// Updates an existing ProposalBuild
     /// </summary>
@@ -33,7 +33,7 @@ public class ProposalBuildController:BaseAuthApiController
         var result = await Mediator.Send(command);
         return Ok(result);
     }
-    
+
     /// <summary>
     /// Get list of ProposalBuild
     /// </summary>
