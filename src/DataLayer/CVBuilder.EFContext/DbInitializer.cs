@@ -58,8 +58,6 @@ namespace CVBuilder.EFContext
 
             await context.SaveChangesAsync();
             await context.Database.EnsureCreatedAsync();
-        
-
         }
 
         static async Task SeedLanguageAsync(EFDbContext context)
@@ -68,15 +66,15 @@ namespace CVBuilder.EFContext
             {
                 await context.Languages.AddRangeAsync(new List<Language>()
                 {
-                    new ()
+                    new()
                     {
                         Name = "english",
                     },
-                    new ()
+                    new()
                     {
                         Name = "russian",
                     },
-                    new ()
+                    new()
                     {
                         Name = "ukrainian",
                     }
@@ -92,15 +90,15 @@ namespace CVBuilder.EFContext
             {
                 await context.Skills.AddRangeAsync(new List<Skill>()
                 {
-                    new ()
+                    new()
                     {
                         Name = "c#",
                     },
-                    new ()
+                    new()
                     {
                         Name = "jq",
                     },
-                    new ()
+                    new()
                     {
                         Name = "oop",
                     }
@@ -112,7 +110,7 @@ namespace CVBuilder.EFContext
 
 
         static async Task SeedCv(EFDbContext context)
-        { 
+        {
             if (await context.Resumes.AnyAsync())
             {
                 return;
@@ -140,15 +138,15 @@ namespace CVBuilder.EFContext
                 IsDraft = true,
                 UpdatedAt = DateTime.Now,
                 RequiredPosition = ".net",
-                
+
                 LevelLanguages = new List<LevelLanguage>
                 {
-                    new ()
+                    new()
                     {
                         LanguageId = languages[0].Id,
                         LanguageLevel = LanguageLevel.Advanced
                     },
-                    new ()
+                    new()
                     {
                         LanguageId = languages[1].Id,
                         LanguageLevel = LanguageLevel.Advanced
@@ -157,12 +155,12 @@ namespace CVBuilder.EFContext
 
                 LevelSkills = new List<LevelSkill>()
                 {
-                    new ()
+                    new()
                     {
                         SkillId = skills[0].Id,
                         SkillLevel = SkillLevel.Advanced
                     },
-                    new ()
+                    new()
                     {
                         SkillId = skills[1].Id,
                         SkillLevel = SkillLevel.Basic
@@ -171,7 +169,7 @@ namespace CVBuilder.EFContext
 
                 Educations = new List<Education>()
                 {
-                    new ()
+                    new()
                     {
                         Degree = "Degree",
                         CreatedAt = DateTime.Now,
@@ -186,7 +184,7 @@ namespace CVBuilder.EFContext
 
                 Experiences = new List<Experience>()
                 {
-                    new ()
+                    new()
                     {
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
@@ -197,9 +195,6 @@ namespace CVBuilder.EFContext
                         Position = "Position"
                     }
                 },
-
-                
-
             };
 
             await context.AddAsync(cv);

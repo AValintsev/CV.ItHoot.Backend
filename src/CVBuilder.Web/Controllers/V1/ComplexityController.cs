@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CVBuilder.Web.Controllers.V1;
 
-public class ComplexityController:BaseAuthApiController
+public class ComplexityController : BaseAuthApiController
 {
     /// <summary>
     /// Create a new Complexity
@@ -23,7 +23,7 @@ public class ComplexityController:BaseAuthApiController
 
         return Ok(result);
     }
-    
+
     /// <summary>
     /// Updates an existing Complexity
     /// </summary>
@@ -34,7 +34,7 @@ public class ComplexityController:BaseAuthApiController
         var result = await Mediator.Send(command);
         return Ok(result);
     }
-    
+
     /// <summary>
     /// Get list of Complexities
     /// </summary>
@@ -45,12 +45,12 @@ public class ComplexityController:BaseAuthApiController
         var result = await Mediator.Send(command);
         return result;
     }
-    
+
     /// <summary>
     /// Deleting an existing Complexity
     /// </summary>
     [HttpDelete(ApiRoutes.Complexity.DeleteComplexity)]
-    public async Task<ActionResult> DeletePosition([FromRoute]int id)
+    public async Task<ActionResult> DeletePosition([FromRoute] int id)
     {
         var command = new DeleteComplexityCommand()
         {

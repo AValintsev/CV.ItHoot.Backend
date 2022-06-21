@@ -12,7 +12,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Proposal.Handlers;
+
 using Models.Entities;
+
 public class ApproveProposalHandler : IRequestHandler<ApproveProposalCommand, ProposalResult>
 {
     private readonly IMapper _mapper;
@@ -30,13 +32,13 @@ public class ApproveProposalHandler : IRequestHandler<ApproveProposalCommand, Pr
     {
         var proposal = await _proposalRepository.Table
             .Include(x => x.Resumes)
-            .FirstOrDefaultAsync(x=>x.Id == request.ProposalId, cancellationToken: cancellationToken);
-        
+            .FirstOrDefaultAsync(x => x.Id == request.ProposalId, cancellationToken: cancellationToken);
+
         if (proposal == null)
         {
             throw new NotFoundException("Proposal not found");
         }
-        
+
         foreach (var resume in proposal.Resumes)
         {
             var resumeRequest = request.Resumes.FirstOrDefault(x => x.Id == resume.Id);
@@ -46,7 +48,9 @@ public class ApproveProposalHandler : IRequestHandler<ApproveProposalCommand, Pr
             }
             else
             {
-                resume.StatusResume = resumeRequest.IsSelected ? StatusProposalResume.Selected : StatusProposalResume.Denied;
+                resume.StatusResume = resumeRequest.IsSelected
+                    ? StatusProposalResume.Selected
+                    : StatusProposalResume.Denied;
             }
         }
 

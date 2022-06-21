@@ -13,7 +13,9 @@ using System.Threading.Tasks;
 
 namespace CVBuilder.Application.User.Handlers
 {
-    public class GetUserClaimsByAccessTokenHandler : IRequestHandler<GetUserClaimsByAccessTokenQuery, UserAccessTokenClaimsResult>
+    public class
+        GetUserClaimsByAccessTokenHandler : IRequestHandler<GetUserClaimsByAccessTokenQuery,
+            UserAccessTokenClaimsResult>
     {
         private readonly IRepository<AccessToken, int> _accessTokenRepository;
         private readonly IIdentityService _tokenService;
@@ -32,9 +34,11 @@ namespace CVBuilder.Application.User.Handlers
             _staticCacheManager = staticCacheManager;
         }
 
-        public async Task<UserAccessTokenClaimsResult> Handle(GetUserClaimsByAccessTokenQuery request, CancellationToken cancellationToken)
+        public async Task<UserAccessTokenClaimsResult> Handle(GetUserClaimsByAccessTokenQuery request,
+            CancellationToken cancellationToken)
         {
-            var key = _cacheKeyService.PrepareKeyForDefaultCache(UserDefaults.UserByAccessTokenPrefixCacheKey, request.AccessToken);
+            var key = _cacheKeyService.PrepareKeyForDefaultCache(UserDefaults.UserByAccessTokenPrefixCacheKey,
+                request.AccessToken);
             var (expiryAt, claims) = await _staticCacheManager
                 .GetAsync(key, async () =>
                 {

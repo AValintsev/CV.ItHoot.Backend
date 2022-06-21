@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using ResumeResult = CVBuilder.Application.Resume.Responses.CvResponse.ResumeResult;
 
 namespace CVBuilder.Application.Proposal.Handlers;
+
 using Models.Entities;
 
 public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, ProposalResumeResult>
@@ -56,7 +57,8 @@ public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, 
             UserId = request.UserId
         }, cancellationToken);
 
-        if ( request.UserRoles.IsNullOrEmpty() || (request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()) && !proposal.ShowContacts))
+        if (request.UserRoles.IsNullOrEmpty() ||
+            (request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()) && !proposal.ShowContacts))
         {
             HideContacts(resume);
         }

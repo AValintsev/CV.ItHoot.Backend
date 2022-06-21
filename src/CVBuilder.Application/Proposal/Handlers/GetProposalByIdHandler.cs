@@ -9,9 +9,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Proposal.Handlers;
+
 using Models.Entities;
 
-public class GetProposalByIdHandler: IRequestHandler<GetProposalByIdQuery, ProposalResult>
+public class GetProposalByIdHandler : IRequestHandler<GetProposalByIdQuery, ProposalResult>
 {
     private readonly IMapper _mapper;
     private readonly IRepository<Proposal, int> _proposalRepository;
@@ -25,31 +26,30 @@ public class GetProposalByIdHandler: IRequestHandler<GetProposalByIdQuery, Propo
     public async Task<ProposalResult> Handle(GetProposalByIdQuery request, CancellationToken cancellationToken)
     {
         var proposal = await _proposalRepository.Table
-            .Include(x=>x.Client)
-            .ThenInclude(x=>x.ShortUrl)
-            .Include(x=>x.ProposalBuild)
+            .Include(x => x.Client)
+            .ThenInclude(x => x.ShortUrl)
+            .Include(x => x.ProposalBuild)
             .Include(x => x.Resumes)
             .ThenInclude(x => x.Resume)
-            .ThenInclude(x=>x.LevelSkills)
-            .ThenInclude(x=>x.Skill)
-            .Include(x=>x.Resumes)
+            .ThenInclude(x => x.LevelSkills)
+            .ThenInclude(x => x.Skill)
+            .Include(x => x.Resumes)
             .ThenInclude(x => x.Resume)
-            .ThenInclude(x=>x.Image)
-            .Include(x=>x.Resumes)
-            .ThenInclude(x=>x.Resume)
-            .ThenInclude(x=>x.Position)
-            .Include(x=>x.Client)
-            .Include(x=>x.Resumes)
-            .ThenInclude(x=>x.ShortUrl)
+            .ThenInclude(x => x.Image)
+            .Include(x => x.Resumes)
+            .ThenInclude(x => x.Resume)
+            .ThenInclude(x => x.Position)
+            .Include(x => x.Client)
+            .Include(x => x.Resumes)
+            .ThenInclude(x => x.ShortUrl)
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
-        
+
         if (proposal == null)
         {
             throw new NotFoundException("Proposal not found");
         }
-        
+
         var result = _mapper.Map<ProposalResult>(proposal);
         return result;
     }
-   
 }

@@ -27,7 +27,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions
                         {
                             result = new ApiException
                             {
-                                StatusCode = (int)HttpStatusCode.BadRequest,
+                                StatusCode = (int) HttpStatusCode.BadRequest,
                                 Message = "Validation error.",
                                 Errors = validationException.Errors.Select(r => r.ToString())
                             };
@@ -36,9 +36,9 @@ namespace CVBuilder.Web.Infrastructure.Extensions
                         {
                             result = new ApiException
                             {
-                                StatusCode = (int)HttpStatusCode.InternalServerError,
+                                StatusCode = (int) HttpStatusCode.InternalServerError,
                                 Message = "Internal Server error.",
-                                Errors = new List<string> { contextFeature.Error.Message }
+                                Errors = new List<string> {contextFeature.Error.Message}
                             };
                         }
 
@@ -46,7 +46,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions
                         context.Response.StatusCode = result.StatusCode;
 
                         var text = JsonSerializer.Serialize(result);
-                        
+
                         await context.Response.WriteAsync(text);
                     }
                 });

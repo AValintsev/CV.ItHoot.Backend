@@ -31,10 +31,10 @@ public class UploadImageHandler : IRequestHandler<UploadResumeImageCommand, bool
         var resume = await _cvRepository.Table
             .Include(x => x.Image)
             .FirstOrDefaultAsync(x => x.Id == request.ResumeId, cancellationToken: cancellationToken);
-        
+
         if (resume == null)
             throw new NotFoundException("Resume not found");
-        
+
         var imagePath = await _imageService.UploadImage(request.FileType, request.Data);
 
         if (resume.Image == null)
@@ -51,7 +51,7 @@ public class UploadImageHandler : IRequestHandler<UploadResumeImageCommand, bool
             resume.Image.ImagePath = imagePath;
             resume.Image.UpdatedAt = DateTime.UtcNow;
         }
-     
+
         await _cvRepository.UpdateAsync(resume);
         return true;
     }

@@ -1,5 +1,4 @@
-﻿
-namespace CVBuilder.Web.Contracts.V1.Responses.Language
+﻿namespace CVBuilder.Web.Contracts.V1.Responses.Language
 {
     public class LanguageResponse
     {

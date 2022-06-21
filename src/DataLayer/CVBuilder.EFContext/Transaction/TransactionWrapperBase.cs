@@ -94,7 +94,7 @@ namespace CVBuilder.EFContext.Transaction
                     _afterRollbackActions.ForEach(a => a.Execute());
                 }
             }
-            finally 
+            finally
             {
                 _afterCommitActions.Clear();
                 _afterRollbackActions.Clear();

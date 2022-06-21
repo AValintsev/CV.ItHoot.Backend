@@ -20,7 +20,6 @@ namespace CVBuilder.Repository
         Task DeleteAsync(TKey id);
         Task DeleteAsync(TEntity entity);
         Task<TEntity> RecoverAsync(TKey id);
-        
         ITransactionWrapper BeginTransaction();
         Task SaveChangesAsync();
     }

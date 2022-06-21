@@ -23,7 +23,6 @@ namespace CVBuilder.Web.Infrastructure.Startup
                 options.AddPolicyJwtRole(Constants.Policy.Admin, Enums.RoleTypes.Admin);
                 options.AddPolicyJwtRole(Constants.Policy.User, Enums.RoleTypes.User);
                 options.AddPolicyJwtRole(Constants.Policy.HR, Enums.RoleTypes.HR);
-
             });
 
             //services.AddScoped<IAuthorizationHandler, PolicyAuthorizationHandler>();

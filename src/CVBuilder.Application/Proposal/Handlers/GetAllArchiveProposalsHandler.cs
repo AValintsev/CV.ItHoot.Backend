@@ -16,7 +16,7 @@ using Models.Entities;
 public class GetAllArchiveProposalsHandler: IRequestHandler<GetAllArchiveProposalsQuery, (int, List<SmallProposalResult>)>
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<Models.Entities.Proposal, int> _proposalRepository;
+    private readonly IRepository<Proposal, int> _proposalRepository;
 
     public GetAllArchiveProposalsHandler(IMapper mapper, IRepository<Models.Entities.Proposal, int> proposalRepository)
     {

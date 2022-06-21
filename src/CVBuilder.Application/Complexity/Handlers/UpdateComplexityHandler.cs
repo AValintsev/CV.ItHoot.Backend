@@ -7,9 +7,10 @@ using CVBuilder.Repository;
 using MediatR;
 
 namespace CVBuilder.Application.Complexity.Handlers;
+
 using Models.Entities;
 
-public class UpdateComplexityHandler: IRequestHandler<UpdateComplexityCommand, ComplexityResult>
+public class UpdateComplexityHandler : IRequestHandler<UpdateComplexityCommand, ComplexityResult>
 {
     private readonly IRepository<ProposalBuildComplexity, int> _complexityRepository;
     private readonly IMapper _mapper;

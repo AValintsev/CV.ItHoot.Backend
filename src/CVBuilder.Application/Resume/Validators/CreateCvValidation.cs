@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CVBuilder.Application.Resume.Validators
 {
-    public class CreateCvValidation: AbstractValidator<CreateResumeCommand>
+    public class CreateCvValidation : AbstractValidator<CreateResumeCommand>
     {
         // public CreateCvValidation()
         // {
@@ -29,5 +29,4 @@ namespace CVBuilder.Application.Resume.Validators
         //     }
         // }
     }
-    
 }

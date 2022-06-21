@@ -13,7 +13,6 @@ namespace CVBuilder.Web.Controllers.V1
 {
     public class EducationController : BaseApiController
     {
-        
         /// <summary>
         /// Create a new Education
         /// </summary>
@@ -31,12 +30,12 @@ namespace CVBuilder.Web.Controllers.V1
         /// </summary>
         [AllowAnonymous]
         [HttpGet(ApiRoutes.Education.GetAllEducation)]
-        public async Task<ActionResult<IEnumerable<EducationResult>>> GetAllEducations([FromQuery] GetAllEducation query)
+        public async Task<ActionResult<IEnumerable<EducationResult>>> GetAllEducations(
+            [FromQuery] GetAllEducation query)
         {
             var command = Mapper.Map<GetAllEducationsCommand>(query);
             var result = await Mediator.Send(command);
             return Ok(result);
-        
         }
 
         /// <summary>
@@ -50,7 +49,7 @@ namespace CVBuilder.Web.Controllers.V1
             {
                 Id = id
             };
-            
+
             var response = await Mediator.Send(command);
             return Ok(response);
         }

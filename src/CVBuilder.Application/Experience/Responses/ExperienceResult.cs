@@ -13,6 +13,5 @@ namespace CVBuilder.Application.Experience.Responses
         public DateTime? EndDate { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
     }
 }

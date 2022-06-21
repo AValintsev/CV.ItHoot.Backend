@@ -2,7 +2,7 @@
 
 namespace CVBuilder.Web.Contracts.V1.Requests.Resume.SharedResumeRequest
 {
-     public class UpdateExperienceRequest
+    public class UpdateExperienceRequest
     {
         public int? Id { get; set; }
         public string Company { get; set; }

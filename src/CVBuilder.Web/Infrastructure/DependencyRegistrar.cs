@@ -17,7 +17,6 @@ namespace CVBuilder.Web.Infrastructure
         /// <param name="appSettings">App settings</param>
         public virtual void Register(IServiceCollection services, ITypeFinder typeFinder, AppSettings appSettings)
         {
-
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
         }
     }

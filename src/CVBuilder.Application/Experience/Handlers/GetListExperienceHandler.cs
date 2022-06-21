@@ -14,20 +14,21 @@ namespace CVBuilder.Application.Experience.Handlers
     {
         private readonly IRepository<Models.Entities.Experience, int> _repository;
         private readonly IMapper _mapper;
-        public GetListExperienceHandler(IRepository<Models.Entities.Experience,int> repository, IMapper mapper )
+
+        public GetListExperienceHandler(IRepository<Models.Entities.Experience, int> repository, IMapper mapper)
         {
             _mapper = mapper;
             _repository = repository;
         }
-        public async Task<List<ExperienceResult>> Handle(GetAllExperiencesQuery request, CancellationToken cancellationToken)
+
+        public async Task<List<ExperienceResult>> Handle(GetAllExperiencesQuery request,
+            CancellationToken cancellationToken)
         {
-            var experience =  await _repository.Table.ToListAsync(cancellationToken: cancellationToken);
+            var experience = await _repository.Table.ToListAsync(cancellationToken: cancellationToken);
 
             var result = _mapper.Map<List<ExperienceResult>>(experience);
-            
+
             return result;
         }
     }
-
-
 }

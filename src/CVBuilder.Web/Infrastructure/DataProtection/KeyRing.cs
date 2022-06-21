@@ -46,9 +46,9 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
             else
             {
                 var filesOrdered = directoryInfo.EnumerateFiles()
-                                    .OrderByDescending(d => d.CreationTime)
-                                    .Select(d => d.Name)
-                                    .ToList();
+                    .OrderByDescending(d => d.CreationTime)
+                    .Select(d => d.Name)
+                    .ToList();
 
                 foreach (var fileName in filesOrdered)
                 {
@@ -63,10 +63,7 @@ namespace CVBuilder.Web.Infrastructure.DataProtection
 
         public string this[string keyId] => _keyDictionary[keyId];
 
-        public string CurrentKeyId
-        {
-            get;
-        }
+        public string CurrentKeyId { get; }
 
         public IEnumerable<string> GetAllKeyIds()
         {

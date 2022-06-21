@@ -4,8 +4,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Language.Queries
 {
-    public class GetAllLanguagesQuery:IRequest<List<LanguageResult>>
+    public class GetAllLanguagesQuery : IRequest<List<LanguageResult>>
     {
-        
     }
 }

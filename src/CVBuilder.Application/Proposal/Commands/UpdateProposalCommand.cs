@@ -5,7 +5,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Proposal.Commands;
 
-public class UpdateProposalCommand:IRequest<ProposalResult>
+public class UpdateProposalCommand : IRequest<ProposalResult>
 {
     public int Id { get; set; }
     public int? ClientId { get; set; }
@@ -15,7 +15,7 @@ public class UpdateProposalCommand:IRequest<ProposalResult>
     public bool ShowCompanyNames { get; set; }
 
     public int ResumeTemplateId { get; set; }
-    
+
     public int UserId { get; set; }
     public string ProposalName { get; set; }
     public List<UpdateResumeCommand> Resumes { get; set; }

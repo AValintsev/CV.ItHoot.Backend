@@ -9,7 +9,6 @@ namespace CVBuilder.Web.Contracts.V1.Requests.Identity
         [MaxLength(20)]
         public string PhoneNumber { get; set; }
 
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        [DataType(DataType.Password)] public string Password { get; set; }
     }
 }

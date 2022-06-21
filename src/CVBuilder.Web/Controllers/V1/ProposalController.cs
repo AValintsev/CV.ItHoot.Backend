@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CVBuilder.Application.Identity.Commands;
 using CVBuilder.Application.Proposal.Commands;
 using CVBuilder.Application.Proposal.Queries;
 using CVBuilder.Application.Proposal.Responses;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Proposal;
-using CVBuilder.Web.Contracts.V1.Responses.Identity;
 using CVBuilder.Web.Contracts.V1.Responses.Pagination;
 using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CVBuilder.Web.Controllers.V1;
@@ -70,6 +67,26 @@ public class ProposalController : BaseAuthApiController
         var result = await Mediator.Send(command);
         return Ok(result);
     }
+
+    /// <summary>
+    /// Get resume html from Proposal
+    /// </summary>
+    [AllowAnonymous]
+    [HttpGet(ApiRoutes.Proposal.GetProposalResumeHtml)]
+    public async Task<ActionResult<ProposalResumeResult>> GetProposalResumeHtml(int proposalId, int proposalResumeId)
+    {
+        var command = new GetProposalResumeHtmlQuery
+        {
+            UserRoles = LoggedUserRoles.ToList(),
+            UserId = LoggedUserId,
+            ProposalId = proposalId,
+            ProposalResumeId = proposalResumeId
+        };
+        var result = await Mediator.Send(command);
+
+        return Ok(new {Html = result});
+    }
+
 
     /// <summary>
     /// Get resume pdf from Proposal
@@ -162,7 +179,7 @@ public class ProposalController : BaseAuthApiController
         };
 
         var result = await Mediator.Send(command);
-        return Ok(result);
+        return Ok(new {Html = result});
     }
 
     /// <summary>
@@ -172,7 +189,6 @@ public class ProposalController : BaseAuthApiController
     [HttpGet(ApiRoutes.Proposal.GetPdfProposalResumeByUrl)]
     public async Task<IActionResult> GetPdfProposalResumeByUrl(string url)
     {
-
         var command = new GetProposalResumePdfByUrlQuery()
         {
             ShortUrl = url,

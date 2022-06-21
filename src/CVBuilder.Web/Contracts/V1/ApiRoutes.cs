@@ -21,7 +21,7 @@
 
             public const string GenerateToken = BaseIdentity + "/generateToken";
         }
-        
+
         public static class User
         {
             private const string BaseUser = Base + "/user";
@@ -55,9 +55,10 @@
             public const string GetProposalById = BaseProposal + "/{id}";
             public const string UpdateProposal = BaseProposal;
             public const string GetAllProposals = BaseProposal;
-            public const string GetAllArchiveProposals = BaseProposal+"/archive";
+            public const string GetAllArchiveProposals = BaseProposal + "/archive";
             public const string ApproveProposal = BaseProposal + "/approve";
             public const string GetProposalResume = BaseProposal + "/{proposalId}/resume/{proposalResumeId}";
+            public const string GetProposalResumeHtml = BaseProposal + "/{proposalId}/resume/{proposalResumeId}/html";
             public const string GetPdfProposalResume = BaseProposal + "/{proposalId}/resume/{proposalResumeId}/pdf";
             public const string GetProposalResumeByUrl = BaseProposal + "/resume/{url}";
             public const string GetPdfProposalResumeByUrl = BaseProposal + "/resume/{url}/pdf";
@@ -77,7 +78,7 @@
             public const string GetAllComplexities = BaseComplexity;
             public const string CreateComplexity = BaseComplexity;
             public const string UpdateComplexity = BaseComplexity;
-            public const string DeleteComplexity = BaseComplexity+"/{id}";
+            public const string DeleteComplexity = BaseComplexity + "/{id}";
         }
 
         public static class Resume
@@ -85,17 +86,23 @@
             private const string BaseCv = Base + "/resume";
             public const string CreateResume = BaseCv;
             public const string GetResumePdf = BaseCv + "/pdf/{id}";
-            public const string GetAllResume = BaseCv ;
-            public const string GetResumeById = BaseCv+"/{id}";
+            public const string GetAllResume = BaseCv;
+            public const string GetResumeById = BaseCv + "/{id}";
             public const string UpdateResume = BaseCv;
-            public const string DeleteResume = BaseCv+"/{id}";
+            public const string DeleteResume = BaseCv + "/{id}";
+            public const string UploadImage = BaseCv + "/{resumeId}/image";
             public const string RecoverResume = BaseCv+"/{id}";
-            public const string UploadImage = BaseCv+"/{resumeId}/image";
             public const string GetAllResumeTemplates = BaseCv + "/templates";
             public const string GetAllResumeByPositions = BaseCv + "/position";
-            public const string GetAllResumeByProposalBuild= BaseCv + "/proposalBuild/{id}";
+            public const string GetAllResumeByProposalBuild = BaseCv + "/proposalBuild/{id}";
+            public const string CreateTemplate = BaseCv + "/templates";
+            public const string UpdateTemplate = BaseCv + "/templates/{id}/{name}";
+            public const string GetAllTemplates = BaseCv + "/templates";
+            public const string GetTemplateById = BaseCv + "/templates/{id}";
+            public const string DeleteTemplateById = BaseCv + "/templates/{id}";
+            public const string GetResumeHtmlById = BaseCv + "/{id}/html";
+        }
 
-        } 
         public static class File
         {
             private const string BaseFile = Base + "/files";
@@ -109,18 +116,18 @@
             private const string BasePosition = Base + "/positions";
             public const string CreatePosition = BasePosition;
             public const string UpdatePosition = BasePosition;
-            public const string DeletePosition = BasePosition+"/{id}";
+            public const string DeletePosition = BasePosition + "/{id}";
             public const string GetAllPositions = BasePosition;
-            public const string GetPositionsById = BasePosition+"/{id}";
+            public const string GetPositionsById = BasePosition + "/{id}";
         }
-        
+
         public static class Skill
         {
             private const string BaseSkill = Base + "/skills";
             public const string CreateSkill = BaseSkill;
             public const string UpdateSkill = BaseSkill;
-            public const string DeleteSkill = BaseSkill+"/{id}";
-            public const string GetSkill = BaseSkill+"/search";
+            public const string DeleteSkill = BaseSkill + "/{id}";
+            public const string GetSkill = BaseSkill + "/search";
             public const string SkillsGetAll = BaseSkill;
         }
 
@@ -128,8 +135,8 @@
         {
             private const string BaseEducation = Base + "/educations";
             public const string CreateEducation = BaseEducation;
-            public const string GetAllEducation = BaseEducation ;
-            public const string GetEducation = BaseEducation+"/{id}";
+            public const string GetAllEducation = BaseEducation;
+            public const string GetEducation = BaseEducation + "/{id}";
         }
 
         public static class Experience
@@ -137,15 +144,16 @@
             private const string BaseExperience = Base + "/experiences";
             public const string CreateExperience = BaseExperience;
             public const string GetAllExperience = BaseExperience;
-            public const string GetExperienceById = BaseExperience+"/{id}";
+            public const string GetExperienceById = BaseExperience + "/{id}";
         }
+
         public static class Language
         {
             private const string BaseLanguage = Base + "/languages";
             public const string CreateLanguage = BaseLanguage;
             public const string UpdateLanguage = BaseLanguage;
-            public const string DeleteLanguage = BaseLanguage+"/{id}";
-            public const string GetLanguage = BaseLanguage+"/search";
+            public const string DeleteLanguage = BaseLanguage + "/{id}";
+            public const string GetLanguage = BaseLanguage + "/search";
             public const string LanguageGetAll = BaseLanguage;
         }
     }

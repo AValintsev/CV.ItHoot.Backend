@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Position.Commands;
 
-public class CreatePositionCommand:IRequest<PositionResult>
+public class CreatePositionCommand : IRequest<PositionResult>
 {
     public string PositionName { get; set; }
 }

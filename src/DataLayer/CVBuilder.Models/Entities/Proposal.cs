@@ -4,7 +4,7 @@ using CVBuilder.Models.Entities.Interfaces;
 
 namespace CVBuilder.Models.Entities;
 
-public class Proposal: IDeletableEntity<int>
+public class Proposal : IDeletableEntity<int>
 {
     public int Id { get; set; }
     public int? CreatedUserId { get; set; }
@@ -17,7 +17,7 @@ public class Proposal: IDeletableEntity<int>
     public string ProposalName { get; set; }
     public int ResumeTemplateId { get; set; }
     public ResumeTemplate ResumeTemplate { get; set; }
-    
+
     public int? ProposalBuildId { get; set; }
     public ProposalBuild ProposalBuild { get; set; }
     public List<ProposalResume> Resumes { get; set; }
