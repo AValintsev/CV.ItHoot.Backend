@@ -32,4 +32,8 @@
 		<ProjectReference Include="..\DataLayer\CVBuilder.Models\CVBuilder.Models.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Contracts\V1\Responses\Pagination\" />
+	</ItemGroup>
+
 </Project>
