@@ -47,65 +47,86 @@ namespace CVBuilder.Application.Resume.Handlers
                 query = query.Where(x => x.CreatedUserId == request.UserId);
             }
 
-            if (!string.IsNullOrWhiteSpace(request.Term))
-            {
-                var term = request.Term.ToLower();
-                query = query.Where(r => r.FirstName.ToLower().Contains(term)
-                                               || r.LastName.ToLower().Contains(term)
-                                               || r.AboutMe.ToLower().Contains(term)
-                                               || r.Birthdate.ToLower().Contains(term)
-                                               || r.City.ToLower().Contains(term)
-                                               || r.Code.ToLower().Contains(term)
-                                               || r.Country.ToLower().Contains(term)
-                                               || r.Email.ToLower().Contains(term)
-                                               || r.ResumeName.ToLower().Contains(term)
-                                               || r.Site.ToLower().Contains(term)
-                                               || r.Phone.ToLower().Contains(term)
-                                               || r.Street.ToLower().Contains(term)
-                                               || r.RequiredPosition.ToLower().Contains(term));
-            }
+            query = SearchByTerm(query, request.Term);
 
-            if (request.Positions != null && request.Positions.Count > 0)
-            {
-                query = query.Where(r => r.PositionId.HasValue && request.Positions.Contains(r.PositionId.Value));
-            }
-
-            if (request.Skills != null && request.Skills.Count > 0)
-            {
-                foreach (var skillId in request.Skills)
-                {
-                    query = query.Where(r => r.LevelSkills.Any(ls => ls.SkillId == skillId));
-                }
-            }
+            query = FilterQuery(query, request.Positions, request.Skills);
 
             totalCount = await query.CountAsync(cancellationToken: cancellationToken);
 
             query = query.Skip((request.Page - 1) * request.PageSize)
                          .Take(request.PageSize);
-            if (!string.IsNullOrWhiteSpace(request.Sort) && !string.IsNullOrWhiteSpace(request.Order))
+
+            query = SortQuery(query, request.Order, request.Sort);
+
+            result = await query.ToListAsync(cancellationToken: cancellationToken);
+
+            return (totalCount, _mapper.Map<List<ResumeCardResult>>(result));
+        }
+
+        private static IQueryable<Resume> SearchByTerm(IQueryable<Resume> query, string searchTerm)
+        {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                switch (request.Sort)
+                var term = searchTerm.ToLower();
+                query = query.Where(r => r.FirstName.ToLower().Contains(term)
+                                         || r.LastName.ToLower().Contains(term)
+                                         || r.AboutMe.ToLower().Contains(term)
+                                         || r.Birthdate.ToLower().Contains(term)
+                                         || r.City.ToLower().Contains(term)
+                                         || r.Code.ToLower().Contains(term)
+                                         || r.Country.ToLower().Contains(term)
+                                         || r.Email.ToLower().Contains(term)
+                                         || r.ResumeName.ToLower().Contains(term)
+                                         || r.Site.ToLower().Contains(term)
+                                         || r.Phone.ToLower().Contains(term)
+                                         || r.Street.ToLower().Contains(term)
+                                         || r.RequiredPosition.ToLower().Contains(term));
+            }
+            return query;
+        }
+
+        private static IQueryable<Resume> SortQuery(IQueryable<Resume> query, string order, string sort)
+        {
+            if (!string.IsNullOrWhiteSpace(sort) && !string.IsNullOrWhiteSpace(order))
+            {
+                switch (sort)
                 {
                     case "name":
-                        {
-                            query = request.Order == "desc" ? 
-                                query.OrderByDescending(r => r.FirstName).ThenByDescending(r => r.LastName) 
-                                : query.OrderBy(r => r.FirstName).ThenBy(r => r.LastName);
-                        }
+                    {
+                        query = order == "desc" 
+                            ? query.OrderByDescending(r => r.FirstName).ThenByDescending(r => r.LastName)
+                            : query.OrderBy(r => r.FirstName).ThenBy(r => r.LastName);
+                    }
                         break;
                     case "position":
-                        {
-                            query = request.Order == "desc" ? query.OrderByDescending(r => r.Position.PositionName) : query.OrderBy(r => r.Position.PositionName);
-                        }
+                    {
+                        query = order == "desc" 
+                            ? query.OrderByDescending(r => r.Position.PositionName) 
+                            : query.OrderBy(r => r.Position.PositionName);
+                    }
                         break;
                     default:
                         break;
                 }
             }
+            return query;
+        }
 
-            result = await query.ToListAsync(cancellationToken: cancellationToken);
+        private static IQueryable<Resume> FilterQuery(IQueryable<Resume> query, List<int> positions, List<int> skills)
+        {
+            if (positions != null && positions.Count > 0)
+            {
+                query = query.Where(r => r.PositionId.HasValue && positions.Contains(r.PositionId.Value));
+            }
 
-            return (totalCount, _mapper.Map<List<ResumeCardResult>>(result));
+            if (skills != null && skills.Count > 0)
+            {
+                foreach (var skillId in skills)
+                {
+                    query = query.Where(r => r.LevelSkills.Any(ls => ls.SkillId == skillId));
+                }
+            }
+            return query;
         }
     }
 }
