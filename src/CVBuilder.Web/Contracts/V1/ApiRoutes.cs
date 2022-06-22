@@ -156,5 +156,14 @@
             public const string GetLanguage = BaseLanguage + "/search";
             public const string LanguageGetAll = BaseLanguage;
         }
+
+        public static class Client
+        {
+            private const string BaseClient = Base + "/client";
+            public const string GetAllClients = BaseClient;
+            public const string GetClientById = BaseClient + "/{id}";
+            public const string CreateClient = BaseClient;
+            public const string UpdateClient = BaseClient;
+        }
     }
 }
