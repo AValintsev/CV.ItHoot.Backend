@@ -1,5 +1,6 @@
-﻿using CVBuilder.Application.Proposal.Responses;
-using CVBuilder.Models.Entities;
+﻿using System.Linq;
+using CVBuilder.Application.Position.Responses;
+using CVBuilder.Application.Proposal.Responses;
 using ResumeResult = CVBuilder.Application.Proposal.Responses.ResumeResult;
 using SkillResult = CVBuilder.Application.Skill.DTOs.SkillResult;
 
@@ -13,6 +14,15 @@ public class GetProposalMapper : AppMapperBase
     {
         CreateMap<Proposal, SmallProposalResult>()
             .ForMember(x => x.ProposalSize, y => y.MapFrom(z => z.Resumes.Count))
+            .ForMember(x=>x.Positions,y=>y.MapFrom(z => z.Resumes
+                    .Select(x => x.Resume.Position)
+                    .DistinctBy(x => x.Id)
+                    .Select(x => new PositionResult()
+                    {
+                        PositionId = x.Id,
+                        PositionName = x.PositionName
+                    }).ToList()
+            ))
             .ForMember(x => x.StatusProposal, y => y.MapFrom(z => z.StatusProposal.ToString()))
             .ForMember(x => x.LastUpdated, y => y.MapFrom(z => z.UpdatedAt.ToString("MM/dd/yyyy HH:mm:ss UTC")))
             .ForMember(x => x.CreatedUserName, y => y.MapFrom(z => z.CreatedUser.FullName))
