@@ -97,7 +97,7 @@ namespace CVBuilder.Repository
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<(int count, List<TDto> data)> GetListDtoExtendedAsync<TDto>(
+        public virtual async Task<(int count, List<TDto> data)> GetListDtoExtendedAsync<TDto>(
             Expression<Func<TEntity, TDto>> select,
             Expression<Func<TEntity, bool>> filter = null,
             string sort = null,
@@ -148,7 +148,7 @@ namespace CVBuilder.Repository
             return CurrentTransaction;
         }
 
-        public async Task<(int count, List<TEntity> data)> GetListExtendedAsync(
+        public virtual async Task<(int count, List<TEntity> data)> GetListExtendedAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Expression<Func<TEntity, TEntity>> select = null,
             string sort = null,
@@ -200,7 +200,7 @@ namespace CVBuilder.Repository
             return (count, await query.ToListAsync());
         }
 
-        public async Task RemoveManyAsync(IEnumerable<TEntity> entities)
+        public virtual async Task RemoveManyAsync(IEnumerable<TEntity> entities)
         {
             Entity.RemoveRange(entities);
 
