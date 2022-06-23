@@ -43,11 +43,14 @@ namespace CVBuilder.Application.Client.Handlers
 
         private static void SearchByTerm(ref IList<Models.User> list, string term)
         {
-            var lowerTerm = term.ToLower();
-            list = list.Where(u => u.FullName.ToLower().Contains(lowerTerm)
-                                   || u.Email.ToLower().Contains(lowerTerm)
-                                   || u.PhoneNumber.ToLower().Contains(lowerTerm)
-                                   ).ToList();
+            if (!string.IsNullOrWhiteSpace(term))
+            {
+                var lowerTerm = term.ToLower();
+                list = list.Where(u => (u.FullName != null && u.FullName.ToLower().Contains(lowerTerm))
+                                       || (u.Email != null && u.Email.ToLower().Contains(lowerTerm))
+                                       || (u.PhoneNumber != null && u.PhoneNumber.ToLower().Contains(lowerTerm))
+                ).ToList();
+            }
         }
 
         private static void SortClients(ref List<Models.User> list, string sortDirections, string columnName)
@@ -58,17 +61,23 @@ namespace CVBuilder.Application.Client.Handlers
                 {
                     case "fullName":
                         {
-                            list = sortDirections == "desc" ? list.OrderBy(u => u.FullName).ToList() : list.OrderByDescending(u => u.FullName).ToList();
+                            list = sortDirections == "desc"
+                                ? list.OrderBy(u => u.FullName).ToList()
+                                : list.OrderByDescending(u => u.FullName).ToList();
                         }
                         break;
                     case "email":
                         {
-                            list = sortDirections == "desc" ? list.OrderBy(u => u.Email).ToList() : list.OrderByDescending(u => u.Email).ToList();
+                            list = sortDirections == "desc"
+                                ? list.OrderBy(u => u.Email).ToList()
+                                : list.OrderByDescending(u => u.Email).ToList();
                         }
                         break;
                     case "phoneNumber":
                         {
-                            list = sortDirections == "desc" ? list.OrderBy(u => u.PhoneNumber).ToList() : list.OrderByDescending(u => u.PhoneNumber).ToList();
+                            list = sortDirections == "desc"
+                                ? list.OrderBy(u => u.PhoneNumber).ToList()
+                                : list.OrderByDescending(u => u.PhoneNumber).ToList();
                         }
                         break;
                     case "site":

@@ -12,6 +12,7 @@ using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CVBuilder.Web.Controllers.V1
 {
@@ -20,14 +21,14 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Create a new Client
         /// </summary>
-        [HttpPost(ApiRoutes.Client.CreateClient)]
-        public async Task<ActionResult<ResumeResult>> CreateClient(CreateClientRequest request)
-        {
-            var command = Mapper.Map<CreateClientCommand>(request);
-            command.UserId = LoggedUserId!.Value;
-            var response = await Mediator.Send(command);
-            return Ok(response);
-        }
+        //[HttpPost(ApiRoutes.Client.CreateClient)]
+        //public async Task<ActionResult<ResumeResult>> CreateClient(CreateClientRequest request)
+        //{
+        //    var command = Mapper.Map<CreateClientCommand>(request);
+        //    command.UserId = LoggedUserId!.Value;
+        //    var response = await Mediator.Send(command);
+        //    return Ok(response);
+        //}
 
         /// <summary>
         /// Get list of Clients
@@ -52,31 +53,31 @@ namespace CVBuilder.Web.Controllers.V1
         /// <summary>
         /// Get Client by ID
         /// </summary>
-        [HttpGet(ApiRoutes.Client.GetClientById)]
-        public async Task<ActionResult<ClientResult>> GetClientById(int id)
-        {
-            var command = new GetClientByIdQuery
-            {
-                Id = id,
-                UserId = LoggedUserId,
-                UserRoles = LoggedUserRoles
-            };
-            var response = await Mediator.Send(command);
+        //[HttpGet(ApiRoutes.Client.GetClientById)]
+        //public async Task<ActionResult<ClientResult>> GetClientById(int id)
+        //{
+        //    var command = new GetClientByIdQuery
+        //    {
+        //        Id = id,
+        //        UserId = LoggedUserId,
+        //        UserRoles = LoggedUserRoles
+        //    };
+        //    var response = await Mediator.Send(command);
 
-            return Ok(response);
-        }
+        //    return Ok(response);
+        //}
 
         /// <summary>
         /// Updates an existing Resume
         /// </summary>
-        [HttpPut(ApiRoutes.Client.UpdateClient)]
-        public async Task<ActionResult<ClientResult>> UpdateClient([FromBody] UpdateClientRequest request)
-        {
-            var command = Mapper.Map<UpdateClientCommand>(request);
-            command.UserId = LoggedUserId!.Value;
-            var response = await Mediator.Send(command);
+        //[HttpPut(ApiRoutes.Client.UpdateClient)]
+        //public async Task<ActionResult<ClientResult>> UpdateClient([FromBody] UpdateClientRequest request)
+        //{
+        //    var command = Mapper.Map<UpdateClientCommand>(request);
+        //    command.UserId = LoggedUserId!.Value;
+        //    var response = await Mediator.Send(command);
 
-            return Ok(response);
-        }
+        //    return Ok(response);
+        //}
     }
 }
