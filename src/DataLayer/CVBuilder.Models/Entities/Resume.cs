@@ -39,4 +39,7 @@ public class Resume : IDeletableEntity<int>
     public List<Experience> Experiences { get; set; }
     public List<LevelLanguage> LevelLanguages { get; set; }
     public List<LevelSkill> LevelSkills { get; set; }
+    public decimal SalaryRate { get; set; }
+    public AvailabilityStatus AvailabilityStatus { get; set; }
+    public int? CountDaysUnavailable { get; set; }
 }

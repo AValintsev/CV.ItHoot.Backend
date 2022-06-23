@@ -12,6 +12,7 @@ public class Proposal : IDeletableEntity<int>
     public bool ShowLogo { get; set; }
     public bool ShowContacts { get; set; }
     public bool ShowCompanyNames { get; set; }
+    public bool IsIncognito { get; set; }
     public int? ClientId { get; set; }
     public User Client { get; set; }
     public string ProposalName { get; set; }
