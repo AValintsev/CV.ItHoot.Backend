@@ -10,6 +10,7 @@ namespace CVBuilder.Application.Resume.Responses
         public string ResumeName { get; set; }
         public string PositionName { get; set; }
         public bool IsDraft { get; set; }
+        public decimal SalaryRate { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime? DeletedAt { get; set; }

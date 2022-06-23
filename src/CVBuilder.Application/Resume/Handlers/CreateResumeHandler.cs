@@ -14,6 +14,7 @@ namespace CVBuilder.Application.Resume.Handlers
     internal class CreateResumeHandler : IRequestHandler<CreateResumeCommand, ResumeResult>
     {
         private readonly IMapper _mapper;
+        private readonly IDeletableRepository<Resume, int> _cvRepository;
         private readonly IRepository<Resume, int> _resumeRepository;
         private readonly IRepository<Skill, int> _skillRepository;
         private readonly IRepository<Language, int> _languageRepository;
@@ -29,15 +30,21 @@ namespace CVBuilder.Application.Resume.Handlers
             _skillRepository = skillRepository;
             _languageRepository = languageRepository;
             _mapper = mapper;
+            _cvRepository = cvRepository;
         }
 
         public async Task<ResumeResult> Handle(CreateResumeCommand command, CancellationToken cancellationToken)
         {
-            var cv = _mapper.Map<Resume>(command);
-            await CheckSkillsDuplicate(cv);
-            await CheckLanguageDuplicate(cv);
-            cv = await _resumeRepository.CreateAsync(cv);
-            return _mapper.Map<ResumeResult>(cv);
+            var resume = _mapper.Map<Resume>(command);
+            await CheckSkillsDuplicate(resume);
+            await CheckLanguageDuplicate(resume);
+            CheckHiddenValues(resume);
+            resume = await _resumeRepository.CreateAsync(resume);
+            return _mapper.Map<ResumeResult>(resume);
+        }
+
+        private void CheckHiddenValues(Resume resume)
+        {
         }
 
         private async Task CheckLanguageDuplicate(Resume resume)

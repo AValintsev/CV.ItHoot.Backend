@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CVBuilder.Models;
 using CVBuilder.Web.Contracts.V1.Requests.Position;
 using CVBuilder.Web.Contracts.V1.Requests.Resume.SharedResumeRequest;
 
@@ -22,7 +23,9 @@ namespace CVBuilder.Web.Contracts.V1.Requests.Resume
         public string RequiredPosition { get; set; }
         public int ResumeTemplateId { get; set; }
         public string Birthdate { get; set; }
-
+        public decimal SalaryRate { get; set; }
+        public AvailabilityStatus AvailabilityStatus { get; set; }
+        public int? CountDaysUnavailable { get; set; }
         //public IFormFile Picture { get; set; }
         public string AboutMe { get; set; }
         public List<UpdateEducationRequest> Educations { get; set; }

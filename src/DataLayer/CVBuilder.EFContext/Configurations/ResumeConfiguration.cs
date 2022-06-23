@@ -11,5 +11,6 @@ public class ResumeConfiguration : IEntityTypeConfiguration<Resume>
         builder.ToTable("Resumes");
         builder.HasOne(x => x.Position).WithMany(x => x.Resumes).OnDelete(DeleteBehavior.SetNull);
         builder.HasOne(x => x.CreatedUser).WithMany("CreatedResumes");
+        builder.Property(x => x.SalaryRate).HasPrecision(9, 2);
     }
 }
