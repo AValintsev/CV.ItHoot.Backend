@@ -10,6 +10,7 @@ public class SmallProposalResult
     public string ProposalName { get; set; }
     public string ClientUserName { get; set; }
     public int ProposalSize { get; set; }
+    public bool isIncognito { get; set; }
     public bool ShowLogo { get; set; }
     public bool ShowContacts { get; set; }
     public bool ShowCompanyNames { get; set; }
