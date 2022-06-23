@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CVBuilder.Application.Resume.Commands.SharedCommands;
 using CVBuilder.Application.Resume.Responses.CvResponse;
+using CVBuilder.Models;
 using MediatR;
 
 namespace CVBuilder.Application.Resume.Commands
@@ -24,7 +25,9 @@ namespace CVBuilder.Application.Resume.Commands
         public string Birthdate { get; set; }
         public string AboutMe { get; set; }
         public int ResumeTemplateId { get; set; }
-
+        public decimal SalaryRate { get; set; }
+        public AvailabilityStatus AvailabilityStatus { get; set; }
+        public int? CountDaysUnavailable { get; set; }
         public List<CreateEducationCommand> Educations { get; set; }
         public List<CreateExperienceCommand> Experiences { get; set; }
         public List<CreateSkillCommand> Skills { get; set; }

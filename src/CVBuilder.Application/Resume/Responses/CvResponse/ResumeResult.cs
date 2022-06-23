@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CVBuilder.Application.Position.Responses;
+using CVBuilder.Models;
 
 namespace CVBuilder.Application.Resume.Responses.CvResponse
 {
@@ -28,5 +29,8 @@ namespace CVBuilder.Application.Resume.Responses.CvResponse
         public List<ExperienceResult> Experiences { get; set; }
         public List<LanguageResult> Languages { get; set; }
         public List<SkillResult> Skills { get; set; }
+        public decimal SalaryRate { get; set; }
+        public AvailabilityStatus AvailabilityStatus { get; set; }
+        public int? CountDaysUnavailable { get; set; }
     }
 }

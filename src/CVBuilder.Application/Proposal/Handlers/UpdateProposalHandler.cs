@@ -88,16 +88,17 @@ public class UpdateProposalHandler : IRequestHandler<UpdateProposalCommand, Prop
     }
 
 
-    private void UpdateProposal(Proposal proposalDto, Proposal proposal)
+    private void UpdateProposal(Proposal proposalDb, Proposal proposal)
     {
-        proposalDto.UpdatedAt = DateTime.UtcNow;
-        proposalDto.ResumeTemplateId = proposal.ResumeTemplateId == 0 ? 1 : proposal.ResumeTemplateId;
-        proposalDto.ShowLogo = proposal.ShowLogo;
-        proposalDto.ShowContacts = proposal.ShowContacts;
-        proposalDto.ShowCompanyNames = proposal.ShowCompanyNames;
-        proposalDto.StatusProposal = proposal.StatusProposal;
-        proposalDto.ProposalName = proposal.ProposalName;
-        proposalDto.ClientId = proposal.ClientId;
-        proposalDto.Resumes = proposal.Resumes;
+        proposalDb.UpdatedAt = DateTime.UtcNow;
+        proposalDb.ResumeTemplateId = proposal.ResumeTemplateId == 0 ? 1 : proposal.ResumeTemplateId;
+        proposalDb.IsIncognito = proposal.IsIncognito;
+        proposalDb.ShowLogo = proposal.ShowLogo;
+        proposalDb.ShowContacts = proposal.ShowContacts;
+        proposalDb.ShowCompanyNames = proposal.ShowCompanyNames;
+        proposalDb.StatusProposal = proposal.StatusProposal;
+        proposalDb.ProposalName = proposal.ProposalName;
+        proposalDb.ClientId = proposal.ClientId;
+        proposalDb.Resumes = proposal.Resumes;
     }
 }

@@ -8,6 +8,7 @@ public class CreateProposalRequest
     public int ClientId { get; set; }
     public bool ShowLogo { get; set; }
     public bool ShowCompanyNames { get; set; }
+    public bool IsIncognito { get; set; }
     public int ResumeTemplateId { get; set; }
     public int? ProposalBuildId { get; set; }
     public bool ShowContacts { get; set; }

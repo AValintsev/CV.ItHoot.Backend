@@ -78,7 +78,7 @@ class ResumeMapper : AppMapperBase
 
     private static List<LanguageResult> MapToUserLanguageResult(IEnumerable<LevelLanguage> levelLanguages)
     {
-        return levelLanguages.Select(MapToUserLanguage).ToList();
+        return levelLanguages?.Select(MapToUserLanguage).ToList();
 
         LanguageResult MapToUserLanguage(LevelLanguage levelLanguage)
         {
@@ -94,7 +94,7 @@ class ResumeMapper : AppMapperBase
 
     private static List<SkillResult> MapToSkillResult(IEnumerable<LevelSkill> levelSkill)
     {
-        return levelSkill.Select(MapToSkill).ToList();
+        return levelSkill?.Select(MapToSkill).ToList();
 
         SkillResult MapToSkill(LevelSkill skill)
         {
