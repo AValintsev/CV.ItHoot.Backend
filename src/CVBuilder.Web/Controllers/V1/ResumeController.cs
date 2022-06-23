@@ -160,6 +160,24 @@ namespace CVBuilder.Web.Controllers.V1
             var result = new PagedResponse<List<ResumeCardResponse>>(list, validFilter.Page, validFilter.PageSize, response.Item1);
             return Ok(result);
         }
+        
+        
+        /// <summary>
+        /// Update salary rate of Resume
+        /// </summary>
+        [HttpPut(ApiRoutes.Resume.UpdateSalaryRate)]
+        public async Task<ActionResult<IEnumerable<ResumeCardResponse>>> UpdateSalaryRate(int resumeId,decimal salaryRate)
+        {
+            var command = new UpdateSalaryRateResumeCommand()
+            {
+                ResumeId = resumeId,
+                SalaryRate = salaryRate
+            };
+
+            var result = await Mediator.Send(command);
+
+            return Ok(result);
+        }
 
         /// <summary>
         /// Get Resume by ID

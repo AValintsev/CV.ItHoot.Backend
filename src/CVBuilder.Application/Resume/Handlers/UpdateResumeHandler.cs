@@ -15,50 +15,58 @@ using Models.Entities;
 class UpdateResumeHandler : IRequestHandler<UpdateResumeCommand, ResumeResult>
 {
     private readonly IMapper _mapper;
-    private readonly IDeletableRepository<Resume, int> _cvRepository;
+    private readonly IDeletableRepository<Resume, int> _resumeRepository;
 
-    public UpdateResumeHandler(IMapper mapper, IDeletableRepository<Resume, int> cvRepository)
+    public UpdateResumeHandler(IMapper mapper, IDeletableRepository<Resume, int> resumeRepository)
     {
-        _cvRepository = cvRepository;
+        _resumeRepository = resumeRepository;
         _mapper = mapper;
     }
 
     public async Task<ResumeResult> Handle(UpdateResumeCommand request, CancellationToken cancellationToken)
     {
         var resume = _mapper.Map<Resume>(request);
-        var resumeDto = await _cvRepository
+        var resumeDb = await _resumeRepository
             .GetByIdAsync(resume.Id,  "Educations,Experiences,LevelLanguages,LevelSkills");
 
-        if (resumeDto == null)
+        if (resumeDb == null)
             throw new NotFoundException("Resume not found");
 
-
-        MapFromRequest(resume, resumeDto);
-        var result = await _cvRepository.UpdateAsync(resumeDto);
+        
+        MapFromRequest(resumeDb, resume);
+        MapHiddenValues(resumeDb, resume);
+        var result = await _resumeRepository.UpdateAsync(resumeDb);
         return _mapper.Map<ResumeResult>(result);
     }
 
-    private void MapFromRequest(Resume requestResume, Resume dtoResume)
+    private void MapHiddenValues(Resume resumeDb, Resume resume)
     {
-        dtoResume.UpdatedAt = DateTime.UtcNow;
-        dtoResume.AboutMe = requestResume.AboutMe;
-        dtoResume.ResumeTemplateId = requestResume.ResumeTemplateId == 0 ? 3 : requestResume.ResumeTemplateId;
-        dtoResume.ResumeName = requestResume.ResumeName;
-        dtoResume.FirstName = requestResume.FirstName;
-        dtoResume.LastName = requestResume.LastName;
-        dtoResume.PositionId = requestResume.PositionId;
-        dtoResume.Email = requestResume.Email;
-        dtoResume.Site = requestResume.Site;
-        dtoResume.Phone = requestResume.Phone;
-        dtoResume.Code = requestResume.Code;
-        dtoResume.Country = requestResume.Country;
-        dtoResume.City = requestResume.City;
-        dtoResume.Street = requestResume.Street;
-        dtoResume.RequiredPosition = requestResume.RequiredPosition;
-        dtoResume.Birthdate = requestResume.Birthdate;
-        dtoResume.Educations = requestResume.Educations;
-        dtoResume.Experiences = requestResume.Experiences;
-        dtoResume.LevelLanguages = requestResume.LevelLanguages;
-        dtoResume.LevelSkills = requestResume.LevelSkills;
+        resumeDb.AvailabilityStatus = resume.AvailabilityStatus;
+        resumeDb.SalaryRate = resume.SalaryRate;
+        resumeDb.CountDaysUnavailable = resume.CountDaysUnavailable;
+    }
+
+    private static void MapFromRequest(Resume resumeDb, Resume resume)
+    {
+        resumeDb.UpdatedAt = DateTime.UtcNow;
+        resumeDb.AboutMe = resume.AboutMe;
+        resumeDb.ResumeTemplateId = resume.ResumeTemplateId == 0 ? 3 : resume.ResumeTemplateId;
+        resumeDb.ResumeName = resume.ResumeName;
+        resumeDb.FirstName = resume.FirstName;
+        resumeDb.LastName = resume.LastName;
+        resumeDb.PositionId = resume.PositionId;
+        resumeDb.Email = resume.Email;
+        resumeDb.Site = resume.Site;
+        resumeDb.Phone = resume.Phone;
+        resumeDb.Code = resume.Code;
+        resumeDb.Country = resume.Country;
+        resumeDb.City = resume.City;
+        resumeDb.Street = resume.Street;
+        resumeDb.RequiredPosition = resume.RequiredPosition;
+        resumeDb.Birthdate = resume.Birthdate;
+        resumeDb.Educations = resume.Educations;
+        resumeDb.Experiences = resume.Experiences;
+        resumeDb.LevelLanguages = resume.LevelLanguages;
+        resumeDb.LevelSkills = resume.LevelSkills;
     }
 }

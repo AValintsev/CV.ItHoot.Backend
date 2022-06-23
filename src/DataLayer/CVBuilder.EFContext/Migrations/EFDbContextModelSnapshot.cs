@@ -296,6 +296,9 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsIncognito")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("ProposalBuildId")
                         .HasColumnType("int");
 
@@ -507,6 +510,9 @@ namespace CVBuilder.EFContext.Migrations
                     b.Property<string>("AboutMe")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("AvailabilityStatus")
+                        .HasColumnType("int");
+
                     b.Property<string>("Birthdate")
                         .HasColumnType("nvarchar(max)");
 
@@ -515,6 +521,9 @@ namespace CVBuilder.EFContext.Migrations
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CountDaysUnavailable")
+                        .HasColumnType("int");
 
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
@@ -548,6 +557,10 @@ namespace CVBuilder.EFContext.Migrations
 
                     b.Property<int?>("PositionId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("PriceRate")
+                        .HasPrecision(9, 2)
+                        .HasColumnType("decimal(9,2)");
 
                     b.Property<string>("RequiredPosition")
                         .HasColumnType("nvarchar(max)");

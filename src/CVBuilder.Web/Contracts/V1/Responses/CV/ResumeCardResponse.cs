@@ -12,6 +12,7 @@ namespace CVBuilder.Web.Contracts.V1.Responses.CV
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PositionName { get; set; }
+        public decimal SalaryRate { get; set; }
         public DateTime? DeletedAt { get; set; }
         public List<SkillResponse> Skills { get; set; } 
     }

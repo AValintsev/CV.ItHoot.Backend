@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Proposal.Queries;
-using CVBuilder.Application.Proposal.Responses;
 using CVBuilder.Application.Resume.Queries;
 using CVBuilder.Models;
 using CVBuilder.Repository;
@@ -17,7 +16,7 @@ namespace CVBuilder.Application.Proposal.Handlers;
 
 using Models.Entities;
 
-public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, ProposalResumeResult>
+public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, ResumeResult>
 {
     private readonly IMapper _mapper;
     private readonly IRepository<Proposal, int> _proposalRepository;
@@ -30,13 +29,12 @@ public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, 
         _mediator = mediator;
     }
 
-    public async Task<ProposalResumeResult> Handle(GetProposalResumeQuery request, CancellationToken cancellationToken)
+    public async Task<ResumeResult> Handle(GetProposalResumeQuery request, CancellationToken cancellationToken)
     {
         var proposal =
             await _proposalRepository.Table
                 .Include(x => x.Resumes)
-                .FirstOrDefaultAsync(x => x.Id == request.ProposalId,
-                    cancellationToken: cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == request.ProposalId, cancellationToken: cancellationToken);
 
         if (proposal == null)
         {
@@ -57,35 +55,42 @@ public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, 
             UserId = request.UserId
         }, cancellationToken);
 
-        if (request.UserRoles.IsNullOrEmpty() ||
-            (request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()) && !proposal.ShowContacts))
+        if (request.UserRoles.IsNullOrEmpty() || request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()))
         {
-            HideContacts(resume);
+            if (!proposal.ShowContacts)
+            {
+                HideContacts(resume);
+            }
+
+            if (!proposal.ShowCompanyNames)
+            {
+                HideCompanyNames(resume);
+            }
+
+            if (proposal.IsIncognito)
+            {
+                HideNames(resume);
+            }
         }
 
-        if (request.UserRoles.IsNullOrEmpty() ||
-            (request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()) && !proposal.ShowCompanyNames))
-        {
-            HideCompanyNames(resume);
-        }
-
-        return new ProposalResumeResult
-        {
-            ShowLogo = proposal.ShowLogo,
-            ResumeTemplateId = proposal.ResumeTemplateId,
-            Resume = resume
-        };
+        return resume;
     }
 
-    private void HideCompanyNames(ResumeResult resume)
+    private static void HideNames(ResumeResult resume)
+    {
+        resume.FirstName = resume.FirstName;
+        resume.LastName = resume.LastName[0].ToString();
+    }
+
+    private static void HideCompanyNames(ResumeResult resume)
     {
         foreach (var experience in resume.Experiences)
         {
-            experience.Company = "Company";
+            experience.Company = null;
         }
     }
 
-    private void HideContacts(ResumeResult resume)
+    private static void HideContacts(ResumeResult resume)
     {
         resume.Country = "ItHootland";
         resume.City = "ITHootland";

@@ -44,4 +44,12 @@ namespace CVBuilder.Models
         [Description("Selected")] Selected,
         [Description("Denied")] Denied
     }
+
+    public enum AvailabilityStatus
+    {
+        Available = 1,
+        Busy,
+        PartialAAvailable,
+        VeryCarefulAvailable
+    }
 }

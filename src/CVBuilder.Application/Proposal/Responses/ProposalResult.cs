@@ -10,6 +10,7 @@ public class ProposalResult
     public bool ShowLogo { get; set; }
     public bool ShowContacts { get; set; }
     public bool ShowCompanyNames { get; set; }
+    public bool IsIncognito { get; set; }
     public int ResumeTemplateId { get; set; }
     public StatusProposal StatusProposal { get; set; }
     public string ProposalName { get; set; }

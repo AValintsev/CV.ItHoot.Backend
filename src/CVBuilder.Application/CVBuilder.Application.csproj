@@ -5,20 +5,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AngleSharp" Version="0.17.1"/>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
-        <PackageReference Include="CsvHelper" Version="27.2.1"/>
-        <PackageReference Include="SignalRSwaggerGen" Version="3.2.1"/>
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0"/>
-        <PackageReference Include="FluentValidation.AspNetCore" Version="11.0.1"/>
-        <PackageReference Include="MediatR" Version="10.0.1"/>
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1"/>
-        <PackageReference Include="Verify.Puppeteer" Version="1.8.0"/>
+        <PackageReference Include="AngleSharp" Version="0.17.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="CsvHelper" Version="27.2.1" />
+        <PackageReference Include="SignalRSwaggerGen" Version="3.2.1" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.0.1" />
+        <PackageReference Include="MediatR" Version="10.0.1" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+        <PackageReference Include="Verify.Puppeteer" Version="1.8.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DataLayer\CVBuilder.Models\CVBuilder.Models.csproj"/>
-        <ProjectReference Include="..\DataLayer\CVBuilder.Repository\CVBuilder.Repository.csproj"/>
+        <ProjectReference Include="..\DataLayer\CVBuilder.Models\CVBuilder.Models.csproj" />
+        <ProjectReference Include="..\DataLayer\CVBuilder.Repository\CVBuilder.Repository.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CVBuilder.Models;
 using CVBuilder.Web.Contracts.V1.Requests.Position;
 using CVBuilder.Web.Contracts.V1.Requests.Resume.SharedResumeRequest;
 
@@ -22,7 +23,9 @@ public class CreateResumeRequest
     public string Birthdate { get; set; }
     public string AboutMe { get; set; }
     public int ResumeTemplateId { get; set; }
-
+    public decimal PriceRate { get; set; }
+    public AvailabilityStatus AvailabilityStatus { get; set; }
+    public int? CountDaysUnavailable { get; set; }
     public List<CreateEducationRequest> Educations { get; set; }
     public List<CreateExperienceRequest> Experiences { get; set; }
     public List<CreateSkillRequest> Skills { get; set; }
