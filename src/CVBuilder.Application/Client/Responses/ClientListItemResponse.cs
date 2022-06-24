@@ -7,8 +7,8 @@
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Site { get; set; }
-        public string Proposals { get; set; } = "1,2,3";
-        public string OtherContacts { get; set; } = "skype: @test, Telegram: @test";
-        public string CompanyName { get; set; } = "Test";
+        public string Proposals { get; set; }
+        public string Contacts { get; set; }
+        public string CompanyName { get; set; }
     }
 }

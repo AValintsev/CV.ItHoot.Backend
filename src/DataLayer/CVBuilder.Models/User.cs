@@ -11,6 +11,9 @@ namespace CVBuilder.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public virtual string FullName => $"{FirstName} {LastName}";
+        public string Site { get; set; }
+        public string Contacts { get; set; }
+        public string CompanyName { get; set; }
 
         // Signing a contract
         //public bool AgreementApproved { get; set; }
@@ -29,6 +32,8 @@ namespace CVBuilder.Models
 
         private List<Resume> CreatedResumes { get; set; }
         private List<Proposal> CreatedProposals { get; set; }
-        private List<Proposal> ClientProposals { get; set; }
+        public List<Proposal> ClientProposals { get; set; }
+        public ICollection<Role> Roles { get; set; }
+        public List<UserRole> UserRoles { get; set; }
     }
 }

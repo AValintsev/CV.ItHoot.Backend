@@ -22,6 +22,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using CVBuilder.Models;
+using CVBuilder.Models.Entities;
 
 namespace CVBuilder.Web.Infrastructure.Extensions
 {
@@ -141,7 +142,7 @@ namespace CVBuilder.Web.Infrastructure.Extensions
 
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole<int>>(options =>
+            services.AddIdentity<User, Role>(options =>
                 {
                     options.Password.RequiredLength = 6;
                     options.Password.RequireUppercase = false;

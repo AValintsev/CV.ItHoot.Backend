@@ -1,4 +1,6 @@
-﻿using CVBuilder.Application.Client.Responses;
+﻿using System;
+using System.Linq;
+using CVBuilder.Application.Client.Responses;
 
 namespace CVBuilder.Application.Client.Mappers
 {
@@ -6,7 +8,10 @@ namespace CVBuilder.Application.Client.Mappers
     {
         public ClientMapper()
         {
-            CreateMap<Models.User, ClientListItemResponse>();
+            CreateMap<Models.User, ClientListItemResponse>()
+                .ForMember(
+                    x => x.Proposals, 
+                    y => y.MapFrom(z => String.Join(", ", z.ClientProposals.Select(p => p.ProposalName).ToList())));
         }
     }
 }
