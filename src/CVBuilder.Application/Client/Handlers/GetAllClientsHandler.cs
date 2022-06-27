@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CVBuilder.Models;
 
 namespace CVBuilder.Application.Client.Handlers
 {
@@ -28,7 +29,7 @@ namespace CVBuilder.Application.Client.Handlers
 
             var query = _userRepository.Table;
 
-            query = query.Where(u => u.Roles.Any(r => r.NormalizedName.Contains("CLIENT")));
+            query = query.Where(u => u.Roles.Any(r => r.NormalizedName.Contains(Enums.RoleTypes.Client.ToString().ToUpper())));
             query = query.Include(u => u.ClientProposals);
 
             SearchByTerm(ref query, request.Term);

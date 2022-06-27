@@ -12,6 +12,8 @@ namespace CVBuilder.Application.Client.Mappers
                 .ForMember(
                     x => x.Proposals, 
                     y => y.MapFrom(z => String.Join(", ", z.ClientProposals.Select(p => p.ProposalName).ToList())));
+
+            CreateMap<Models.User, ClientResponse>();
         }
     }
 }

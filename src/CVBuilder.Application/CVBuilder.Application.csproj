@@ -21,8 +21,4 @@
         <ProjectReference Include="..\DataLayer\CVBuilder.Repository\CVBuilder.Repository.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Client\Commands\" />
-    </ItemGroup>
-
 </Project>
