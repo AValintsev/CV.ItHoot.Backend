@@ -34,8 +34,11 @@ public class GetAllArchiveProposalsHandler: IRequestHandler<GetAllArchiveProposa
         query = query.Where(x => x.StatusProposal == StatusProposal.Done);
 
         query = query.Include(x => x.Resumes)
-                     .Include(x => x.CreatedUser)
-                     .Include(x => x.Client);
+            .Include(x => x.Resumes)
+            .ThenInclude(x => x.Resume)
+            .ThenInclude(x => x.Position)
+            .Include(x => x.CreatedUser)
+            .Include(x => x.Client);
 
         if (!string.IsNullOrWhiteSpace(request.Term))
         {

@@ -24,8 +24,7 @@ namespace CVBuilder.Application.Resume.Handlers
         }
 
         public async Task<(int, List<ResumeCardResult>)> Handle(GetAllResumeCardQueries request,
-            CancellationToken cancellationToken)
-        {
+            CancellationToken cancellationToken){
             var result = new List<Resume>();
             var totalCount = 0;
 
@@ -106,6 +105,7 @@ namespace CVBuilder.Application.Resume.Handlers
                     }
                         break;
                     default:
+                        query.OrderBy(r => r.FirstName).ThenBy(r => r.LastName); 
                         break;
                 }
             }
