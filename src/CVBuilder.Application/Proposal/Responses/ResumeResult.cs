@@ -16,5 +16,6 @@ public class ResumeResult
     public string LastName { get; set; }
     public string Picture { get; set; }
     public string ShortUrl { get; set; }
+    public decimal SalaryRate { get; set; }
     public List<SkillResult> Skills { get; set; }
 }

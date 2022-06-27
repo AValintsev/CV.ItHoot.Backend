@@ -24,8 +24,7 @@ namespace CVBuilder.Application.Resume.Handlers
         }
 
         public async Task<(int, List<ResumeCardResult>)> Handle(GetAllResumeCardQueries request,
-            CancellationToken cancellationToken)
-        {
+            CancellationToken cancellationToken){
             var result = new List<Resume>();
             var totalCount = 0;
 
@@ -77,6 +76,14 @@ namespace CVBuilder.Application.Resume.Handlers
                     query = query.Where(r => r.LevelSkills.Any(ls => ls.SkillId == skillId));
                 }
             }
+            
+            if (request.Skills != null && request.Skills.Count > 0)
+            {
+                foreach (var skillId in request.Skills)
+                {
+                    query = query.Where(r => r.LevelSkills.Any(ls => ls.SkillId == skillId));
+                }
+            }
 
             totalCount = await query.CountAsync(cancellationToken: cancellationToken);
 
@@ -99,9 +106,11 @@ namespace CVBuilder.Application.Resume.Handlers
                         }
                         break;
                     default:
+                        query.OrderBy(r => r.FirstName).ThenBy(r => r.LastName); 
                         break;
                 }
             }
+
 
             result = await query.ToListAsync(cancellationToken: cancellationToken);
 

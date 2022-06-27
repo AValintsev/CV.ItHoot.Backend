@@ -9,12 +9,12 @@ public class PaginationFilter
 
     public PaginationFilter()
     {
-        this.Page = 1;
-        this.PageSize = 30;
+        Page = 1;
+        PageSize = 30;
     }
     public PaginationFilter(int page, int pageSize)
     {
-        this.Page = page < 1 ? 1 : page;
-        this.PageSize = pageSize > 30 ? 30 : pageSize;
+        Page = page < 1 ? 1 : page;
+        PageSize = pageSize > 30 ? 30 : pageSize;
     }
 }

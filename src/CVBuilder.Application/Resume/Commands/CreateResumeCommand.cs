@@ -24,7 +24,7 @@ namespace CVBuilder.Application.Resume.Commands
         public string RequiredPosition { get; set; }
         public string Birthdate { get; set; }
         public string AboutMe { get; set; }
-        public int ResumeTemplateId { get; set; }
+        public int? ResumeTemplateId { get; set; }
         public decimal SalaryRate { get; set; }
         public AvailabilityStatus AvailabilityStatus { get; set; }
         public int? CountDaysUnavailable { get; set; }

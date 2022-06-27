@@ -17,11 +17,11 @@ namespace CVBuilder.Application.Resume.Handlers
 
     public class GetResumeByIdHandler : IRequestHandler<GetResumeByIdQuery, ResumeResult>
     {
-        private readonly IDeletableRepository<Resume, int> _cvRepository;
+        private readonly IRepository<Resume, int> _cvRepository;
         private readonly IMapper _mapper;
 
         public GetResumeByIdHandler(
-            IDeletableRepository<Resume, int> cvRepository,
+            IRepository<Resume, int> cvRepository,
             IMapper mapper)
         {
             _cvRepository = cvRepository;
