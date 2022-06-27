@@ -11,14 +11,15 @@ namespace CVBuilder.Web.Contracts.V1.Requests.Resume
 
         public List<int> Skills { get; set; }
 
+
         public GetAllResumeCardRequest() : base()
         {}
 
         public GetAllResumeCardRequest(int page, int pageSize, string term, List<int> positions, List<int> skills) : base(page, pageSize)
         {
-            this.Term = term;
-            this.Positions = positions;
-            this.Skills = skills;
+            Term = term;
+            Positions = positions;
+            Skills = skills;
         }
     }
 }

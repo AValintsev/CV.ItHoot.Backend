@@ -44,7 +44,8 @@ public class GetProposalMapper : AppMapperBase
             .ForMember(x => x.Picture, y => y.MapFrom(z => z.Resume.Image.ImagePath))
             .ForMember(x => x.PositionId, y => y.MapFrom(z => z.Resume.PositionId))
             .ForMember(x => x.PositionName, y => y.MapFrom(z => z.Resume.Position.PositionName))
-            .ForMember(x => x.ShortUrl, y => y.MapFrom(z => z.ShortUrl.Url));
+            .ForMember(x => x.ShortUrl, y => y.MapFrom(z => z.ShortUrl.Url))
+            .ForMember(x => x.SalaryRate, y => y.MapFrom(z => z.Resume.SalaryRate));
 
         CreateMap<LevelSkill, SkillResult>()
             .ForMember(x => x.Id, y => y.MapFrom(z => z.SkillId))

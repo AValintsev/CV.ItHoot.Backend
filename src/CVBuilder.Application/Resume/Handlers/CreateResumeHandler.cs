@@ -39,6 +39,8 @@ namespace CVBuilder.Application.Resume.Handlers
             await CheckSkillsDuplicate(resume);
             await CheckLanguageDuplicate(resume);
             CheckHiddenValues(resume);
+
+            resume.ResumeTemplateId ??= 5;
             resume = await _resumeRepository.CreateAsync(resume);
             return _mapper.Map<ResumeResult>(resume);
         }

@@ -7,6 +7,7 @@ using AngleSharp;
 using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
 using CVBuilder.Application.Resume.Responses.CvResponse;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CVBuilder.Application.Resume.Services;
 
@@ -43,11 +44,13 @@ public class CustomRenderLevelsTwo : ICustomRender
         {
             return;
         }
-
+      
         if (ul!.ClassList.Contains("template-two"))
         {
             foreach (var item in list)
             {
+               
+                
                 var newLi = templateLi.Clone();
                 foreach (var val in item)
                 {
@@ -276,12 +279,21 @@ public class ResumeTemplateBuilder
 
     private void BindList(string sectionId, List<Dictionary<string, string>> list)
     {
-        var ul = _body.FirstOrDefault(x => x.Id == sectionId);
-        var templateLi = ul?.Children.FirstOrDefault(x => x.TagName == "LI");
+        var section =  _resumeHtml.QuerySelector($"#{sectionId}");
+        var ul = section?.QuerySelector("ul");
+        var templateLi = ul?.QuerySelector("li");
 
+        
         if (ul == null || templateLi == null)
             return;
-
+        
+        if(list.IsNullOrEmpty())
+        {
+            section.Remove();
+            return;
+        }
+      
+        
 
         if (ul.ClassList.Contains("default"))
         {
@@ -296,6 +308,8 @@ public class ResumeTemplateBuilder
 
             return;
         }
+
+     
 
         foreach (var item in list)
         {
