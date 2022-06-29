@@ -141,8 +141,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get list of Resume
         /// </summary>
         [HttpGet(ApiRoutes.Resume.GetAllResume)]
-        [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<ResumeCardResponse>>> GetAllResumeCard(
+        public async Task<ActionResult<PagedResponse<IEnumerable<ResumeCardResponse>>>> GetAllResumeCard(
             [FromQuery] GetAllResumeCardRequest request)
         {
             var validFilter = new GetAllResumeCardRequest(request.Page, request.PageSize, request.Term, request.Positions, request.Skills)

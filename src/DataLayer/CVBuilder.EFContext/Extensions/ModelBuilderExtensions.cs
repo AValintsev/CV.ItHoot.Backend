@@ -44,6 +44,7 @@ namespace CVBuilder.EFContext.Extensions
         public static void ConfigureEntities(this ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProposalConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(RoleConfiguration).Assembly);
             //modelBuilder.Entity<CvEducation>()
             //    .HasKey(x => new {x.CvId, x.EducationId});
             //modelBuilder.Entity<CvExperience>()
