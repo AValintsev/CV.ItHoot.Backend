@@ -69,12 +69,11 @@ public class UpdateProposalHandler : IRequestHandler<UpdateProposalCommand, Prop
             }
             else
             {
-                var newResume = resume;
-                newResume.ShortUrl = new ShortUrl()
+                resume.ShortUrl = new ShortUrl()
                 {
                     Url = _shortUrlService.GenerateShortUrl()
                 };
-                proposalDb.Resumes.Add(newResume);
+                proposalDb.Resumes.Add(resume);
             }
         }
     }
@@ -99,6 +98,5 @@ public class UpdateProposalHandler : IRequestHandler<UpdateProposalCommand, Prop
         proposalDb.StatusProposal = proposal.StatusProposal;
         proposalDb.ProposalName = proposal.ProposalName;
         proposalDb.ClientId = proposal.ClientId;
-        proposalDb.Resumes = proposal.Resumes;
     }
 }

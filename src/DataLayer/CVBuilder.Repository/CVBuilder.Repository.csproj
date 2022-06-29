@@ -5,11 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18"/>
+        <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.19" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CVBuilder.EFContext\CVBuilder.EFContext.csproj"/>
+        <ProjectReference Include="..\CVBuilder.EFContext\CVBuilder.EFContext.csproj" />
     </ItemGroup>
 
 </Project>
