@@ -52,31 +52,20 @@ public class GetProposalResumeHtmlHandler : IRequestHandler<GetProposalResumeHtm
             throw new NotFoundException("Resume not found");
         }
 
-        var resume = await _mediator.Send(new GetResumeByIdQuery()
+        var resume = await _mediator.Send(new GetProposalResumeQuery()
         {
-            Id = resumeId.GetValueOrDefault(),
+            ProposalId = proposal.Id,
+            ProposalResumeId = request.ProposalResumeId,
             UserRoles = request.UserRoles,
             UserId = request.UserId
         }, cancellationToken);
 
-        if (request.UserRoles.IsNullOrEmpty() ||
-            (request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()) && !proposal.ShowContacts))
-        {
-            HideContacts(resume);
-        }
-
-        if (request.UserRoles.IsNullOrEmpty() ||
-            (request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()) && !proposal.ShowCompanyNames))
-        {
-            HideCompanyNames(resume);
-        }
 
         var template = await _templateRepository.GetByIdAsync(proposal.ResumeTemplateId);
 
         if (template == null)
         {
-            // throw new NullReferenceException("Template not foumnd");
-            template = await _templateRepository.GetByIdAsync(4);
+            throw new NullReferenceException("Template not foumnd");
         }
 
         var builder = new ResumeTemplateBuilder(template.Html);
@@ -84,24 +73,5 @@ public class GetProposalResumeHtmlHandler : IRequestHandler<GetProposalResumeHtm
 
 
         return html;
-    }
-
-    private static void HideCompanyNames(ResumeResult resume)
-    {
-        foreach (var experience in resume.Experiences)
-        {
-            experience.Company = "Company";
-        }
-    }
-
-    private static void HideContacts(ResumeResult resume)
-    {
-        resume.Country = "ItHootland";
-        resume.City = "ITHootland";
-        resume.Street = "ItHootland";
-        resume.Code = "0";
-        resume.Email = "ithoot@gmail.com";
-        resume.Site = "ithoot.com";
-        resume.Phone = "380000000";
     }
 }
