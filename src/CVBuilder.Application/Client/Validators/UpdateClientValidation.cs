@@ -2,7 +2,7 @@
 using CVBuilder.Application.Core.Constants;
 using FluentValidation;
 
-namespace CVBuilder.Application.Resume.Validators
+namespace CVBuilder.Application.Client.Validators
 {
     public class UpdateClientValidation : AbstractValidator<UpdateClientCommand>
     {
