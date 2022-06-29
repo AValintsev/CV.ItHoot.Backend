@@ -12,8 +12,7 @@ namespace CVBuilder.Application.Resume.Validators
             RuleFor(c => c.FirstName)
                 .NotEmpty();
             RuleFor(c => c.LastName)
-                .NotEmpty()
-                .MinimumLength(70);
+                .NotEmpty();
             RuleFor(c => c.Email)
                 .NotEmpty()
                 .EmailAddress();

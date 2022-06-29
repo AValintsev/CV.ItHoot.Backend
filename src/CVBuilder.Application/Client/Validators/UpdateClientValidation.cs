@@ -11,7 +11,6 @@ namespace CVBuilder.Application.Resume.Validators
             RuleFor(c => c.FirstName)
                 .NotEmpty();
             RuleFor(c => c.LastName)
-                .MinimumLength(70)
                 .NotEmpty();
             RuleFor(c => c.PhoneNumber)
                 .Matches(RegexConstants.PHONE_ALL_REGEX)
