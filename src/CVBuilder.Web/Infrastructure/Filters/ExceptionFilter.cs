@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Bogus;
 using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Web.Infrastructure.Errors;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

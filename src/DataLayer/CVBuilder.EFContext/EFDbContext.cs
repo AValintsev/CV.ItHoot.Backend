@@ -7,7 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.EFContext
 {
-    public class EFDbContext : IdentityDbContext<User, IdentityRole<int>, int>
+    public class EFDbContext : IdentityDbContext<User
+        , Role
+        , int
+        , IdentityUserClaim<int>
+        , UserRole
+        , IdentityUserLogin<int>
+        , IdentityRoleClaim<int>
+        , IdentityUserToken<int>>
     {
         public EFDbContext(DbContextOptions<EFDbContext> options)
             : base(options)
@@ -28,6 +35,9 @@ namespace CVBuilder.EFContext
         public virtual DbSet<ProposalResume> ProposalResumes { get; set; }
         public virtual DbSet<LevelSkill> LevelSkills { get; set; }
         public virtual DbSet<LevelLanguage> LevelLanguages { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

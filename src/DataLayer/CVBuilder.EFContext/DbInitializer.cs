@@ -44,11 +44,13 @@ namespace CVBuilder.EFContext
                 if (context.Roles.FirstOrDefault(e => e.Name == key.ToString()) == null)
                 {
                     context.Roles.Add(
-                        new IdentityRole<int>
+                        new Role()
                         {
                             Name = key.ToString(),
                             NormalizedName = normalizer.NormalizeName(key.ToString()),
-                            ConcurrencyStamp = enums[index]
+                            ConcurrencyStamp = enums[index],
+                            CreatedAt = DateTime.Now,
+                            UpdatedAt = DateTime.Now
                         }
                     );
                 }

@@ -1,6 +1,7 @@
 ﻿using CVBuilder.Application.Identity.Responses;
 using CVBuilder.Application.Identity.Services.Interfaces;
 using CVBuilder.Application.User.Manager;
+using CVBuilder.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,12 @@ namespace CVBuilder.Application.Identity.Services
     public class IdentityService : IIdentityService
     {
         private readonly IAppUserManager _userManager;
-        private readonly RoleManager<IdentityRole<int>> _roleManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly ITokenService _tokenService;
 
         public IdentityService(
             IAppUserManager userManager,
-            RoleManager<IdentityRole<int>> roleManager,
+            RoleManager<Role> roleManager,
             ITokenService tokenService)
         {
             _userManager = userManager;
