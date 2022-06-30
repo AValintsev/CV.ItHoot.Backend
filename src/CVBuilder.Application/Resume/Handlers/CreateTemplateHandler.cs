@@ -32,7 +32,7 @@ public class CreateTemplateHandler : IRequestHandler<CreateTemplateCommand, Temp
 
         var template = new ResumeTemplate()
         {
-            TemplateName = "Template",
+            TemplateName = request.TemplateName,
             Html = html
         };
         template = await _templateRepository.CreateAsync(template);
