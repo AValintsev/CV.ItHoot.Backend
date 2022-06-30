@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CVBuilder.Models;
 using CVBuilder.Web.Contracts.V1.Responses.Skill;
 
 namespace CVBuilder.Web.Contracts.V1.Responses.CV
@@ -13,6 +14,7 @@ namespace CVBuilder.Web.Contracts.V1.Responses.CV
         public string LastName { get; set; }
         public string PositionName { get; set; }
         public decimal SalaryRate { get; set; }
+        public AvailabilityStatus AvailabilityStatus { get; set; }
         public DateTime? DeletedAt { get; set; }
         public List<SkillResponse> Skills { get; set; } 
     }

@@ -149,6 +149,7 @@ namespace CVBuilder.Web.Controllers.V1
             {
                 Sort = request.Sort,
                 Order = request.Order,
+                IsArchive = request.IsArchive,
             };
 
             var command = Mapper.Map<GetAllResumeCardQueries>(validFilter);
