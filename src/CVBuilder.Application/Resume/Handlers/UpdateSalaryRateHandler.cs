@@ -3,7 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CVBuilder.Application.Core.Exceptions;
+using CVBuilder.Application.Proposal.Responses;
 using CVBuilder.Application.Resume.Commands;
+using CVBuilder.Application.Resume.Responses;
 using CVBuilder.Repository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +15,7 @@ namespace CVBuilder.Application.Resume.Handlers;
 
 using Models.Entities;
 
-public class UpdateSalaryRateHandler : IRequestHandler<UpdateSalaryRateResumeCommand, ResumeResult>
+public class UpdateSalaryRateHandler : IRequestHandler<UpdateSalaryRateResumeCommand, ResumeCardResult>
 {
     private readonly IMapper _mapper;
     private readonly IRepository<Resume, int> _resumeRepository;
@@ -24,7 +26,7 @@ public class UpdateSalaryRateHandler : IRequestHandler<UpdateSalaryRateResumeCom
         _mapper = mapper;
     }
 
-    public async Task<ResumeResult> Handle(UpdateSalaryRateResumeCommand request, CancellationToken cancellationToken)
+    public async Task<ResumeCardResult> Handle(UpdateSalaryRateResumeCommand request, CancellationToken cancellationToken)
     {
         var resumeDb = await _resumeRepository.Table
             .Include(x => x.ResumeTemplate)
@@ -44,6 +46,6 @@ public class UpdateSalaryRateHandler : IRequestHandler<UpdateSalaryRateResumeCom
         resumeDb.SalaryRate = request.SalaryRate;
         resumeDb.Id = 0;
         resumeDb = await _resumeRepository.CreateAsync(resumeDb);
-        return _mapper.Map<ResumeResult>(resumeDb);
+        return _mapper.Map<ResumeCardResult>(resumeDb);
     }
 }

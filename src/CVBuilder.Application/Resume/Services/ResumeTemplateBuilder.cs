@@ -173,10 +173,8 @@ public class DateConfig : IConfigProperty
             var date = birthdate.ToString("MM/yyyy");
             return date;
         }
-        else
-        {
-            throw new ArgumentException("Invalid type");
-        }
+
+        throw new ArgumentException("Invalid type");
     }
 }
 
