@@ -28,7 +28,16 @@ namespace CVBuilder.Application.Resume.Handlers
             var result = new List<Resume>();
             var totalCount = 0;
 
-            var query = request.UserRoles.Contains("Admin") ? _cvRepository.TableWithDeleted : _cvRepository.Table;
+            var query = _cvRepository.TableWithDeleted;
+
+            if (request.IsArchive)
+            {
+                query = query.Where(x => x.DeletedAt.HasValue);
+            }
+            else
+            {
+                query = query.Where(x => !x.DeletedAt.HasValue);
+            }
 
             query = query.Include(x => x.Position)
                          .Include(x => x.LevelSkills)

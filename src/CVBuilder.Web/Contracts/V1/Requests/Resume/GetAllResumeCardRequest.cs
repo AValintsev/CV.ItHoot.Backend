@@ -10,6 +10,7 @@ namespace CVBuilder.Web.Contracts.V1.Requests.Resume
         public List<int> Positions { get; set; }
 
         public List<int> Skills { get; set; }
+        public bool IsArchive { get; set; }
 
 
         public GetAllResumeCardRequest() : base()
