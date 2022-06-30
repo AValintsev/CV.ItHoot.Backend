@@ -95,7 +95,7 @@
             public const string GetAllResumeTemplates = BaseCv + "/templates";
             public const string GetAllResumeByPositions = BaseCv + "/position";
             public const string GetAllResumeByProposalBuild = BaseCv + "/proposalBuild/{id}";
-            public const string CreateTemplate = BaseCv + "/templates";
+            public const string CreateTemplate = BaseCv + "/templates/{name}";
             public const string UpdateTemplate = BaseCv + "/templates/{id}/{name}";
             public const string GetAllTemplates = BaseCv + "/templates";
             public const string GetTemplateById = BaseCv + "/templates/{id}";

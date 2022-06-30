@@ -43,11 +43,12 @@ namespace CVBuilder.Web.Controllers.V1
         /// Create resume template
         /// </summary>        
         [HttpPost(ApiRoutes.Resume.CreateTemplate)]
-        public async Task<IActionResult> CreateTemplate()
+        public async Task<IActionResult> CreateTemplate(string name)
         {
             var command = new CreateTemplateCommand
             {
-                HtmlStream = Request.Body
+                HtmlStream = Request.Body,
+                TemplateName = name
             };
             var result = await Mediator.Send(command);
             return Ok(result);
