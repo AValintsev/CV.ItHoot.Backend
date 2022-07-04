@@ -68,10 +68,41 @@ public class GetProposalResumeHtmlHandler : IRequestHandler<GetProposalResumeHtm
             throw new NullReferenceException("Template not foumnd");
         }
 
+        var print = request.PrintFooter switch
+        {
+            PrintFooter.Print => true,
+            PrintFooter.NotPrint => false,
+            PrintFooter.ForHtml => CheckOutForHtml(request,proposal),
+            PrintFooter.ForPdf => CheckOutForPdf(request,proposal),
+            _ => true
+        };
+
         var builder = new ResumeTemplateBuilder(template.Html);
-        var html = await builder.BindTemplateAsync(resume);
+        var html = await builder.BindTemplateAsync(resume,print);
 
 
         return html;
     }
+
+    private static bool CheckOutForPdf(GetProposalResumeHtmlQuery request, Proposal proposal)
+    {
+        if (request.UserRoles.IsNullOrEmpty())
+        {
+            return true;
+        }
+        
+        return !request.UserRoles.Contains(Enums.RoleTypes.Admin.ToString()) && proposal.ShowLogo;
+    }
+
+    private static bool CheckOutForHtml(GetProposalResumeHtmlQuery request, Proposal proposal)
+    {
+        if (request.UserRoles.IsNullOrEmpty())
+        {
+            return true;
+        }
+        
+        return !request.UserRoles.Contains(Enums.RoleTypes.Admin.ToString()) && proposal.ShowLogo;
+    }
+
+   
 }

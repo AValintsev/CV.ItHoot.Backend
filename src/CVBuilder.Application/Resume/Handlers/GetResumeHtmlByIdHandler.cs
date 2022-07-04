@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using CVBuilder.Application.Proposal.Queries;
 using CVBuilder.Application.Resume.Queries;
 using CVBuilder.Application.Resume.Services;
 using CVBuilder.Repository;
@@ -27,13 +28,13 @@ public class GetResumeHtmlByIdHandler : IRequestHandler<GetResumeHtmlByIdQuery, 
         _mediator = mediator;
     }
 
-    public async Task<string> Handle(GetResumeHtmlByIdQuery request, CancellationToken cancellationToken)
+    public async Task<string> Handle(GetResumeHtmlByIdQuery query, CancellationToken cancellationToken)
     {
         var command = new GetResumeByIdQuery()
         {
-            Id = request.Id,
-            UserId = request.UserId,
-            UserRoles = request.UserRoles
+            Id = query.ResumeId,
+            UserId = query.UserId,
+            UserRoles = query.UserRoles
         };
 
         var resume = await _mediator.Send(command, cancellationToken);
@@ -42,12 +43,30 @@ public class GetResumeHtmlByIdHandler : IRequestHandler<GetResumeHtmlByIdQuery, 
 
         if (template == null)
         {
-            // throw new NullReferenceException("ResumeTemplate not found");
-            template = await _templateRepository.GetByIdAsync(4);
+            throw new NullReferenceException("ResumeTemplate not found");
         }
-
+        
+        var printFooter = query.PrintFooter switch
+        {
+            PrintFooter.Print => true,
+            PrintFooter.NotPrint => false,
+            PrintFooter.ForHtml => CheckOutForHtml(query),
+            PrintFooter.ForPdf => CheckOutForPdf(query),
+            _ => false
+        };
+        
         var builder = new ResumeTemplateBuilder(template.Html);
-        var html = await builder.BindTemplateAsync(resume);
+        var html = await builder.BindTemplateAsync(resume, printFooter);
         return html;
+    }
+
+    private static bool CheckOutForPdf(GetResumeHtmlByIdQuery query)
+    {
+        return true;
+    }
+
+    private static bool CheckOutForHtml(GetResumeHtmlByIdQuery query)
+    {
+        return false;
     }
 }

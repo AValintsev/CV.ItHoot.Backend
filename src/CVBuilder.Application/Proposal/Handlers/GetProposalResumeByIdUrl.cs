@@ -42,7 +42,8 @@ public class GetProposalResumeByIdUrl : IRequestHandler<GetProposalResumeByUrlQu
             UserRoles = request.UserRoles,
             UserId = request.UserId,
             ProposalId = resume.ProposalId,
-            ProposalResumeId = resume.Id
+            ProposalResumeId = resume.Id,
+            PrintFooter = PrintFooter.ForHtml
         };
 
         var result = await _mediator.Send(command, cancellationToken);

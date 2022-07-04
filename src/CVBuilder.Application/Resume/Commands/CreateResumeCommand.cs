@@ -13,7 +13,8 @@ namespace CVBuilder.Application.Resume.Commands
         public bool IsDraft { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int? PositionId { get; set; }
+        public int? ImageId { get; set; }
+        public int PositionId { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
         public string Phone { get; set; }
@@ -24,7 +25,7 @@ namespace CVBuilder.Application.Resume.Commands
         public string RequiredPosition { get; set; }
         public string Birthdate { get; set; }
         public string AboutMe { get; set; }
-        public int? ResumeTemplateId { get; set; }
+        public int ResumeTemplateId { get; set; }
         public decimal SalaryRate { get; set; }
         public AvailabilityStatus AvailabilityStatus { get; set; }
         public int? CountDaysUnavailable { get; set; }
