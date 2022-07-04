@@ -98,7 +98,8 @@ public class ProposalController : BaseAuthApiController
         {
             ProposalId = proposalId,
             ProposalResumeId = proposalResumeId,
-            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
+            UserId = LoggedUserId,
+            UserRoles = LoggedUserRoles.ToList()
         };
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");
@@ -108,7 +109,8 @@ public class ProposalController : BaseAuthApiController
     /// Get list of Proposal
     /// </summary>
     [HttpGet(ApiRoutes.Proposal.GetAllProposals)]
-    public async Task<ActionResult<PagedResponse<List<SmallProposalResult>>>> GetAllProposals([FromQuery] GetAllProposalsRequest request)
+    public async Task<ActionResult<PagedResponse<List<SmallProposalResult>>>> GetAllProposals(
+        [FromQuery] GetAllProposalsRequest request)
     {
         var validFilter = new GetAllProposalsRequest(request.Page, request.PageSize, request.Term, request.Clients,
             request.Statuses)
@@ -124,7 +126,8 @@ public class ProposalController : BaseAuthApiController
 
         var response = await Mediator.Send(command);
 
-        var result = new PagedResponse<List<SmallProposalResult>>(response.Item2, validFilter.Page, validFilter.PageSize, response.Item1);
+        var result = new PagedResponse<List<SmallProposalResult>>(response.Item2, validFilter.Page,
+            validFilter.PageSize, response.Item1);
         return result;
     }
 
@@ -132,7 +135,8 @@ public class ProposalController : BaseAuthApiController
     /// Get list of archive Proposals
     /// </summary>
     [HttpGet(ApiRoutes.Proposal.GetAllArchiveProposals)]
-    public async Task<ActionResult<PagedResponse<List<SmallProposalResult>>>> GetAllArchiveProposals([FromQuery] GetAllProposalsRequest request)
+    public async Task<ActionResult<PagedResponse<List<SmallProposalResult>>>> GetAllArchiveProposals(
+        [FromQuery] GetAllProposalsRequest request)
     {
         var validFilter = new GetAllProposalsRequest(request.Page, request.PageSize, request.Term, request.Clients,
             request.Statuses)
@@ -145,7 +149,8 @@ public class ProposalController : BaseAuthApiController
 
         var response = await Mediator.Send(command);
 
-        var result = new PagedResponse<List<SmallProposalResult>>(response.Item2, validFilter.Page, validFilter.PageSize, response.Item1);
+        var result = new PagedResponse<List<SmallProposalResult>>(response.Item2, validFilter.Page,
+            validFilter.PageSize, response.Item1);
         return result;
     }
 
@@ -193,7 +198,7 @@ public class ProposalController : BaseAuthApiController
         {
             ShortUrl = url,
             UserRoles = LoggedUserRoles.ToList(),
-            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
+            UserId = LoggedUserId
         };
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");
