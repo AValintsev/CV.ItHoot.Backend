@@ -29,6 +29,7 @@ namespace CVBuilder.Application.Core.Infrastructure
             services.AddSingleton<IStaticCacheManager, MemoryCacheManager>();
             services.AddHttpClient();
             services.AddScoped<IImageService, GyazoImageService>();
+            services.AddScoped<IPdfPrinter, PdfPrinterBrowser>();
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipe<,>));
 
             var assembly = typeof(AddDependenciesRegister).Assembly;

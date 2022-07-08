@@ -6,12 +6,12 @@ using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Queries;
 using CVBuilder.Application.Resume.Responses;
 using CVBuilder.Application.Resume.Responses.CvResponse;
+using CVBuilder.Models.Entities;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Resume;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
 using CVBuilder.Web.Contracts.V1.Responses.Pagination;
 using CVBuilder.Web.Infrastructure.BaseControllers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +23,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Upload a resume photo
         /// </summary>
         [HttpPost(ApiRoutes.Resume.UploadImage)]
-        public async Task<ActionResult> UploadImage(int resumeId, IFormFile image)
+        public async Task<ActionResult<ImageResult>> UploadImage(int resumeId, IFormFile image)
         {
             await using var memoryStream = new MemoryStream();
             await image.CopyToAsync(memoryStream);
@@ -36,18 +36,39 @@ namespace CVBuilder.Web.Controllers.V1
             };
             var result = await Mediator.Send(command);
 
-            return Ok();
+            return Ok(result);
+        }
+        
+        /// <summary>
+        /// Create a resume photo
+        /// </summary>
+        [HttpPost(ApiRoutes.Resume.CreateImage)]
+        public async Task<ActionResult<ImageResult>> UploadImage(IFormFile image)
+        {
+            await using var memoryStream = new MemoryStream();
+            await image.CopyToAsync(memoryStream);
+            var command = new UploadResumeImageCommand
+            {
+                ResumeId = null,
+                Data = memoryStream.ToArray(),
+                FileName = image.FileName,
+                FileType = image.ContentType
+            };
+            var result = await Mediator.Send(command);
+
+            return Ok(result);
         }
 
         /// <summary>
         /// Create resume template
         /// </summary>        
         [HttpPost(ApiRoutes.Resume.CreateTemplate)]
-        public async Task<IActionResult> CreateTemplate()
+        public async Task<IActionResult> CreateTemplate(string name)
         {
             var command = new CreateTemplateCommand
             {
-                HtmlStream = Request.Body
+                HtmlStream = Request.Body,
+                TemplateName = name
             };
             var result = await Mediator.Send(command);
             return Ok(result);
@@ -118,7 +139,8 @@ namespace CVBuilder.Web.Controllers.V1
             var command = new GetPdfByIdQueries
             {
                 ResumeId = id,
-                JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
+                UserId = LoggedUserId,
+                UserRoles = LoggedUserRoles.ToList()
             };
 
             var result = await Mediator.Send(command);
@@ -204,7 +226,7 @@ namespace CVBuilder.Web.Controllers.V1
         {
             var command = new GetResumeHtmlByIdQuery()
             {
-                Id = id,
+                ResumeId = id,
                 UserId = LoggedUserId,
                 UserRoles = LoggedUserRoles
             };

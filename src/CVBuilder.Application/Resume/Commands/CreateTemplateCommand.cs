@@ -6,5 +6,6 @@ namespace CVBuilder.Application.Resume.Commands;
 
 public class CreateTemplateCommand : IRequest<TemplateResult>
 {
+    public string TemplateName { get; set; }
     public Stream HtmlStream { get; set; }
 }

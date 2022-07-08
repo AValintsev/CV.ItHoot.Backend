@@ -15,14 +15,13 @@ class ResumeMapper : AppMapperBase
     public ResumeMapper()
     {
         #region CreateResume
-
+        
         CreateMap<CreateResumeCommand, Resume>()
             .ForMember(x => x.LevelSkills, y => y.MapFrom(z => z.Skills))
             .ForMember(x => x.CreatedUserId, y => y.MapFrom(z => z.UserId))
             .ForMember(x => x.LevelLanguages, y => y.MapFrom(z => z.UserLanguages))
             .ForMember(x => x.Educations, y => y.MapFrom(x => x.Educations))
             .ForMember(x => x.Experiences, y => y.MapFrom(x => x.Experiences));
-
         CreateMap<CreateLanguageCommand, LevelLanguage>()
             .ForMember(x => x.LanguageId, y => y.MapFrom(z => z.LanguageId))
             .ForMember(x => x.LanguageLevel, y => y.MapFrom(z => z.Level))
@@ -70,6 +69,9 @@ class ResumeMapper : AppMapperBase
 
         CreateMap<ResumeTemplate, ResumeTemplateResult>()
             .ForMember(x => x.TemplateId, y => y.MapFrom(z => z.Id));
+
+
+        CreateMap<Image, ImageResult>();
 
         #endregion
     }

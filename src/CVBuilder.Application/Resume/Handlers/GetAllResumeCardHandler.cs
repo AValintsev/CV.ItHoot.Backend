@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CVBuilder.Application.Resume.Handlers
 {
     using Models.Entities;
+
     public class GetAllCvCardHandler : IRequestHandler<GetAllResumeCardQueries, (int, List<ResumeCardResult>)>
     {
         private readonly IDeletableRepository<Resume, int> _cvRepository;
@@ -24,7 +25,8 @@ namespace CVBuilder.Application.Resume.Handlers
         }
 
         public async Task<(int, List<ResumeCardResult>)> Handle(GetAllResumeCardQueries request,
-            CancellationToken cancellationToken){
+            CancellationToken cancellationToken)
+        {
             var result = new List<Resume>();
             var totalCount = 0;
 
@@ -40,8 +42,8 @@ namespace CVBuilder.Application.Resume.Handlers
             }
 
             query = query.Include(x => x.Position)
-                         .Include(x => x.LevelSkills)
-                         .ThenInclude(x => x.Skill);
+                .Include(x => x.LevelSkills)
+                .ThenInclude(x => x.Skill);
 
             if (request.UserRoles.Contains("HR"))
             {
@@ -62,7 +64,7 @@ namespace CVBuilder.Application.Resume.Handlers
             totalCount = await query.CountAsync(cancellationToken: cancellationToken);
 
             query = query.Skip((request.Page - 1) * request.PageSize)
-                         .Take(request.PageSize);
+                .Take(request.PageSize);
 
             query = SortQuery(query, request.Order, request.Sort);
 
@@ -88,8 +90,10 @@ namespace CVBuilder.Application.Resume.Handlers
                                          || r.Site.ToLower().Contains(term)
                                          || r.Phone.ToLower().Contains(term)
                                          || r.Street.ToLower().Contains(term)
-                                         || r.RequiredPosition.ToLower().Contains(term));
+                                         || r.RequiredPosition.ToLower().Contains(term)
+                                         || r.Position.PositionName.ToLower().Contains(term));
             }
+
             return query;
         }
 
@@ -101,23 +105,24 @@ namespace CVBuilder.Application.Resume.Handlers
                 {
                     case "name":
                     {
-                        query = order == "desc" 
+                        query = order == "desc"
                             ? query.OrderByDescending(r => r.FirstName).ThenByDescending(r => r.LastName)
                             : query.OrderBy(r => r.FirstName).ThenBy(r => r.LastName);
                     }
                         break;
                     case "position":
                     {
-                        query = order == "desc" 
-                            ? query.OrderByDescending(r => r.Position.PositionName) 
+                        query = order == "desc"
+                            ? query.OrderByDescending(r => r.Position.PositionName)
                             : query.OrderBy(r => r.Position.PositionName);
                     }
                         break;
                     default:
-                        query.OrderBy(r => r.FirstName).ThenBy(r => r.LastName); 
+                        query.OrderBy(r => r.FirstName).ThenBy(r => r.LastName);
                         break;
                 }
             }
+
             return query;
         }
 
@@ -135,6 +140,7 @@ namespace CVBuilder.Application.Resume.Handlers
                     query = query.Where(r => r.LevelSkills.Any(ls => ls.SkillId == skillId));
                 }
             }
+
             return query;
         }
     }

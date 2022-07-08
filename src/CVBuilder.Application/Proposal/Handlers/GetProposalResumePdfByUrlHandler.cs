@@ -41,7 +41,8 @@ public class GetProposalResumePdfByUrlHandler : IRequestHandler<GetProposalResum
         {
             ProposalId = resume.ProposalId,
             ProposalResumeId = resume.Id,
-            JwtToken = request.JwtToken
+            UserId = request.UserId,
+            UserRoles = request.UserRoles,
         };
 
         var result = await _mediator.Send(command, cancellationToken);
