@@ -5,5 +5,6 @@
         public string ImagesFolder { get; set; }
 
         public int ItemsPerPage { get; set; }
+        public string FrontendUrl { get; set; }
     }
 }

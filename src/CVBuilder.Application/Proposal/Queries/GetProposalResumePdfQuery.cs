@@ -10,4 +10,6 @@ public class GetProposalResumePdfQuery : IRequest<Stream>
     public int ProposalResumeId { get; set; }
     public List<string> UserRoles { get; set; }
     public int? UserId { get; set; }
+    
+    public string JwtToken { get; set; }
 }

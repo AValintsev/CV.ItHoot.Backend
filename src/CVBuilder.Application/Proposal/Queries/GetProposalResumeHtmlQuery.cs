@@ -7,8 +7,8 @@ public enum PrintFooter
 {
     Print,
     NotPrint,
-    ForHtml,
-    ForPdf,
+    
+    
 }
 
 public class GetProposalResumeHtmlQuery : IRequest<string>

@@ -12,6 +12,7 @@ using CVBuilder.Web.Contracts.V1.Requests.Resume;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
 using CVBuilder.Web.Contracts.V1.Responses.Pagination;
 using CVBuilder.Web.Infrastructure.BaseControllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -93,7 +94,8 @@ namespace CVBuilder.Web.Controllers.V1
 
         /// <summary>
         /// Get resume template by ID
-        /// </summary>        
+        /// </summary>
+        [AllowAnonymous] 
         [HttpGet(ApiRoutes.Resume.GetTemplateById)]
         public async Task<IActionResult> GetTemplateById(int id)
         {
@@ -140,7 +142,8 @@ namespace CVBuilder.Web.Controllers.V1
             {
                 ResumeId = id,
                 UserId = LoggedUserId,
-                UserRoles = LoggedUserRoles.ToList()
+                UserRoles = LoggedUserRoles.ToList(),
+                JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
             };
 
             var result = await Mediator.Send(command);

@@ -13,15 +13,12 @@ namespace CVBuilder.Application.Proposal.Handlers;
 
 public class GetProposalResumePdfByUrlHandler : IRequestHandler<GetProposalResumePdfByUrlQuery, Stream>
 {
-    private readonly IMapper _mapper;
     private readonly IMediator _mediator;
     private readonly IRepository<ProposalResume, int> _proposalResumeRepository;
 
 
-    public GetProposalResumePdfByUrlHandler(IMapper mapper, IRepository<ProposalResume, int> proposalResumeRepository,
-        IMediator mediator)
+    public GetProposalResumePdfByUrlHandler(IRepository<ProposalResume, int> proposalResumeRepository, IMediator mediator)
     {
-        _mapper = mapper;
         _proposalResumeRepository = proposalResumeRepository;
         _mediator = mediator;
     }
@@ -43,6 +40,7 @@ public class GetProposalResumePdfByUrlHandler : IRequestHandler<GetProposalResum
             ProposalResumeId = resume.Id,
             UserId = request.UserId,
             UserRoles = request.UserRoles,
+            JwtToken = request.JwtToken
         };
 
         var result = await _mediator.Send(command, cancellationToken);

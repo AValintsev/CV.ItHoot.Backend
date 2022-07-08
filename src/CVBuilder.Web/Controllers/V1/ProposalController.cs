@@ -62,7 +62,7 @@ public class ProposalController : BaseAuthApiController
             UserRoles = LoggedUserRoles.ToList(),
             UserId = LoggedUserId,
             ProposalId = proposalId,
-            ProposalResumeId = proposalResumeId
+            ProposalResumeId = proposalResumeId,
         };
         var result = await Mediator.Send(command);
         return Ok(result);
@@ -99,7 +99,9 @@ public class ProposalController : BaseAuthApiController
             ProposalId = proposalId,
             ProposalResumeId = proposalResumeId,
             UserId = LoggedUserId,
-            UserRoles = LoggedUserRoles.ToList()
+            UserRoles = LoggedUserRoles.ToList(),
+            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
+
         };
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");
@@ -184,7 +186,7 @@ public class ProposalController : BaseAuthApiController
         };
 
         var result = await Mediator.Send(command);
-        return Ok(new {Html = result});
+        return Ok(result);
     }
 
     /// <summary>
@@ -198,7 +200,8 @@ public class ProposalController : BaseAuthApiController
         {
             ShortUrl = url,
             UserRoles = LoggedUserRoles.ToList(),
-            UserId = LoggedUserId
+            UserId = LoggedUserId,
+            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
         };
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");
