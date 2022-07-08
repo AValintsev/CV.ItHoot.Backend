@@ -10,6 +10,5 @@ namespace CVBuilder.Application.Resume.Queries
         public int Id { get; set; }
         public int? UserId { get; set; }
         public IEnumerable<string> UserRoles { get; set; }
-        public PrintFooter PrintFooter { get; set; }
     }
 }

@@ -9,5 +9,6 @@ namespace CVBuilder.Application.Resume.Queries
         public int? UserId { get; set; }
         public List<string> UserRoles { get; set; }
         public int ResumeId { get; set; }
+        public string JwtToken { get; set; }
     }
 }

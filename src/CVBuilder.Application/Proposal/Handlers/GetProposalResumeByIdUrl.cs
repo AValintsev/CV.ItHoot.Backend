@@ -11,21 +11,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVBuilder.Application.Proposal.Handlers;
 
-public class GetProposalResumeByIdUrl : IRequestHandler<GetProposalResumeByUrlQuery, string>
+public class GetProposalResumeByIdUrl : IRequestHandler<GetProposalResumeByUrlQuery, ProposalResumeResult>
 {
-    private readonly IMapper _mapper;
     private readonly IMediator _mediator;
     private readonly IRepository<ProposalResume, int> _proposalResumeRepository;
 
-    public GetProposalResumeByIdUrl(IMapper mapper, IRepository<ProposalResume, int> proposalResumeRepository,
+    public GetProposalResumeByIdUrl(IRepository<ProposalResume, int> proposalResumeRepository,
         IMediator mediator)
     {
-        _mapper = mapper;
         _proposalResumeRepository = proposalResumeRepository;
         _mediator = mediator;
     }
 
-    public async Task<string> Handle(GetProposalResumeByUrlQuery request,
+    public async Task<ProposalResumeResult> Handle(GetProposalResumeByUrlQuery request,
         CancellationToken cancellationToken)
     {
         var resume = await _proposalResumeRepository.Table
@@ -37,13 +35,12 @@ public class GetProposalResumeByIdUrl : IRequestHandler<GetProposalResumeByUrlQu
             throw new NotFoundException("Resume not found");
         }
 
-        var command = new GetProposalResumeHtmlQuery()
+        var command = new GetProposalResumeQuery
         {
             UserRoles = request.UserRoles,
             UserId = request.UserId,
             ProposalId = resume.ProposalId,
             ProposalResumeId = resume.Id,
-            PrintFooter = PrintFooter.ForHtml
         };
 
         var result = await _mediator.Send(command, cancellationToken);
