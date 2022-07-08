@@ -14,6 +14,7 @@ namespace CVBuilder.Application.Resume.Responses
         public decimal SalaryRate { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string AboutMe { get; set; }
         public AvailabilityStatus AvailabilityStatus { get; set; }
         public DateTime? DeletedAt { get; set; }
         public List<SkillResult> Skills { get; set; }

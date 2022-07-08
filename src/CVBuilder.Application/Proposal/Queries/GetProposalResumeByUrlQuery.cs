@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CVBuilder.Application.Proposal.Queries;
 
-public class GetProposalResumeByUrlQuery : IRequest<string>
+public class GetProposalResumeByUrlQuery : IRequest<ProposalResumeResult>
 {
     public string ShortUrl { get; set; }
     public List<string> UserRoles { get; set; }

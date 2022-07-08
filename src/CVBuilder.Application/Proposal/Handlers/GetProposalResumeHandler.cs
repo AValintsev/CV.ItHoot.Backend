@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CVBuilder.Application.Core.Exceptions;
 using CVBuilder.Application.Proposal.Queries;
+using CVBuilder.Application.Proposal.Responses;
 using CVBuilder.Application.Resume.Queries;
 using CVBuilder.Models;
 using CVBuilder.Repository;
@@ -16,7 +17,7 @@ namespace CVBuilder.Application.Proposal.Handlers;
 
 using Models.Entities;
 
-public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, ResumeResult>
+public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, ProposalResumeResult>
 {
     private readonly IMapper _mapper;
     private readonly IRepository<Proposal, int> _proposalRepository;
@@ -29,7 +30,7 @@ public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, 
         _mediator = mediator;
     }
 
-    public async Task<ResumeResult> Handle(GetProposalResumeQuery request, CancellationToken cancellationToken)
+    public async Task<ProposalResumeResult> Handle(GetProposalResumeQuery request, CancellationToken cancellationToken)
     {
         var proposal =
             await _proposalRepository.Table
@@ -55,7 +56,7 @@ public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, 
             UserId = request.UserId
         }, cancellationToken);
 
-        if (request.UserRoles.IsNullOrEmpty() || request.UserRoles.Contains(Enums.RoleTypes.Client.ToString()))
+        if (request.UserRoles.IsNullOrEmpty() || !request.UserRoles.Contains(Enums.RoleTypes.Admin.ToString()))
         {
             if (!proposal.ShowContacts)
             {
@@ -73,7 +74,12 @@ public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, 
             }
         }
 
-        return resume;
+        return new ProposalResumeResult
+        {
+            ResumeTemplateId = proposal.ResumeTemplateId,
+            ShowLogo = proposal.ShowLogo,
+            Resume = resume
+        };
     }
 
     private static void HideNames(ResumeResult resume)
