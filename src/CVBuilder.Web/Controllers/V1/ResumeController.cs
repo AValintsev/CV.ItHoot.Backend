@@ -286,5 +286,15 @@ namespace CVBuilder.Web.Controllers.V1
             var result = Mapper.Map<ResumeCardResponse>(response);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Get a DOCX file
+        /// </summary>
+        [HttpGet(ApiRoutes.Resume.GetResumeDocx)]
+        public async Task<ActionResult> ResumeDocx(int id)
+        {
+            var result = await Mediator.Send(new GetDocxByIdQueries(id));
+            return File(result, "application/octet-stream", "resume.docx");
+        }
     }
 }

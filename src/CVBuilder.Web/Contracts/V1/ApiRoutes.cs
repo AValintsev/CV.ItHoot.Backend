@@ -102,6 +102,7 @@
             public const string DeleteTemplateById = BaseCv + "/templates/{id}";
             public const string GetResumeHtmlById = BaseCv + "/{id}/html";
             public const string UpdateSalaryRate = BaseCv + "/{resumeId}/salaryRate/{salaryRate}";
+            public const string GetResumeDocx = BaseCv + "/docx/{id}";
         }
 
         public static class File

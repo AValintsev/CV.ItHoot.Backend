@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AngleSharp;
+﻿using AngleSharp;
 using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
 using CVBuilder.Application.Resume.Responses.CvResponse;
+using CVBuilder.Application.Resume.Services.ResumeBuilder.ClassFiledParser;
+using CVBuilder.Application.Resume.Services.ResumeBuilder.ResumeFiledParser.Interfaces;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CVBuilder.Application.Resume.Services;
-
-public interface IConfigProperty
-{
-    public string PropertyName { get; }
-    public string ConfigureValue(object property);
-}
 
 public interface ICustomRender
 {
@@ -44,13 +38,13 @@ public class CustomRenderLevelsTwo : ICustomRender
         {
             return;
         }
-      
+
         if (ul!.ClassList.Contains("template-two"))
         {
             foreach (var item in list)
             {
-               
-                
+
+
                 var newLi = templateLi.Clone();
                 foreach (var val in item)
                 {
@@ -139,63 +133,19 @@ public class CustomRenderLevelsOne : ICustomRender
     }
 }
 
-public class BirthdateConfig : IConfigProperty
-{
-    public string PropertyName => "birthdate";
-
-    public string ConfigureValue(object property)
-    {
-        var age = 0;
-        if (property is DateTime birthdate)
-        {
-            var today = DateTime.Today;
-            age = today.Year - birthdate.Year;
-            if (birthdate.Date > today.AddYears(-age)) age--;
-        }
-
-        return $"{age} years";
-    }
-}
-
-public class DateConfig : IConfigProperty
-{
-    public string PropertyName { get; }
-
-    public DateConfig(string propertyName)
-    {
-        PropertyName = propertyName;
-    }
-
-    public string ConfigureValue(object property)
-    {
-        if (property is DateTime birthdate)
-        {
-            var date = birthdate.ToString("MM/yyyy");
-            return date;
-        }
-
-        throw new ArgumentException("Invalid type");
-    }
-}
-
 public class ResumeTemplateBuilder
 {
     private readonly string _html;
     private IDocument _resumeHtml;
     private IHtmlCollection<IElement> _body;
-    private readonly IEnumerable<IConfigProperty> _configProperties;
     private IEnumerable<ICustomRender> _customRenders;
+
+    private readonly IClassFieldParser<ResumeResult> _classParser;
 
     public ResumeTemplateBuilder(string html)
     {
         _html = html;
-
-        _configProperties = new List<IConfigProperty>()
-        {
-            new BirthdateConfig(),
-            new DateConfig("startDate"),
-            new DateConfig("endDate")
-        };
+        _classParser = new ResumeFiledParser();
     }
 
     public async Task<string> BindTemplateAsync(ResumeResult resume)
@@ -218,7 +168,7 @@ public class ResumeTemplateBuilder
 
     private void MapResume(ResumeResult resume)
     {
-        var dictionary = GetFieldsWithValues(resume, "picture", "position");
+        var dictionary = _classParser.GetFieldsWithValues(resume, "picture", "position");
         foreach (var value in dictionary)
         {
             MapResumeValue(value.Key, value.Value);
@@ -240,58 +190,31 @@ public class ResumeTemplateBuilder
 
     private void MapResumeLists(ResumeResult resume)
     {
-        var fields = typeof(ResumeResult).GetProperties();
-        foreach (var field in fields)
+        var listFields = _classParser.GetListFieldsWithValues(resume);
+
+        foreach (var listField in listFields)
         {
-            var fieldType = field.PropertyType;
-            if (fieldType.IsGenericType && typeof(List<>) == fieldType.GetGenericTypeDefinition())
-            {
-                var listName = ToCamelCase(field.Name);
-                var list = field.GetValue(resume) as IEnumerable;
-                var values = new List<Dictionary<string, string>>();
-                foreach (var val in list!)
-                {
-                    var nameAndValues = new Dictionary<string, string>();
-                    foreach (var property in val.GetType().GetProperties())
-                    {
-                        var propertyName = ToCamelCase(property.Name);
-                        var propertyValue = property.GetValue(val, null);
-
-                        var config = _configProperties.FirstOrDefault(x => x.PropertyName == propertyName);
-
-                        if (config != null)
-                        {
-                            propertyValue = config.ConfigureValue(propertyValue);
-                        }
-
-                        nameAndValues.Add(propertyName, propertyValue?.ToString());
-                    }
-
-                    values.Add(nameAndValues);
-                }
-
-                BindList(listName, values);
-            }
+            BindList(listField.ListName, listField.ListValues);
         }
     }
 
     private void BindList(string sectionId, List<Dictionary<string, string>> list)
     {
-        var section =  _resumeHtml.QuerySelector($"#{sectionId}");
+        var section = _resumeHtml.QuerySelector($"#{sectionId}");
         var ul = section?.QuerySelector("ul");
         var templateLi = ul?.QuerySelector("li");
 
-        
+
         if (ul == null || templateLi == null)
             return;
-        
-        if(list.IsNullOrEmpty())
+
+        if (list.IsNullOrEmpty())
         {
             section.Remove();
             return;
         }
-      
-        
+
+
 
         if (ul.ClassList.Contains("default"))
         {
@@ -307,7 +230,7 @@ public class ResumeTemplateBuilder
             return;
         }
 
-     
+
 
         foreach (var item in list)
         {
@@ -336,43 +259,5 @@ public class ResumeTemplateBuilder
         {
             val.TextContent = value;
         }
-    }
-
-    private Dictionary<string, string> GetFieldsWithValues(ResumeResult resume,
-        params string[] excludeProperties)
-    {
-        var fields = typeof(ResumeResult).GetProperties();
-        var dictionary = new Dictionary<string, string>();
-        foreach (var field in fields)
-        {
-            var fieldType = field.PropertyType;
-
-            if (fieldType.IsGenericType && typeof(List<>) == fieldType.GetGenericTypeDefinition())
-                continue;
-
-            if (excludeProperties != null && excludeProperties.Contains(field.Name.ToLowerInvariant()))
-                continue;
-
-            var propertyName = field.Name;
-            propertyName = char.ToLowerInvariant(propertyName[0]) + propertyName[1..];
-
-            var propertyValue = field.GetValue(resume);
-
-            var config = _configProperties.FirstOrDefault(x => x.PropertyName == propertyName);
-
-            if (config != null)
-            {
-                propertyValue = config.ConfigureValue(propertyValue);
-            }
-
-            dictionary.Add(propertyName, propertyValue?.ToString());
-        }
-
-        return dictionary;
-    }
-
-    private static string ToCamelCase(string str)
-    {
-        return char.ToLowerInvariant(str[0]) + str[1..];
     }
 }
