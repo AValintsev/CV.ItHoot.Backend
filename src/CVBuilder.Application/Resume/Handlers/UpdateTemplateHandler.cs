@@ -30,12 +30,11 @@ public class UpdateTemplateHandler : IRequestHandler<UpdateTemplateCommand, Temp
             html = await reader.ReadToEndAsync();
         }
 
-        var template = new ResumeTemplate()
-        {
-            Id = request.Id,
-            TemplateName = request.TemplateName,
-            Html = html
-        };
+        var template = await _templateRepository.GetByIdAsync(request.Id);
+
+        template.TemplateName = request.TemplateName;
+        template.Html = html;
+
         template = await _templateRepository.UpdateAsync(template);
 
         var model = _mapper.Map<TemplateResult>(template);

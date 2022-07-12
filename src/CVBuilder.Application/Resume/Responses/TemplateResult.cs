@@ -5,4 +5,5 @@ public class TemplateResult
     public int TemplateId { get; set; }
     public string TemplateName { get; set; }
     public string Html { get; set; }
+    public byte[] Docx { get; set; }
 }

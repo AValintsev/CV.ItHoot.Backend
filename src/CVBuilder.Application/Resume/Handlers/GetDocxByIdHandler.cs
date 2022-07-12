@@ -6,12 +6,13 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using CVBuilder.Application.Resume.Responses.CvResponse;
 using CVBuilder.Application.Resume.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using CVBuilder.Application.Resume.Responses.CvResponse;
 
 namespace CVBuilder.Application.Resume.Handlers
-{    public class GetDocxByIdHandler : IRequestHandler<GetDocxByIdQueries, Stream>
+{
+    public class GetDocxByIdHandler : IRequestHandler<GetDocxByIdQueries, Stream>
     {
         private readonly IDeletableRepository<Models.Entities.Resume, int> _resumeRepository;
         private readonly IDocxBuilder _docxBuilder;
@@ -47,7 +48,11 @@ namespace CVBuilder.Application.Resume.Handlers
 
             var mappedResume = _mapper.Map<ResumeResult>(resume);
 
-            var stream = await _docxBuilder.BindTemplateAsync(mappedResume, "C:\\ResumeTemplate1.docx");
+            if (resume.ResumeTemplate.Docx == null)
+            {
+                throw new NotFoundException("Docx template to resume not found");
+            }
+            var stream = await _docxBuilder.BindTemplateAsync(mappedResume, resume.ResumeTemplate.Docx);
 
             return stream;
         }

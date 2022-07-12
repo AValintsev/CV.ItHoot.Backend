@@ -6,5 +6,12 @@ namespace CVBuilder.Application.Resume.Services.Interfaces;
 
 public interface IDocxBuilder
 {
+    /// <summary>
+    ///     Generate docx file stream from template path
+    /// </summary>
     public Task<Stream> BindTemplateAsync(ResumeResult resume, string templatePath);
+    /// <summary>
+    ///     Generate docx file stream from template as byte array
+    /// </summary>
+    public Task<Stream> BindTemplateAsync(ResumeResult resume, byte[] template);
 }

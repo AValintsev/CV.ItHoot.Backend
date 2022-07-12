@@ -35,9 +35,9 @@ namespace CVBuilder.Application.Resume.Services.DocxBuilder
             _tempWorkDocPath = $"{rndString}.docx";
         }
 
-        public async Task<Stream> BindTemplateAsync(ResumeResult resume, string templatePath)
+        public async Task<Stream> BindTemplateAsync(ResumeResult resume, byte[] template)
         {
-            File.Copy(templatePath, _tempWorkDocPath);
+            File.WriteAllBytes(_tempWorkDocPath, template);
 
             await MapResumeAsync(resume);
 
@@ -49,6 +49,13 @@ namespace CVBuilder.Application.Resume.Services.DocxBuilder
             File.Delete(_tempWorkDocPath);
 
             return _workDocument;
+        }
+
+        public async Task<Stream> BindTemplateAsync(ResumeResult resume, string templatePath)
+        {
+            byte[] byteArray = File.ReadAllBytes(templatePath);
+
+            return await BindTemplateAsync(resume, byteArray);
         }
 
         private async Task MapResumeAsync(ResumeResult resume)

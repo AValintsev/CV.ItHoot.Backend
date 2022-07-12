@@ -321,5 +321,28 @@ namespace CVBuilder.Web.Controllers.V1
             var result = await Mediator.Send(new GetDocxByIdQueries(id));
             return File(result, "application/octet-stream", "resume.docx");
         }
+
+        /// <summary>
+        /// Update docx in resume template
+        /// </summary>        
+        [HttpPut(ApiRoutes.Resume.UpdateDocxInTemplate)]
+        public async Task<IActionResult> UpdateDocxInTemplate(int id, IFormFile docx)
+        {
+            await using var memoryStream = new MemoryStream();
+            await docx.CopyToAsync(memoryStream);
+            var command = new UpdateDocxInTemplateCommand(id, memoryStream.ToArray());
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Get DOCX template by template id
+        /// </summary>
+        [HttpGet(ApiRoutes.Resume.GetDocxTemplateById)]
+        public async Task<ActionResult> GetDocxTemplateById(int id)
+        {
+            var result = await Mediator.Send(new GetDocxTemplateByIdQueries(id));
+            return File(result, "application/octet-stream", "resume.docx");
+        }
     }
 }
