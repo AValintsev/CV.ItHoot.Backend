@@ -38,7 +38,7 @@ namespace CVBuilder.Application.Resume.Handlers
             }
             else
             {
-                query = query.Where(x => !x.DeletedAt.HasValue);
+                query = query.Where(x => x.DeletedAt == null).OrderBy(x=>x.DeletedAt);
             }
 
             query = query.Include(x => x.Position)
@@ -118,8 +118,7 @@ namespace CVBuilder.Application.Resume.Handlers
                     }
                         break;
                     default:
-                        query.OrderBy(r => r.FirstName).ThenBy(r => r.LastName);
-                        break;
+                        return query;
                 }
             }
 
