@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -28,7 +30,7 @@ namespace CVBuilder.Application.Skill.Handlers
             CancellationToken cancellationToken)
         {
             var skills = await _skillRepository
-                .Table.ToListAsync(cancellationToken: cancellationToken);
+                .Table.OrderBy(x=>x.Name).ToListAsync(cancellationToken: cancellationToken);
 
             var result = _mapper.Map<List<SkillResult>>(skills);
 

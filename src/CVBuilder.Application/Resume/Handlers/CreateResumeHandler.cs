@@ -6,6 +6,7 @@ using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Responses.CvResponse;
 using CVBuilder.Repository;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 
 namespace CVBuilder.Application.Resume.Handlers
 {
@@ -18,17 +19,19 @@ namespace CVBuilder.Application.Resume.Handlers
         private readonly IRepository<Resume, int> _resumeRepository;
         private readonly IRepository<Skill, int> _skillRepository;
         private readonly IRepository<Language, int> _languageRepository;
+        private readonly UserManager<Models.User> _userManager;
 
         public CreateResumeHandler(
             IMapper mapper,
             IDeletableRepository<Resume, int> cvRepository,
             IRepository<Resume, int> resumeRepository,
             IRepository<Skill, int> skillRepository,
-            IRepository<Language, int> languageRepository)
+            IRepository<Language, int> languageRepository, UserManager<Models.User> userManager)
         {
             _resumeRepository = resumeRepository;
             _skillRepository = skillRepository;
             _languageRepository = languageRepository;
+            _userManager = userManager;
             _mapper = mapper;
             _cvRepository = cvRepository;
         }
@@ -39,6 +42,7 @@ namespace CVBuilder.Application.Resume.Handlers
             await CheckSkillsDuplicate(resume);
             await CheckLanguageDuplicate(resume);
             CheckHiddenValues(resume);
+            await AssignResumeToUser(resume);
             resume = await _resumeRepository.CreateAsync(resume);
             return _mapper.Map<ResumeResult>(resume);
         }
@@ -71,6 +75,16 @@ namespace CVBuilder.Application.Resume.Handlers
                     continue;
                 cvSkill.SkillId = skill.Id;
                 cvSkill.Skill = skill;
+            }
+        }
+
+        private async Task AssignResumeToUser(Resume resume)
+        {
+            var user = await _userManager.FindByEmailAsync(resume.Email);
+            
+            if (user != null)
+            {
+                resume.CreatedUserId = user.Id;
             }
         }
     }

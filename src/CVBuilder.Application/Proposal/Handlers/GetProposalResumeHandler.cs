@@ -85,7 +85,7 @@ public class GetProposalResumeHandler : IRequestHandler<GetProposalResumeQuery, 
     private static void HideNames(ResumeResult resume)
     {
         resume.FirstName = resume.FirstName;
-        resume.LastName = resume.LastName[0].ToString();
+        resume.LastName = resume.LastName[0]+".";
     }
 
     private static void HideCompanyNames(ResumeResult resume)
