@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace CVBuilder.Application.Resume.Handlers
             }
             else
             {
-                query = query.Where(x => x.DeletedAt == null).OrderBy(x=>x.DeletedAt);
+                query = query.Where(x => !x.DeletedAt.HasValue).OrderBy(x => x.DeletedAt);
             }
 
             query = query.Include(x => x.Position)
@@ -57,14 +58,23 @@ namespace CVBuilder.Application.Resume.Handlers
                 query = query.Where(x => x.CreatedUserId == request.UserId);
             }
 
+
             query = SearchByTerm(query, request.Term);
 
             query = FilterQuery(query, request.Positions, request.Skills);
 
             totalCount = await query.CountAsync(cancellationToken: cancellationToken);
 
-            query = query.Skip((request.Page - 1) * request.PageSize)
-                .Take(request.PageSize);
+            var page = request.Page;
+            if (page.HasValue)
+            {
+                page -=1;
+            }
+            
+            query = query.Skip(page.GetValueOrDefault() * request.PageSize.GetValueOrDefault());
+
+            if (request.PageSize != null)
+                query = query.Take(request.PageSize.Value);
 
             query = SortQuery(query, request.Order, request.Sort);
 
@@ -80,17 +90,7 @@ namespace CVBuilder.Application.Resume.Handlers
                 var term = searchTerm.ToLower();
                 query = query.Where(r => r.FirstName.ToLower().Contains(term)
                                          || r.LastName.ToLower().Contains(term)
-                                         || r.AboutMe.ToLower().Contains(term)
-                                         || r.Birthdate.ToLower().Contains(term)
-                                         || r.City.ToLower().Contains(term)
-                                         || r.Code.ToLower().Contains(term)
-                                         || r.Country.ToLower().Contains(term)
-                                         || r.Email.ToLower().Contains(term)
                                          || r.ResumeName.ToLower().Contains(term)
-                                         || r.Site.ToLower().Contains(term)
-                                         || r.Phone.ToLower().Contains(term)
-                                         || r.Street.ToLower().Contains(term)
-                                         || r.RequiredPosition.ToLower().Contains(term)
                                          || r.Position.PositionName.ToLower().Contains(term));
             }
 

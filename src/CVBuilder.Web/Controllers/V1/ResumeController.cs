@@ -6,11 +6,10 @@ using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Queries;
 using CVBuilder.Application.Resume.Responses;
 using CVBuilder.Application.Resume.Responses.CvResponse;
-using CVBuilder.Models.Entities;
+using CVBuilder.Application.Resume.Services.Pagination;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Resume;
 using CVBuilder.Web.Contracts.V1.Responses.CV;
-using CVBuilder.Web.Contracts.V1.Responses.Pagination;
 using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -158,6 +157,7 @@ namespace CVBuilder.Web.Controllers.V1
         {
             var command = Mapper.Map<CreateResumeCommand>(request);
             command.UserId = LoggedUserId!.Value;
+            command.UserRoles = LoggedUserRoles.ToList();
             var response = await Mediator.Send(command);
             return Ok(response);
         }
@@ -181,8 +181,9 @@ namespace CVBuilder.Web.Controllers.V1
             command.UserRoles = LoggedUserRoles;
             var response = await Mediator.Send(command);
             var list = Mapper.Map<List<ResumeCardResponse>>(response.Item2);
-
-            var result = new PagedResponse<List<ResumeCardResponse>>(list, validFilter.Page, validFilter.PageSize, response.Item1);
+            
+            
+            var result = new PagedResponse<ResumeCardResponse>(list, validFilter.Page, validFilter.PageSize, response.Item1);
             return Ok(result);
         }
         

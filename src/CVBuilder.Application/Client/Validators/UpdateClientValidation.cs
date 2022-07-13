@@ -13,8 +13,7 @@ namespace CVBuilder.Application.Client.Validators
             RuleFor(c => c.LastName)
                 .NotEmpty();
             RuleFor(c => c.PhoneNumber)
-                .Matches(RegexConstants.PHONE_ALL_REGEX)
-                .MinimumLength(7);
+                .Matches(RegexConstants.PHONE_ALL_REGEX);
             RuleFor(c => c.Site)
                 .Matches(RegexConstants.SITE_REGEX);
         }

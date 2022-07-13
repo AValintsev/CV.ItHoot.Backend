@@ -1,4 +1,4 @@
-﻿using CVBuilder.Web.Contracts.V1.Responses.Pagination;
+﻿using CVBuilder.Application.Resume.Services.Pagination;
 
 namespace CVBuilder.Web.Contracts.V1.Requests.Client
 {
@@ -9,7 +9,7 @@ namespace CVBuilder.Web.Contracts.V1.Requests.Client
         public GetAllClientsRequest() : base()
         { }
 
-        public GetAllClientsRequest(int page, int pageSize, string term) : base(page, pageSize)
+        public GetAllClientsRequest(int? page, int? pageSize, string term) : base(page, pageSize)
         {
             this.Term = term;
         }
