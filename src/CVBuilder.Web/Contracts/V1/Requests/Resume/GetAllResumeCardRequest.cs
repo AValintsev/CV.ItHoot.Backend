@@ -1,5 +1,5 @@
-﻿using CVBuilder.Web.Contracts.V1.Responses.Pagination;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CVBuilder.Application.Resume.Services.Pagination;
 
 namespace CVBuilder.Web.Contracts.V1.Requests.Resume
 {
@@ -12,11 +12,9 @@ namespace CVBuilder.Web.Contracts.V1.Requests.Resume
         public List<int> Skills { get; set; }
         public bool IsArchive { get; set; }
 
+        public GetAllResumeCardRequest():base() { }
 
-        public GetAllResumeCardRequest() : base()
-        {}
-
-        public GetAllResumeCardRequest(int page, int pageSize, string term, List<int> positions, List<int> skills) : base(page, pageSize)
+        public GetAllResumeCardRequest(int? page, int? pageSize, string term, List<int> positions, List<int> skills) : base(page, pageSize)
         {
             Term = term;
             Positions = positions;

@@ -1,5 +1,5 @@
-﻿using CVBuilder.Web.Contracts.V1.Responses.Pagination;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CVBuilder.Application.Resume.Services.Pagination;
 
 namespace CVBuilder.Web.Contracts.V1.Requests.Proposal
 {
@@ -12,7 +12,7 @@ namespace CVBuilder.Web.Contracts.V1.Requests.Proposal
         public GetAllProposalsRequest() : base()
         { }
 
-        public GetAllProposalsRequest(int page, int pageSize, string term, List<int> clients, List<int> statuses) : base(page, pageSize)
+        public GetAllProposalsRequest(int? page, int? pageSize, string term, List<int> clients, List<int> statuses) : base(page, pageSize)
         {
             this.Term = term;
             this.Clients = clients;

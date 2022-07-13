@@ -3,11 +3,10 @@ using CVBuilder.Application.Client.Queries;
 using CVBuilder.Application.Client.Responses;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Client;
-using CVBuilder.Web.Contracts.V1.Responses.Pagination;
 using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using CVBuilder.Application.Resume.Services.Pagination;
 
 namespace CVBuilder.Web.Controllers.V1
 {
@@ -28,7 +27,7 @@ namespace CVBuilder.Web.Controllers.V1
         /// Get list of Clients
         /// </summary>
         [HttpGet(ApiRoutes.Client.GetAllClients)]
-        public async Task<ActionResult<PagedResponse<IEnumerable<ClientListItemResponse>>>> GetAllClients(
+        public async Task<ActionResult<PagedResponse<ClientListItemResponse>>> GetAllClients(
             [FromQuery] GetAllClientsRequest request)
         {
             var validFilter = new GetAllClientsRequest(request.Page, request.PageSize, request.Term)
@@ -40,7 +39,7 @@ namespace CVBuilder.Web.Controllers.V1
             var command = Mapper.Map<GetAllClientsQueries>(validFilter);
             var response = await Mediator.Send(command);
 
-            var result = new PagedResponse<List<ClientListItemResponse>>(response.Item2, validFilter.Page, validFilter.PageSize, response.Item1);
+            var result = new PagedResponse<ClientListItemResponse>(response.Item2, validFilter.Page, validFilter.PageSize, response.Item1);
             return Ok(result);
         }
 

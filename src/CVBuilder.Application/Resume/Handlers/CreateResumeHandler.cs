@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CVBuilder.Application.Resume.Commands;
 using CVBuilder.Application.Resume.Responses.CvResponse;
+using CVBuilder.Models;
 using CVBuilder.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -42,7 +43,11 @@ namespace CVBuilder.Application.Resume.Handlers
             await CheckSkillsDuplicate(resume);
             await CheckLanguageDuplicate(resume);
             CheckHiddenValues(resume);
-            await AssignResumeToUser(resume);
+            
+            if(command.UserRoles.Contains(Enums.RoleTypes.Admin.ToString()))
+                await AssignResumeToUser(resume);
+
+                
             resume = await _resumeRepository.CreateAsync(resume);
             return _mapper.Map<ResumeResult>(resume);
         }
