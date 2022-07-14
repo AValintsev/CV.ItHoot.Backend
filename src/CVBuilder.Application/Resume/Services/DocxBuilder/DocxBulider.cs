@@ -4,6 +4,7 @@ using CVBuilder.Application.Resume.Services.ResumeBuilder.ClassFiledParser;
 using CVBuilder.Application.Resume.Services.ResumeBuilder.ResumeFiledParser.Interfaces;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.AspNetCore.Hosting;
 using OpenXmlPowerTools;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,11 @@ namespace CVBuilder.Application.Resume.Services.DocxBuilder
         private readonly IClassFieldParser<ResumeResult> _classParser;
         private Stream _workDocument;
         private readonly string _tempWorkDocPath;
+        IWebHostEnvironment _webHostEnvironment;
 
         private Content _valuesToFill;
 
-        public DocxBuilder()
+        public DocxBuilder(IWebHostEnvironment webHostEnvironment)
         {
             _classParser = new ResumeFiledParser();
             _valuesToFill = new Content();
@@ -32,7 +34,8 @@ namespace CVBuilder.Application.Resume.Services.DocxBuilder
             var rnd = new Random();
             var rndString = new string(Enumerable.Range(1, 10).Select(_ => chars[rnd.Next(chars.Length)]).ToArray());
 
-            _tempWorkDocPath = $"Shared\\docx\\temp\\{rndString}.docx";
+            _webHostEnvironment = webHostEnvironment;
+            _tempWorkDocPath = Path.Combine(_webHostEnvironment.ContentRootPath, $"Shared\\docx\\temp\\{rndString}.docx");
         }
 
         public async Task<Stream> BindTemplateAsync(ResumeResult resume, byte[] template, bool isShowLogoFooter = false)
@@ -178,7 +181,9 @@ namespace CVBuilder.Application.Resume.Services.DocxBuilder
 
         private void AddFooterAndHeader()
         {
-            FileInfo footerHeaderSourceDocx = new FileInfo("Shared\\docx\\LayoutFooterHeader.docx");
+            var footerFile = Path.Combine(_webHostEnvironment.ContentRootPath, "Shared\\docx\\LayoutFooterHeader.docx");
+
+            FileInfo footerHeaderSourceDocx = new FileInfo(footerFile);
             FileInfo mainDocx = new FileInfo(_tempWorkDocPath);
 
             var sources = new List<Source>()
