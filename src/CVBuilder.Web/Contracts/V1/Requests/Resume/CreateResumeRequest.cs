@@ -30,5 +30,5 @@ public class CreateResumeRequest
     public List<CreateEducationRequest> Educations { get; set; }
     public List<CreateExperienceRequest> Experiences { get; set; }
     public List<CreateSkillRequest> Skills { get; set; }
-    public List<CreateLanguageRequest> UserLanguages { get; set; }
+    public List<CreateLanguageRequest> Languages { get; set; }
 }

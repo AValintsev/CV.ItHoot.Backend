@@ -32,6 +32,8 @@ namespace CVBuilder.Application.Resume.Commands
         public List<CreateEducationCommand> Educations { get; set; }
         public List<CreateExperienceCommand> Experiences { get; set; }
         public List<CreateSkillCommand> Skills { get; set; }
-        public List<CreateLanguageCommand> UserLanguages { get; set; }
+        public List<CreateLanguageCommand> Languages { get; set; }
+        
+        public List<string> UserRoles { get; set; }
     }
 }

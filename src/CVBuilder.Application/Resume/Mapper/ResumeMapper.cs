@@ -19,7 +19,7 @@ class ResumeMapper : AppMapperBase
         CreateMap<CreateResumeCommand, Resume>()
             .ForMember(x => x.LevelSkills, y => y.MapFrom(z => z.Skills))
             .ForMember(x => x.CreatedUserId, y => y.MapFrom(z => z.UserId))
-            .ForMember(x => x.LevelLanguages, y => y.MapFrom(z => z.UserLanguages))
+            .ForMember(x => x.LevelLanguages, y => y.MapFrom(z => z.Languages))
             .ForMember(x => x.Educations, y => y.MapFrom(x => x.Educations))
             .ForMember(x => x.Experiences, y => y.MapFrom(x => x.Experiences));
         CreateMap<CreateLanguageCommand, LevelLanguage>()

@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using CVBuilder.Application.Proposal.Commands;
 using CVBuilder.Application.Proposal.Queries;
 using CVBuilder.Application.Proposal.Responses;
+using CVBuilder.Application.Resume.Services.Pagination;
 using CVBuilder.Web.Contracts.V1;
 using CVBuilder.Web.Contracts.V1.Requests.Proposal;
-using CVBuilder.Web.Contracts.V1.Responses.Pagination;
 using CVBuilder.Web.Infrastructure.BaseControllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -100,8 +99,7 @@ public class ProposalController : BaseAuthApiController
             ProposalResumeId = proposalResumeId,
             UserId = LoggedUserId,
             UserRoles = LoggedUserRoles.ToList(),
-            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
-
+            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
         };
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");
@@ -111,7 +109,7 @@ public class ProposalController : BaseAuthApiController
     /// Get list of Proposal
     /// </summary>
     [HttpGet(ApiRoutes.Proposal.GetAllProposals)]
-    public async Task<ActionResult<PagedResponse<List<SmallProposalResult>>>> GetAllProposals(
+    public async Task<ActionResult<PagedResponse<SmallProposalResult>>> GetAllProposals(
         [FromQuery] GetAllProposalsRequest request)
     {
         var validFilter = new GetAllProposalsRequest(request.Page, request.PageSize, request.Term, request.Clients,
@@ -128,7 +126,7 @@ public class ProposalController : BaseAuthApiController
 
         var response = await Mediator.Send(command);
 
-        var result = new PagedResponse<List<SmallProposalResult>>(response.Item2, validFilter.Page,
+        var result = new PagedResponse<SmallProposalResult>(response.Item2, validFilter.Page,
             validFilter.PageSize, response.Item1);
         return result;
     }
@@ -137,7 +135,7 @@ public class ProposalController : BaseAuthApiController
     /// Get list of archive Proposals
     /// </summary>
     [HttpGet(ApiRoutes.Proposal.GetAllArchiveProposals)]
-    public async Task<ActionResult<PagedResponse<List<SmallProposalResult>>>> GetAllArchiveProposals(
+    public async Task<ActionResult<PagedResponse<SmallProposalResult>>> GetAllArchiveProposals(
         [FromQuery] GetAllProposalsRequest request)
     {
         var validFilter = new GetAllProposalsRequest(request.Page, request.PageSize, request.Term, request.Clients,
@@ -151,7 +149,7 @@ public class ProposalController : BaseAuthApiController
 
         var response = await Mediator.Send(command);
 
-        var result = new PagedResponse<List<SmallProposalResult>>(response.Item2, validFilter.Page,
+        var result = new PagedResponse<SmallProposalResult>(response.Item2, validFilter.Page,
             validFilter.PageSize, response.Item1);
         return result;
     }
@@ -201,7 +199,7 @@ public class ProposalController : BaseAuthApiController
             ShortUrl = url,
             UserRoles = LoggedUserRoles.ToList(),
             UserId = LoggedUserId,
-            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ","")
+            JwtToken = $"{Request.Headers["Authorization"]}".Replace("Bearer ", "")
         };
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");
