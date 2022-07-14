@@ -90,7 +90,6 @@ namespace CVBuilder.Application.Resume.Handlers
                 var term = searchTerm.ToLower();
                 query = query.Where(r => r.FirstName.ToLower().Contains(term)
                                          || r.LastName.ToLower().Contains(term)
-                                         || r.ResumeName.ToLower().Contains(term)
                                          || r.Position.PositionName.ToLower().Contains(term));
             }
 
