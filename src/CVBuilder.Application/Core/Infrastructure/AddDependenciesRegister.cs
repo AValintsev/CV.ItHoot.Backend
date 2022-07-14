@@ -4,6 +4,7 @@ using CVBuilder.Application.Core.Infrastructure.Interfaces;
 using CVBuilder.Application.Core.Settings;
 using CVBuilder.Application.Pipelines;
 using CVBuilder.Application.Resume.Services;
+using CVBuilder.Application.Resume.Services.DocxBuilder;
 using CVBuilder.Application.Resume.Services.Interfaces;
 using CVBuilder.Repository;
 using FluentValidation;
@@ -34,6 +35,9 @@ namespace CVBuilder.Application.Core.Infrastructure
             var assembly = typeof(AddDependenciesRegister).Assembly;
             services.AddValidatorsFromAssembly(assembly);
             services.AddMediatR(assembly);
+
+            // Add DocxBuilder services
+            services.AddSingleton<IDocxBuilder, DocxBuilder>();
         }
     }
 }

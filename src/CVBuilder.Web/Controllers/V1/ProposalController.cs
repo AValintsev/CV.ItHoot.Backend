@@ -204,4 +204,38 @@ public class ProposalController : BaseAuthApiController
         var result = await Mediator.Send(command);
         return File(result, "application/octet-stream", "resume.pdf");
     }
+
+    /// <summary>
+    /// Get resume pdf from Proposal
+    /// </summary>
+    [HttpGet(ApiRoutes.Proposal.GetDocxProposalResume)]
+    public async Task<ActionResult<ProposalResumeResult>> GetDocxProposalResume(int proposalId, int proposalResumeId)
+    {
+        var command = new GetProposalResumeDocxQuery
+        {
+            ProposalId = proposalId,
+            ProposalResumeId = proposalResumeId,
+            UserRoles = LoggedUserRoles.ToList(),
+            UserId = LoggedUserId,
+        };
+        var result = await Mediator.Send(command);
+        return File(result, "application/octet-stream", "resume.docx");
+    }
+
+    /// <summary>
+    /// Get resume pdf by ShortUrl
+    /// </summary>
+    [AllowAnonymous]
+    [HttpGet(ApiRoutes.Proposal.GetDocxProposalResumeByUrl)]
+    public async Task<IActionResult> GetDocxProposalResumeByUrl(string url)
+    {
+        var command = new GetProposalResumeDocxByUrlQuery()
+        {
+            ShortUrl = url,
+            UserRoles = LoggedUserRoles.ToList(),
+            UserId = LoggedUserId,
+        };
+        var result = await Mediator.Send(command);
+        return File(result, "application/octet-stream", "resume.docx");
+    }
 }

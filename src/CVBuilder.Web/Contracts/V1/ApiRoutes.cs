@@ -62,6 +62,8 @@
             public const string GetPdfProposalResume = BaseProposal + "/{proposalId}/resume/{proposalResumeId}/pdf";
             public const string GetProposalResumeByUrl = BaseProposal + "/resume/{url}";
             public const string GetPdfProposalResumeByUrl = BaseProposal + "/resume/{url}/pdf";
+            public const string GetDocxProposalResume = BaseProposal + "/{proposalId}/resume/{proposalResumeId}/docx";
+            public const string GetDocxProposalResumeByUrl = BaseProposal + "/resume/{url}/docx";
         }
 
         public static class ProposalBuild
@@ -103,6 +105,9 @@
             public const string DeleteTemplateById = BaseCv + "/templates/{id}";
             public const string GetResumeHtmlById = BaseCv + "/{id}/html";
             public const string UpdateSalaryRate = BaseCv + "/{resumeId}/salaryRate/{salaryRate}";
+            public const string GetResumeDocx = BaseCv + "/docx/{id}";
+            public const string UpdateDocxInTemplate = BaseCv + "/templates/docx/{id}";
+            public const string GetDocxTemplateById = BaseCv + "/templates/docx/{id}";
         }
 
         public static class File
