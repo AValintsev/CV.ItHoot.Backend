@@ -32,14 +32,14 @@ namespace CVBuilder.Application.Resume.Services.DocxBuilder
             var rnd = new Random();
             var rndString = new string(Enumerable.Range(1, 10).Select(_ => chars[rnd.Next(chars.Length)]).ToArray());
 
-            _tempWorkDocPath = $"{rndString}.docx";
+            _tempWorkDocPath = $"Shared\\docx\\temp\\{rndString}.docx";
         }
 
-        public async Task<Stream> BindTemplateAsync(ResumeResult resume, byte[] template)
+        public async Task<Stream> BindTemplateAsync(ResumeResult resume, byte[] template, bool isShowLogoFooter = false)
         {
             File.WriteAllBytes(_tempWorkDocPath, template);
 
-            await MapResumeAsync(resume);
+            await MapResumeAsync(resume, isShowLogoFooter);
 
             SaveChangesToFile();
 
@@ -51,15 +51,19 @@ namespace CVBuilder.Application.Resume.Services.DocxBuilder
             return _workDocument;
         }
 
-        public async Task<Stream> BindTemplateAsync(ResumeResult resume, string templatePath)
+        public async Task<Stream> BindTemplateAsync(ResumeResult resume, string templatePath, bool isShowLogoFooter = false)
         {
             byte[] byteArray = File.ReadAllBytes(templatePath);
 
-            return await BindTemplateAsync(resume, byteArray);
+            return await BindTemplateAsync(resume, byteArray, isShowLogoFooter);
         }
 
-        private async Task MapResumeAsync(ResumeResult resume)
+        private async Task MapResumeAsync(ResumeResult resume, bool isShowLogoFooter = false)
         {
+            if (isShowLogoFooter)
+            {
+                AddFooterAndHeader();
+            }
             MapResumeValues(resume);
             await MapPictureAsync(resume);
             MapListValues(resume);
@@ -168,6 +172,66 @@ namespace CVBuilder.Application.Resume.Services.DocxBuilder
                         };
                         var isUpdate = ChartUpdater.UpdateChart(wDoc, diagramName, chartData);
                     }
+                }
+            }
+        }
+
+        private void AddFooterAndHeader()
+        {
+            FileInfo footerHeaderSourceDocx = new FileInfo("Shared\\docx\\LayoutFooterHeader.docx");
+            FileInfo mainDocx = new FileInfo(_tempWorkDocPath);
+
+            var sources = new List<Source>()
+            {
+                new Source(new WmlDocument(mainDocx.FullName)) { KeepSections = false, DiscardHeadersAndFootersInKeptSections = true },
+                new Source(new WmlDocument(footerHeaderSourceDocx.FullName)) { KeepSections = true },
+            };
+            DocumentBuilder.BuildDocument(sources, _tempWorkDocPath);
+        }
+
+        public void AddHeaderFromTo(string filepathFrom, string filepathTo)
+        {
+            // Replace header in target document with header of source document.
+            using (WordprocessingDocument
+                wdDoc = WordprocessingDocument.Open(filepathTo, true))
+            {
+                MainDocumentPart mainPart = wdDoc.MainDocumentPart;
+
+                // Delete the existing header part.
+                mainPart.DeleteParts(mainPart.HeaderParts);
+
+                // Create a new header part.
+                DocumentFormat.OpenXml.Packaging.HeaderPart headerPart =
+            mainPart.AddNewPart<HeaderPart>();
+
+                // Get Id of the headerPart.
+                string rId = mainPart.GetIdOfPart(headerPart);
+
+                // Feed target headerPart with source headerPart.
+                using (WordprocessingDocument wdDocSource =
+                    WordprocessingDocument.Open(filepathFrom, true))
+                {
+                    DocumentFormat.OpenXml.Packaging.HeaderPart firstHeader =
+            wdDocSource.MainDocumentPart.HeaderParts.FirstOrDefault();
+
+                    wdDocSource.MainDocumentPart.HeaderParts.FirstOrDefault();
+
+                    if (firstHeader != null)
+                    {
+                        headerPart.FeedData(firstHeader.GetStream());
+                    }
+                }
+
+                // Get SectionProperties and Replace HeaderReference with new Id.
+                IEnumerable<DocumentFormat.OpenXml.Wordprocessing.SectionProperties> sectPrs =
+            mainPart.Document.Body.Elements<SectionProperties>();
+                foreach (var sectPr in sectPrs)
+                {
+                    // Delete existing references to headers.
+                    //sectPr.RemoveAllChildren<HeaderReference>();
+
+                    // Create the new header reference node.
+                    sectPr.PrependChild<HeaderReference>(new HeaderReference() { Id = rId });
                 }
             }
         }

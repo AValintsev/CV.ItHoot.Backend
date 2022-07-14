@@ -48,7 +48,7 @@ public class GetProposalResumeDocxHandler : IRequestHandler<GetProposalResumeDoc
             ms.Write(buffer, 0, read);
         }
 
-        var stream = await _docxBuilder.BindTemplateAsync(resume.Resume, ms.ToArray());
+        var stream = await _docxBuilder.BindTemplateAsync(resume.Resume, ms.ToArray(), resume.ShowLogo);
 
         return stream;
     }

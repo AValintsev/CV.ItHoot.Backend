@@ -9,9 +9,9 @@ public interface IDocxBuilder
     /// <summary>
     ///     Generate docx file stream from template path
     /// </summary>
-    public Task<Stream> BindTemplateAsync(ResumeResult resume, string templatePath);
+    public Task<Stream> BindTemplateAsync(ResumeResult resume, string templatePath, bool isShowLogoFooter = false);
     /// <summary>
     ///     Generate docx file stream from template as byte array
     /// </summary>
-    public Task<Stream> BindTemplateAsync(ResumeResult resume, byte[] template);
+    public Task<Stream> BindTemplateAsync(ResumeResult resume, byte[] template, bool isShowLogoFooter = false);
 }

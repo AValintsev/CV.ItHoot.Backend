@@ -34,6 +34,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Contracts\V1\Responses\Pagination\" />
+	  <Folder Include="Shared\docx\temp\" />
 	</ItemGroup>
 
 </Project>
