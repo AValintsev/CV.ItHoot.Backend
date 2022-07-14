@@ -206,7 +206,7 @@ public class ProposalController : BaseAuthApiController
     }
 
     /// <summary>
-    /// Get resume pdf from Proposal
+    /// Get resume docx from Proposal
     /// </summary>
     [HttpGet(ApiRoutes.Proposal.GetDocxProposalResume)]
     public async Task<ActionResult<ProposalResumeResult>> GetDocxProposalResume(int proposalId, int proposalResumeId)
@@ -223,7 +223,7 @@ public class ProposalController : BaseAuthApiController
     }
 
     /// <summary>
-    /// Get resume pdf by ShortUrl
+    /// Get resume docx by ShortUrl
     /// </summary>
     [AllowAnonymous]
     [HttpGet(ApiRoutes.Proposal.GetDocxProposalResumeByUrl)]
