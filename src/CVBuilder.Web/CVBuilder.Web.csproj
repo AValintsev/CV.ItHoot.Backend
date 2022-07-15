@@ -38,7 +38,7 @@
 
 	<ItemGroup>
 	  <None Update="Shared\docx\LayoutFooterHeader.docx">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 
