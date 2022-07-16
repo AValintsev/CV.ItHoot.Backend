@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using CVBuilder.Application.Resume.Responses.CvResponse;
-using CVBuilder.Models;
+
 
 namespace CVBuilder.Application.Resume.Responses
 {
+    using Models;
+
     public class ResumeCardResult
     {
         public int Id { get; set; }
@@ -18,5 +20,7 @@ namespace CVBuilder.Application.Resume.Responses
         public AvailabilityStatus AvailabilityStatus { get; set; }
         public DateTime? DeletedAt { get; set; }
         public List<SkillResult> Skills { get; set; }
+
+        public List<ResumeClientResult> Clients { get; set; }
     }
 }

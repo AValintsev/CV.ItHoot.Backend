@@ -62,7 +62,9 @@ class ResumeMapper : AppMapperBase
         CreateMap<Experience, ExperienceResult>();
         CreateMap<Resume, ResumeCardResult>()
             .ForMember(x => x.Skills, y => y.MapFrom(x => x.LevelSkills))
-            .ForMember(x => x.PositionName, y => y.MapFrom(z => z.Position.PositionName));
+            .ForMember(x => x.PositionName, y => y.MapFrom(z => z.Position.PositionName))
+            .ForMember(x => x.Clients, y => y.MapFrom(z => GetResumeClients(z)));
+
         CreateMap<LevelSkill, SkillResult>()
             .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
             .ForMember(x => x.SkillName, y => y.MapFrom(z => z.Skill.Name));
@@ -108,6 +110,18 @@ class ResumeMapper : AppMapperBase
                 Level = (int) skill.SkillLevel,
             };
         }
+    }
+
+    private static List<ResumeClientResult> GetResumeClients(Resume resume)
+    {
+        var clients = resume.ProposalResumes.Select(x => x.Proposal).Select(x => x.Client).DistinctBy(x=>x.Id);
+        var resultClients = clients.Select(x => new ResumeClientResult
+        {
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            ClientId = x.Id
+        });
+        return resultClients.ToList();
     }
 
     #endregion

@@ -42,4 +42,6 @@ public class Resume : IDeletableEntity<int>
     public decimal SalaryRate { get; set; }
     public AvailabilityStatus AvailabilityStatus { get; set; }
     public int? CountDaysUnavailable { get; set; }
+    
+    public List<ProposalResume> ProposalResumes { get; set; }
 }

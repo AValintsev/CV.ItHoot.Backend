@@ -169,7 +169,7 @@ namespace CVBuilder.Web.Controllers.V1
         public async Task<ActionResult<PagedResponse<IEnumerable<ResumeCardResponse>>>> GetAllResumeCard(
             [FromQuery] GetAllResumeCardRequest request)
         {
-            var validFilter = new GetAllResumeCardRequest(request.Page, request.PageSize, request.Term, request.Positions, request.Skills)
+            var validFilter = new GetAllResumeCardRequest(request.Page, request.PageSize, request.Term, request.Positions, request.Skills,request.Clients)
             {
                 Sort = request.Sort,
                 Order = request.Order,

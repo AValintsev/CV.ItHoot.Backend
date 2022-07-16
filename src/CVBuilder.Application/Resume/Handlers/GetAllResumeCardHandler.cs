@@ -9,6 +9,7 @@ using CVBuilder.Application.Resume.Responses;
 using CVBuilder.Repository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CVBuilder.Application.Resume.Handlers
 {
@@ -17,12 +18,15 @@ namespace CVBuilder.Application.Resume.Handlers
     public class GetAllCvCardHandler : IRequestHandler<GetAllResumeCardQueries, (int, List<ResumeCardResult>)>
     {
         private readonly IDeletableRepository<Resume, int> _cvRepository;
+        private readonly IRepository<Models.User, int> _userRepository;
         private readonly IMapper _mapper;
 
-        public GetAllCvCardHandler(IDeletableRepository<Resume, int> cvRepository, IMapper mapper)
+        public GetAllCvCardHandler(IDeletableRepository<Resume, int> cvRepository, IMapper mapper,
+            IRepository<Models.User, int> userRepository)
         {
             _cvRepository = cvRepository;
             _mapper = mapper;
+            _userRepository = userRepository;
         }
 
         public async Task<(int, List<ResumeCardResult>)> Handle(GetAllResumeCardQueries request,
@@ -43,6 +47,9 @@ namespace CVBuilder.Application.Resume.Handlers
             }
 
             query = query.Include(x => x.Position)
+                .Include(x => x.ProposalResumes)
+                .ThenInclude(x => x.Proposal)
+                .ThenInclude(x => x.Client)
                 .Include(x => x.LevelSkills)
                 .ThenInclude(x => x.Skill);
 
@@ -61,24 +68,25 @@ namespace CVBuilder.Application.Resume.Handlers
 
             query = SearchByTerm(query, request.Term);
 
-            query = FilterQuery(query, request.Positions, request.Skills);
+            query = FilterQuery(query, request.Positions, request.Skills,request.Clients);
 
             totalCount = await query.CountAsync(cancellationToken: cancellationToken);
+
+            query = SortQuery(query, request.Order, request.Sort);
 
             var page = request.Page;
             if (page.HasValue)
             {
-                page -=1;
+                page -= 1;
             }
-            
+
             query = query.Skip(page.GetValueOrDefault() * request.PageSize.GetValueOrDefault());
 
             if (request.PageSize != null)
                 query = query.Take(request.PageSize.Value);
 
-            query = SortQuery(query, request.Order, request.Sort);
-
             result = await query.ToListAsync(cancellationToken: cancellationToken);
+
 
             return (totalCount, _mapper.Map<List<ResumeCardResult>>(result));
         }
@@ -95,6 +103,7 @@ namespace CVBuilder.Application.Resume.Handlers
 
             return query;
         }
+
 
         private static IQueryable<Resume> SortQuery(IQueryable<Resume> query, string order, string sort)
         {
@@ -116,6 +125,13 @@ namespace CVBuilder.Application.Resume.Handlers
                             : query.OrderBy(r => r.Position.PositionName);
                     }
                         break;
+                    case "salaryRate":
+                    {
+                        query = order == "desc"
+                            ? query.OrderByDescending(r => r.SalaryRate)
+                            : query.OrderBy(r => r.SalaryRate);
+                    }
+                        break;
                     default:
                         return query;
                 }
@@ -124,14 +140,14 @@ namespace CVBuilder.Application.Resume.Handlers
             return query;
         }
 
-        private static IQueryable<Resume> FilterQuery(IQueryable<Resume> query, List<int> positions, List<int> skills)
+        private static IQueryable<Resume> FilterQuery(IQueryable<Resume> query, List<int> positions, List<int> skills, List<int> clients)
         {
-            if (positions != null && positions.Count > 0)
+            if (!positions.IsNullOrEmpty())
             {
                 query = query.Where(r => r.PositionId.HasValue && positions.Contains(r.PositionId.Value));
             }
 
-            if (skills != null && skills.Count > 0)
+            if (!skills.IsNullOrEmpty())
             {
                 foreach (var skillId in skills)
                 {
@@ -139,6 +155,13 @@ namespace CVBuilder.Application.Resume.Handlers
                 }
             }
 
+            if (!clients.IsNullOrEmpty())
+            {
+                foreach (var clientId in clients)
+                {
+                    query = query.Where(r => r.ProposalResumes.Any(x=>x.Proposal.ClientId == clientId));
+                }
+            }
             return query;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CVBuilder.Application.Resume.Responses;
 using CVBuilder.Models;
 using CVBuilder.Web.Contracts.V1.Responses.Skill;
 
@@ -18,5 +19,6 @@ namespace CVBuilder.Web.Contracts.V1.Responses.CV
         public AvailabilityStatus AvailabilityStatus { get; set; }
         public DateTime? DeletedAt { get; set; }
         public List<SkillResponse> Skills { get; set; } 
+        public List<ResumeClientResult> Clients { get; set; }
     }
 }
