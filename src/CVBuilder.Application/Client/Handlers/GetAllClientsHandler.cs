@@ -34,15 +34,22 @@ namespace CVBuilder.Application.Client.Handlers
 
             SearchByTerm(ref query, request.Term);
 
-            totalCount = await query.CountAsync();
-
-            query = query
-                .Skip((request.Page - 1) * request.PageSize)
-                .Take(request.PageSize);
-
+            totalCount = await query.CountAsync(cancellationToken: cancellationToken);
+            
             SortClients(ref query, request.Order, request.Sort);
 
-            var resultList = await query.ToListAsync();
+            var page = request.Page;
+            if (page.HasValue)
+            {
+                page -= 1;
+            }
+
+            query = query.Skip(page.GetValueOrDefault() * request.PageSize.GetValueOrDefault());
+
+            if (request.PageSize != null)
+                query = query.Take(request.PageSize.Value);
+            
+            var resultList = await query.ToListAsync(cancellationToken: cancellationToken);
 
             var result = _mapper.Map<List<ClientListItemResponse>>(resultList);
             return (totalCount, result);

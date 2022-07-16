@@ -13,6 +13,7 @@ namespace CVBuilder.Application.Resume.Queries
         public string Term { get; set; }
         public List<int> Positions { get; set; }
         public List<int> Skills { get; set; }
+        public List<int> Clients { get; set; }
         public bool IsArchive { get; set; }
     }
 }
