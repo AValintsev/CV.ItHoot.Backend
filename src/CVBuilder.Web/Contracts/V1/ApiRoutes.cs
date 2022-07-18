@@ -25,8 +25,15 @@
         public static class User
         {
             private const string BaseUser = Base + "/user";
-
-            public const string ByRole = BaseUser;
+            public const string GetAllUsers = BaseUser;
+            public const string ChangeUserRole = BaseUser + "/role";
+            public const string ByRole = BaseUser+"/role/{roleName}";
+        }
+        
+        public static class Role
+        {
+            private const string BaseRole = Base + "/role";
+            public const string GetAllRoles = BaseRole;
         }
 
         public static class Confirmation

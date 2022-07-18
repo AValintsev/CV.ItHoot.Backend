@@ -9,8 +9,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using JwtRegisteredClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames;
 
+
 namespace CVBuilder.Application.Identity.Services
 {
+    using Models.Entities;
     public class IdentityService : IIdentityService
     {
         private readonly IAppUserManager _userManager;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -39,11 +40,11 @@ namespace CVBuilder.Application.Resume.Handlers
 
             if (request.IsArchive)
             {
-                query = query.Where(x => x.DeletedAt.HasValue);
+                query = query.Where(x => x.DeletedAt.HasValue).OrderByDescending(x => x.DeletedAt);
             }
             else
             {
-                query = query.Where(x => !x.DeletedAt.HasValue).OrderBy(x => x.DeletedAt);
+                query = query.Where(x => !x.DeletedAt.HasValue).OrderBy(x=>x.FirstName).ThenBy(x=>x.LastName);
             }
 
             query = query.Include(x => x.Position)
